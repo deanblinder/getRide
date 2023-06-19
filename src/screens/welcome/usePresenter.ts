@@ -1,20 +1,20 @@
-import { useState } from "react"
-import { navigationService } from "../../services"
+import { useState } from 'react';
+import { navigationService } from '../../services';
+import { screenIds } from '../../constants';
 
 const usePresenter = () => {
-const [shouldShowLogin, setShouldShowLogin] = useState(false)
+  const [shouldShowLogin, setShouldShowLogin] = useState(false);
 
-const onSignupPressed = (navigation:any) => {
-    navigationService.push('Register', {})
-}
-const onHaveAccountPressed = () => {
-    navigationService.push('Login', {})
-
-}
-    return {
-        shouldShowLogin,
-        onSignupPressed,
-        onHaveAccountPressed
-    }
-}
-export default usePresenter
+  const onSignupPressed = () => {
+    navigationService.push(screenIds.REGISTER_SCREEN, {});
+  };
+  const onHaveAccountPressed = () => {
+    navigationService.push(screenIds.LOGIN_SCREEN, {});
+  };
+  return {
+    shouldShowLogin,
+    onSignupPressed,
+    onHaveAccountPressed,
+  };
+};
+export default usePresenter;

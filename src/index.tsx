@@ -11,35 +11,51 @@ import { navigationService } from './services';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Profile from './screens/profile';
-
+import Rides from './screens/rides';
+import { screenIds } from './constants';
+import FindRides from './screens/findRides';
+import SearchRides from './screens/searchRides';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
 
   const isLoggedIn = true;
- 
 
-// screenOptions={{ presentation: 'modal' }}
-//  <Stack.Group>
-// </Stack.Group>
+  // options={{ presentation: 'modal' }}
+  //  <Stack.Group>
+  // </Stack.Group>
   return (
     <NavigationContainer ref={navigationService.setNavigationRef}>
       <StatusBar style="auto" />
-      {
-        isLoggedIn ? 
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Chat" component={Chat} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-        :
+      {isLoggedIn ? (
         <Stack.Navigator>
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Login" component={Login} /> 
-          <Stack.Screen name="Register" component={Register} />
-        </Stack.Navigator>   
-        }
+          <Tab.Group>
+            <Tab.Screen name={screenIds.HOME_SCREEN} component={Home} />
+            <Tab.Screen name={screenIds.RIDES_SCREEN} component={Rides} />
+            <Tab.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
+            <Tab.Screen name={screenIds.CHAT_SCREEN} component={Chat} />
+          </Tab.Group>
+          <Stack.Group>
+            <Stack.Screen
+              options={{ presentation: 'modal' }}
+              name={screenIds.FIND_RIDE_SCREEN}
+              component={FindRides}
+            />
+            <Stack.Screen
+              options={{ presentation: 'modal' }}
+              name={screenIds.SEARCH_RIDE_SCREEN}
+              component={SearchRides}
+            />
+          </Stack.Group>
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name={screenIds.WELCOME_SCREEN} component={Welcome} />
+          <Stack.Screen name={screenIds.LOGIN_SCREEN} component={Login} />
+          <Stack.Screen name={screenIds.REGISTER_SCREEN} component={Register} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
