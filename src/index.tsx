@@ -1,4 +1,3 @@
-import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import Welcome from './screens/welcome';
 import Home from './screens/home';
@@ -15,40 +14,74 @@ import Rides from './screens/rides';
 import { screenIds } from './constants';
 import FindRides from './screens/findRides';
 import SearchRides from './screens/searchRides';
+import { useSelector } from 'react-redux';
+import {State} from './redux/auth/authReducer';
+import { View } from 'react-native';
+import SearchRidesOrigin from './screens/searchOrigin';
+import SearchRidesDestination from './screens/searchDestination';
 
-export default function App() {
+const App = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
+  
+  const isLoggedIn = useSelector((state: State) => state.isLoggedIn);
 
-  const isLoggedIn = true;
+  const SearchRideStack = () => {
+    return (
+    <Stack.Navigator screenOptions={{headerShown:false}}>
+      <Stack.Screen options={{presentation:'modal'}} name={screenIds.SEARCH_RIDE_SCREEN} component={SearchRides} />
+      <Stack.Screen options={{presentation:'modal'}} name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN} component={SearchRidesOrigin} />
+      <Stack.Screen options={{presentation:'modal'}} name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN} component={SearchRidesDestination} />
+    </Stack.Navigator>
+    );
+  }
+  
+  const HomeStack = () => {
+    return (
+    <Stack.Navigator>
+      <Stack.Screen name={screenIds.HOME_SCREEN} component={Home}/>
+      <Stack.Screen options={{presentation:'modal'}} name={screenIds.FIND_RIDE_SCREEN} component={FindRides} />
+      <Stack.Screen options={{presentation:'modal'}} name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN} component={SearchRideStack} />
+      <Stack.Screen name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN} component={SearchRidesDestination} />
+    </Stack.Navigator>
+    );
+  }
 
-  // options={{ presentation: 'modal' }}
-  //  <Stack.Group>
-  // </Stack.Group>
+  const RidesStack = () => {
+    return (
+    <Stack.Navigator>
+      <Stack.Screen name={screenIds.RIDES_SCREEN} component={Rides}/>
+    </Stack.Navigator>
+    );
+  }
+
+  const ProfileStack = () => {
+    return (
+    <Stack.Navigator>
+      <Stack.Screen name={screenIds.PROFILE_SCREEN} component={Profile}/>
+    </Stack.Navigator>
+    );
+  }
+
+  const ChatStack = () => {
+    return (
+    <Stack.Navigator>
+      <Stack.Screen name={screenIds.CHAT_SCREEN} component={Chat}/>
+    </Stack.Navigator>
+    );
+  }
+  
+
   return (
     <NavigationContainer ref={navigationService.setNavigationRef}>
       <StatusBar style="auto" />
       {isLoggedIn ? (
-        <Stack.Navigator>
-          <Tab.Group>
-            <Tab.Screen name={screenIds.HOME_SCREEN} component={Home} />
-            <Tab.Screen name={screenIds.RIDES_SCREEN} component={Rides} />
-            <Tab.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
-            <Tab.Screen name={screenIds.CHAT_SCREEN} component={Chat} />
-          </Tab.Group>
-          <Stack.Group>
-            <Stack.Screen
-              options={{ presentation: 'modal' }}
-              name={screenIds.FIND_RIDE_SCREEN}
-              component={FindRides}
-            />
-            <Stack.Screen
-              options={{ presentation: 'modal' }}
-              name={screenIds.SEARCH_RIDE_SCREEN}
-              component={SearchRides}
-            />
-          </Stack.Group>
-        </Stack.Navigator>
+        <Tab.Navigator screenOptions={{headerShown:false}}>
+          <Tab.Screen name="Home" component={HomeStack}/>
+          <Tab.Screen name="Rides" component={RidesStack} />
+          <Tab.Screen name="Profile" component={ProfileStack} />
+          <Tab.Screen name="Chat" component={ChatStack} />
+        </Tab.Navigator>
       ) : (
         <Stack.Navigator>
           <Stack.Screen name={screenIds.WELCOME_SCREEN} component={Welcome} />
@@ -59,4 +92,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
-registerRootComponent(App);
+export default App;

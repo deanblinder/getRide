@@ -8,4 +8,7 @@ export default {
   WELCOME_SCREEN: 'WelcomeScreen',
   PROFILE_SCREEN: 'ProfileScreen',
   SEARCH_RIDE_SCREEN: 'SearchRideScreen',
+  SEARCH_RIDE_ORIGIN_SCREEN: 'SearchRideOriginScreen',
+  SEARCH_RIDE_DESTINATION_SCREEN: 'SearchRideDestinationScreen',
+
 };

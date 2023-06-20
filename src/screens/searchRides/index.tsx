@@ -1,44 +1,54 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Button, Input, Text } from '@rneui/base';
+import usePresenter from './usePresenter';
+import GoogleMap from '../../components/googleMap';
 
 const SearchRides = () => {
+  const {onDestinationPressed,onOriginPressed} = usePresenter();
   return (
-    <SafeAreaView>
       <View style={styles.container}>
-        <GooglePlacesAutocomplete
-          placeholder="Search"
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.textInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: API_KEY,
-            language: 'en',
-          }}
+        <View>
+        <Input
+          // color={'white'}
+          // radius={10}
+          showSoftInputOnFocus={false}
+          textAlign={'left'}
+          placeholder='Origin'
+          style={{ marginBottom: '5%' }}
+          onPressIn={onOriginPressed}
+          // titleStyle={{ color: 'grey' }}
+        />
+        <Input
+          // color={'white'}
+          // radius={10}
+          showSoftInputOnFocus={false}
+          textAlign={'left'}
+          placeholder='Destination'
+          style={{ marginBottom: '5%' }}
+          onPressIn={onDestinationPressed}
+          // titleStyle={{ color: 'grey' }}
         />
       </View>
-    </SafeAreaView>
+      <GoogleMap/>
+        <Button radius={20}>Next</Button>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   textInput: {
-    height: 50,
-    backgroundColor: '#eee',
+    // height: 50,
+    // backgroundColor: '#eee',
     marginVertical: 5,
   },
   container: {
-    padding: 10,
-    height: '100%',
+    padding: '5%',
+    flex: 1,
+    // display: 'flex',
   },
 });
 

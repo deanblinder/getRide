@@ -10,14 +10,23 @@ const Home = () => {
       <Text>Choose Your Need</Text>
       <View>
         <Button
-          radius={20}
-          style={{ marginBottom: '5%' }}
+          color={'white'}
+          radius={10}
+          style={{ marginBottom: '5%'}}
           onPress={showFindRideScreen}
+          titleStyle={{ color: 'grey' }}
         >
-          Find a Ride
+          Offer a ride
         </Button>
-        <Button radius={20} onPress={showSearchRideScreen}>
-          Search a ride
+        <Button 
+        color={'white'}
+        radius={10} 
+        onPress={showSearchRideScreen}  
+        titleStyle={{ color: 'grey' }}
+        style={{ marginBottom: '5%'}}
+
+>
+        Search a ride
         </Button>
       </View>
     </ScrollView>

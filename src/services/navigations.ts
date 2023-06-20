@@ -1,6 +1,10 @@
 import { NavigationContainer, NavigationContainerRef, StackActions } from '@react-navigation/native';
+import { screenIds } from '../constants';
 
 let navigationRef: any;
+
+
+
 
 export const setNavigationRef = (ref:any) => {
   navigationRef = ref;
@@ -19,9 +23,10 @@ export function pop(count=1) {
 }
 
 export function dismiss(count=1) {
-  if (navigationRef.isReady()) {
-    navigationRef.dispatch(StackActions.pop(count));
-  }
+  // if (navigationRef.isReady()) {
+  //   navigationRef.dispatch(StackActions.popToTop());
+  // }
+  
 }
 
 
