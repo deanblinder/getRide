@@ -7,30 +7,31 @@ import { Button, Text } from '@rneui/base';
 import usePresenter from './usePresenter';
 
 const SearchRidesOrigin = () => {
-
-const {onNextPressed} = usePresenter();
+  const { onDonePressed } = usePresenter();
   return (
-      <View style={styles.container}>
-        <Text>Origin</Text>
-        <GooglePlacesAutocomplete
-          placeholder="Search"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.textInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: 'AIzaSyBn4lI-YXwl7C6W-NgYN3ggrdrWsmFCzPg',
-            language: 'en',
-          }}
-        />    
-        <Button radius={20} onPress={onNextPressed}>Done</Button>
+    <View style={styles.container}>
+      <Text>Origin</Text>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        fetchDetails={true}
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        styles={{
+          textInput: styles.textInput,
+          height: 50,
+          backgroundColor: 'white',
+          marginTop: 20,
+        }}
+        query={{
+          key: API_KEY,
+          language: 'en',
+        }}
+      />
+      <Button radius={20} onPress={onDonePressed}>
+        Done
+      </Button>
     </View>
   );
 };

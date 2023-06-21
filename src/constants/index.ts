@@ -1,3 +1,4 @@
 import screenIds from './screenIds';
+import { endpoints } from './endpoints';
 
-export { screenIds };
+export { screenIds, endpoints };

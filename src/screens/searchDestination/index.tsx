@@ -7,43 +7,44 @@ import { Button, Text } from '@rneui/base';
 import usePresenter from './usePresenter';
 
 const SearchRidesDestination = () => {
-  const {onDonePressed} = usePresenter();
+  const { onDonePressed } = usePresenter();
   return (
-      <View style={styles.container}>
-        <Text>Destination</Text>
-        <GooglePlacesAutocomplete
-          placeholder="Search"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.textInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: API_KEY,
-            language: 'en',
-          }}
-        />    
-        <Button radius={20} onPress={onDonePressed}>Done</Button>
+    <View style={styles.container}>
+      <Text>Origin</Text>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        fetchDetails={true}
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        styles={{
+          textInput: styles.textInput,
+          height: 50,
+          backgroundColor: 'white',
+          marginTop: 20,
+        }}
+        query={{
+          key: API_KEY,
+          language: 'en',
+        }}
+      />
+      <Button radius={20} onPress={onDonePressed}>
+        Done
+      </Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   textInput: {
-    // height: 50,
-    // backgroundColor: '#eee',
+    height: 50,
     marginVertical: 5,
   },
   container: {
+    height: '100%',
     padding: '5%',
     flex: 1,
-    display: 'flex',
   },
 });
 

@@ -8,47 +8,41 @@ import usePresenter from './usePresenter';
 import GoogleMap from '../../components/googleMap';
 
 const SearchRides = () => {
-  const {onDestinationPressed,onOriginPressed} = usePresenter();
+  const { onDestinationPressed, onOriginPressed } = usePresenter();
   return (
-      <View style={styles.container}>
-        <View>
+    <View style={styles.container}>
+      <View>
         <Input
-          // color={'white'}
-          // radius={10}
           showSoftInputOnFocus={false}
           textAlign={'left'}
-          placeholder='Origin'
+          placeholder="Origin"
           style={{ marginBottom: '5%' }}
           onPressIn={onOriginPressed}
-          // titleStyle={{ color: 'grey' }}
         />
         <Input
-          // color={'white'}
-          // radius={10}
           showSoftInputOnFocus={false}
           textAlign={'left'}
-          placeholder='Destination'
+          placeholder="Destination"
           style={{ marginBottom: '5%' }}
           onPressIn={onDestinationPressed}
-          // titleStyle={{ color: 'grey' }}
         />
       </View>
-      <GoogleMap/>
-        <Button radius={20}>Next</Button>
+      <GoogleMap />
+      <Button style={{ marginTop: '5%' }} radius={20}>
+        Next
+      </Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   textInput: {
-    // height: 50,
-    // backgroundColor: '#eee',
     marginVertical: 5,
   },
   container: {
     padding: '5%',
     flex: 1,
-    // display: 'flex',
+    justifyContent: 'space-between',
   },
 });
 

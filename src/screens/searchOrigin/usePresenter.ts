@@ -1,14 +1,11 @@
-import React from "react";
-import { navigationService } from "../../services";
-import { screenIds } from "../../constants";
+import { navigationService } from '../../services';
 
 const usePresenter = () => {
-    const onNextPressed = () => {
-        console.log("onNextPressed");
-        navigationService.pop();
-    };
-    return {
-        onNextPressed
-    };
-    }
+  const onDonePressed = () => {
+    navigationService.pop();
+  };
+  return {
+    onDonePressed,
+  };
+};
 export default usePresenter;

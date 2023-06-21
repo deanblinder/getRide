@@ -1,2 +1,2 @@
-// import * as navigationActions from './navigation';
-// export { navigationActions };
+import * as googleMapsActions from './googleMaps';
+export { googleMapsActions };
