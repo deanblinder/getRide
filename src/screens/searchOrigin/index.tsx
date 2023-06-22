@@ -4,10 +4,10 @@ import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Button, Text } from '@rneui/base';
-import usePresenter from './usePresenter';
+import usePresenter, { Props } from './usePresenter';
 
-const SearchRidesOrigin = () => {
-  const { onDonePressed } = usePresenter();
+const SearchRidesOrigin = (props: Props) => {
+  const { onDonePressed, onLocationSelected } = usePresenter(props);
   return (
     <View style={styles.container}>
       <Text>Origin</Text>
@@ -15,6 +15,7 @@ const SearchRidesOrigin = () => {
         placeholder="Search"
         fetchDetails={true}
         onPress={(data, details = null) => {
+          onLocationSelected(details);
           // 'details' is provided when fetchDetails = true
           console.log(data, details);
         }}
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   container: {
-    height: '100%',
+    height: '50%',
     padding: '5%',
     flex: 1,
     // display: 'flex',

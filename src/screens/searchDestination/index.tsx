@@ -5,9 +5,10 @@ import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Button, Text } from '@rneui/base';
 import usePresenter from './usePresenter';
+import { Props } from '../searchOrigin/usePresenter';
 
-const SearchRidesDestination = () => {
-  const { onDonePressed } = usePresenter();
+const SearchRidesDestination = (props: Props) => {
+  const { onDonePressed, onLocationSelected } = usePresenter(props);
   return (
     <View style={styles.container}>
       <Text>Origin</Text>
@@ -16,6 +17,7 @@ const SearchRidesDestination = () => {
         fetchDetails={true}
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
+          onLocationSelected(details);
           console.log(data, details);
         }}
         styles={{

@@ -4,13 +4,12 @@ import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Dialog } from '@rneui/themed';
 import { googleMapsActions } from '../../actions/index';
-import { Coordinate } from '../../typing';
+import { Location as LocationData } from '../../typing';
+import { Point } from 'react-native-google-places-autocomplete';
 
 export type Props = {
-  route?: {
-    origin: Coordinate;
-    destination: Coordinate;
-  };
+  origin?: LocationData;
+  destination?: LocationData;
 };
 
 const ROUTE = {
@@ -19,86 +18,84 @@ const ROUTE = {
 };
 
 const MapViewScreen = (props: Props) => {
-  const [location, setLocation] = useState<Coordinate | undefined>(undefined);
+  const { origin, destination } = props;
+  const [initialRegion, setInitialRegion] = useState<Point | undefined>({
+    lat: 32.78376,
+    lng: 34.98557,
+  });
   const [routeCoordinates, setRouteCoordinates] = useState([]);
-
   useEffect(() => {
-    getLocationAsync();
-    getRouteCoordinates();
-  }, []);
-
-  const getLocationAsync = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      console.log('Permission to access location was denied');
-      return;
+    // getLocationAsync();
+    if (origin && destination) {
+      setInitialRegion(origin.location);
+      getRouteCoordinates({
+        origin: origin.location,
+        destination: destination.location,
+      });
     }
+  }, [origin, destination]);
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location.coords);
-  };
+  // const getLocationAsync = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status !== 'granted') {
+  //     console.log('Permission to access location was denied');
+  //     return;
+  //   }
+  //
+  //   let location = await Location.getCurrentPositionAsync({});
+  //   setLocation(location);
+  // };
 
-  const getRouteCoordinates = async (props?: {
-    origin: { latitude: number; longitude: number };
-    destination: { latitude: number; longitude: number };
+  const getRouteCoordinates = async (props: {
+    origin: Point;
+    destination: Point;
   }) => {
-    const points = await googleMapsActions.getRouteCoordinates(ROUTE);
+    const points = await googleMapsActions.getRouteCoordinates({
+      origin: props?.origin,
+      destination: props?.destination,
+    });
     const decodedPoints = googleMapsActions.decodePolyline(points);
     setRouteCoordinates(decodedPoints);
   };
 
   return (
     <View style={styles.container}>
-      {location ? (
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={{
-            latitude: location?.latitude,
-            longitude: location?.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        region={{
+          latitude: initialRegion?.lat ?? ROUTE?.origin.latitude,
+          longitude: initialRegion?.lng ?? ROUTE?.destination.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        initialRegion={{
+          latitude: ROUTE?.origin.latitude,
+          longitude: ROUTE?.destination.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{
+            latitude: origin?.location?.lat,
+            longitude: origin?.location?.lng,
           }}
-        >
-          <Marker
-            coordinate={{
-              latitude: location?.latitude,
-              longitude: location?.longitude,
-            }}
-            title="My Location"
-          />
-          <Marker
-            coordinate={{
-              latitude: ROUTE.origin.latitude,
-              longitude: ROUTE.origin.longitude,
-            }}
-            title="Start point"
-          />
-          <Marker
-            coordinate={{
-              latitude: ROUTE.destination.latitude,
-              longitude: ROUTE.destination.longitude,
-            }}
-            title="End point"
-          />
-          <Polyline
-            coordinates={routeCoordinates}
-            strokeWidth={3}
-            strokeColor="red"
-          />
-        </MapView>
-      ) : (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            display: 'flex',
-            flex: 1,
+          title="Start point"
+        />
+        <Marker
+          coordinate={{
+            latitude: destination?.location.lat,
+            longitude: destination?.location.lng,
           }}
-        >
-          <Dialog.Loading />
-        </View>
-      )}
+          title="End point"
+        />
+        <Polyline
+          coordinates={routeCoordinates}
+          strokeWidth={3}
+          strokeColor="red"
+        />
+      </MapView>
     </View>
   );
 };
