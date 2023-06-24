@@ -1,7 +1,8 @@
-import { Button, Input , Text} from "@rneui/base";
+import {Text} from "@rneui/base";
 import React from "react";
 import { View , StyleSheet, ScrollView} from "react-native";
 import usePresenter from "./usePresenter";
+import {Button} from "native-base";
 
 const Welcome = () => {
     const {shouldShowLogin, onHaveAccountPressed, onSignupPressed} = usePresenter();

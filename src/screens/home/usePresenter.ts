@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 
 const usePresenter = () => {
   const showFindRideScreen = () => {
-    navigationService.push(screenIds.FIND_RIDE_SCREEN);
+    navigationService.push(screenIds.OFFER_RIDES);
   };
 
   const showSearchRideScreen = () => {
-    navigationService.push(screenIds.SEARCH_RIDE_ORIGIN_SCREEN);
+    navigationService.push(screenIds.SEARCH_RIDE_SCREEN);
   };
 
   const dispatch = useDispatch();

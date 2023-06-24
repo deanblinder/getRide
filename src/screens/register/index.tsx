@@ -1,22 +1,24 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Button, Input } from '@rneui/base';
+import { Text } from '@rneui/base';
 import { navigationService } from '../../services';
 import usePresenter from './usePresenter';
+import {Button, Stack, Input} from "native-base";
+
 
 const Register = () => {
   const {handleLogin} = usePresenter();
-  
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text h2>Enter Your Details</Text>
-      <View style={styles.inputs}>
-        <Input label={'Enter First Name'} labelStyle={{ fontSize: 15 }} />
-        <Input label={'Enter Last Name'} labelStyle={{ fontSize: 15 }} />
-        <Input label={'Enter Email'} labelStyle={{ fontSize: 15 }} />
-        <Input label={'Enter Password'} labelStyle={{ fontSize: 15 }} />
-      </View>
-      <Button radius={20} onPress={handleLogin}>
+      <Stack space={4} w="75%" maxW="300px" mx="auto">
+        <Input placeholder={'Enter First Name'} size="lg"/>
+        <Input placeholder={'Enter Last Name'} size="lg" />
+        <Input placeholder={'Enter Email'} size="lg" />
+        <Input placeholder={'Enter Password'} size="lg"/>
+        </Stack>
+      <Button onPress={handleLogin}>
         Submit
       </Button>
     </ScrollView>

@@ -1,6 +1,6 @@
 export default {
   HOME_SCREEN: 'HomeScreen',
-  FIND_RIDE_SCREEN: 'FindRideScreen',
+  OFFER_RIDES: 'OfferRidesScreen',
   CHAT_SCREEN: 'ChatScreen',
   LOGIN_SCREEN: 'LoginScreen',
   REGISTER_SCREEN: 'RegisterScreen',
@@ -10,5 +10,5 @@ export default {
   SEARCH_RIDE_SCREEN: 'SearchRideScreen',
   SEARCH_RIDE_ORIGIN_SCREEN: 'SearchRideOriginScreen',
   SEARCH_RIDE_DESTINATION_SCREEN: 'SearchRideDestinationScreen',
-
+  RIDE_SCREEN: 'RideScreen',
 };

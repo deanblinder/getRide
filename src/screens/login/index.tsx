@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Button, Input } from '@rneui/base';
+import { Text } from '@rneui/base';
 import { navigationService } from '../../services';
 import usePresenter from './usePresenter';
+import {Button, Input, Stack} from "native-base";
 
 const Login = () => {
   const { handleLogin } = usePresenter();
@@ -10,10 +11,12 @@ const Login = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text h2>Enter Your Details</Text>
       <View style={styles.inputs}>
-        <Input label={'Enter Email'} labelStyle={{ fontSize: 15 }} />
-        <Input label={'Enter Password'} labelStyle={{ fontSize: 15 }} />
+      <Stack space={4} w="75%" maxW="300px" mx="auto">
+        <Input size="lg" placeholder='Enter Email'></Input>
+        <Input size="lg" placeholder={'Enter Password'} />
+      </Stack>
       </View>
-      <Button radius={20} onPress={handleLogin}>
+      <Button onPress={handleLogin}>
         Submit
       </Button>
     </ScrollView>

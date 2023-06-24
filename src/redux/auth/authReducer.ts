@@ -5,7 +5,7 @@ export type State = {
 };
 //initializing state
 const initialState: State = {
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const authReducer = (state = initialState, action: { type: any }) => {

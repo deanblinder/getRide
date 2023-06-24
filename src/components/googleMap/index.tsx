@@ -24,27 +24,32 @@ const MapViewScreen = (props: Props) => {
     lng: 34.98557,
   });
   const [routeCoordinates, setRouteCoordinates] = useState([]);
+  const[myLocation, setMyLocation] = useState<Point | undefined>(undefined);
+  
+  console.log('### initialRegion', initialRegion);
   useEffect(() => {
     // getLocationAsync();
-    if (origin && destination) {
+    if (props.origin && props.destination) {
       setInitialRegion(origin.location);
+
       getRouteCoordinates({
-        origin: origin.location,
-        destination: destination.location,
+        origin: origin?.location,
+        destination: destination?.location,
       });
+      getLocationAsync();
     }
   }, [origin, destination]);
 
-  // const getLocationAsync = async () => {
-  //   let { status } = await Location.requestForegroundPermissionsAsync();
-  //   if (status !== 'granted') {
-  //     console.log('Permission to access location was denied');
-  //     return;
-  //   }
-  //
-  //   let location = await Location.getCurrentPositionAsync({});
-  //   setLocation(location);
-  // };
+  const getLocationAsync = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+  
+    let location = await Location.getCurrentPositionAsync({});
+    setMyLocation(location);
+  };
 
   const getRouteCoordinates = async (props: {
     origin: Point;
@@ -64,14 +69,14 @@ const MapViewScreen = (props: Props) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={{
-          latitude: initialRegion?.lat ?? ROUTE?.origin.latitude,
-          longitude: initialRegion?.lng ?? ROUTE?.destination.longitude,
+          latitude: props.origin?.location?.lat ?? initialRegion?.lat ?? ROUTE?.origin.latitude,
+          longitude: props.origin?.location?.lng ?? initialRegion?.lng ?? ROUTE?.destination.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         initialRegion={{
-          latitude: ROUTE?.origin.latitude,
-          longitude: ROUTE?.destination.longitude,
+          latitude: props.origin?.location?.lat ?? ROUTE?.origin.latitude,
+          longitude: props.origin?.location?.lng ?? ROUTE?.destination.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -85,11 +90,19 @@ const MapViewScreen = (props: Props) => {
         />
         <Marker
           coordinate={{
-            latitude: destination?.location.lat,
-            longitude: destination?.location.lng,
+            latitude: destination?.location?.lat,
+            longitude: destination?.location?.lng,
           }}
           title="End point"
         />
+        {myLocation && <Marker
+        pinColor='purple'
+            coordinate={{
+                latitude: myLocation?.coords?.latitude,
+                longitude: myLocation?.coords?.longitude,
+            }}
+            title="My location"
+        />}
         <Polyline
           coordinates={routeCoordinates}
           strokeWidth={3}

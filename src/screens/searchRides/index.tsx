@@ -1,42 +1,45 @@
 import React from 'react';
 import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 // @ts-ignore
-import { API_KEY } from '@env';
-import { Button, Card, Input } from '@rneui/base';
+import {  Card } from '@rneui/base';
 import usePresenter from './usePresenter';
 import GoogleMap from '../../components/googleMap';
+import { Input,Button, Stack, Icon } from 'native-base';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import RideCard from '../../components/rideCard';
+
 
 const SearchRides = () => {
-  const { onDestinationPressed, onOriginPressed, origin, destination } =
+  const { onDestinationPressed, onOriginPressed, origin, destination,rides,shouldShowRides, onSearchPress } =
     usePresenter();
+    const renderRides = () => {
+      if(!rides){
+        return null;
+      }
+
+      return(
+        rides.map((ride,index) => {
+          return(
+            <RideCard key={index} ride={ride}/>
+          )
+        })
+      )
+    }
   return (
-    <View style={styles.container}>
-      <GoogleMap origin={origin} destination={destination} />
-      <Card containerStyle={{ margin: '10%' }} wrapperStyle={{ padding: '5%' }}>
-        <Input
-          leftIcon={{ type: 'font-awesome', name: 'search' }}
-          showSoftInputOnFocus={false}
-          textAlign={'left'}
-          placeholder="Enter Origin"
-          style={{ marginBottom: '5%' }}
-          onPressIn={onOriginPressed}
-          value={origin?.formatted_address}
-        />
-        <Input
-          leftIcon={{ type: 'font-awesome', name: 'search' }}
-          showSoftInputOnFocus={false}
-          textAlign={'left'}
-          placeholder="Enter Destination"
-          style={{ marginBottom: '5%' }}
-          onPressIn={onDestinationPressed}
-          value={destination?.formatted_address}
-        />
-        <Button>Done</Button>
+    <ScrollView style={styles.container}>
+      <Card containerStyle={{ margin: '10%' }}>
+        <Stack space={2} w="90%" maxW="300px" mx="auto">
+          <Input value={origin?.formatted_address}  onPressIn={onOriginPressed} placeholder="Enter Origin" w="100%" />
+          <Input value={destination?.formatted_address} onPressIn={onDestinationPressed} placeholder="Enter Destination" w="100%" />
+        </Stack>
+        <View style={{flexDirection:"row", marginTop:'5%'}}>
+        <RNDateTimePicker value={new Date()}  display='default'/>
+        <RNDateTimePicker value={new Date()} mode='time'  display='default'/>
+        </View>
+        <Button style={{ padding: '5%',margin:"5%" }} onPress={onSearchPress}>Search</Button>
       </Card>
-      <Button style={{ padding: '5%' }} radius={20}>
-        Next
-      </Button>
-    </View>
+      {shouldShowRides && renderRides()}
+    </ScrollView>
   );
 };
 
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
 });
 

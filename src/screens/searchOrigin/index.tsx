@@ -3,8 +3,9 @@ import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { Button, Text } from '@rneui/base';
+import { Text } from '@rneui/base';
 import usePresenter, { Props } from './usePresenter';
+import {Button} from 'native-base';
 
 const SearchRidesOrigin = (props: Props) => {
   const { onDonePressed, onLocationSelected } = usePresenter(props);
@@ -30,7 +31,7 @@ const SearchRidesOrigin = (props: Props) => {
           language: 'en',
         }}
       />
-      <Button radius={20} onPress={onDonePressed}>
+      <Button style={{borderRadius:20}} onPress={onDonePressed}>
         Done
       </Button>
     </View>
