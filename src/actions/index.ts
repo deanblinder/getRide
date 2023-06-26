@@ -1,2 +1,3 @@
 import * as googleMapsActions from './googleMaps';
-export { googleMapsActions };
+import * as ridesActions from './rides';
+export { googleMapsActions, ridesActions };
