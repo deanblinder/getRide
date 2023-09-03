@@ -1,10 +1,13 @@
 import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
 import { useDispatch } from 'react-redux';
-// import { logout } from '../../redux/auth/authActions';
-
+import { useEffect } from 'react';
+import * as Location from 'expo-location';
+import { setUserLocation } from '../../redux/auth/authActions';
 
 const usePresenter = () => {
+  const dispatch = useDispatch();
+
   const showFindRideScreen = () => {
     navigationService.push(screenIds.OFFER_RIDES);
   };
@@ -13,13 +16,25 @@ const usePresenter = () => {
     navigationService.push(screenIds.SEARCH_RIDE_SCREEN);
   };
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    getLocationAsync();
+  }, []);
 
+  const getLocationAsync = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
 
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  // };
-  
+    const location = await Location.getCurrentPositionAsync({});
+    dispatch(
+      setUserLocation({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      })
+    );
+  };
   return {
     showFindRideScreen,
     showSearchRideScreen,

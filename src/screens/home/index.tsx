@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Button, Input, Text } from '@rneui/base';
+import { View, StyleSheet, ScrollView, Linking } from 'react-native';
+import { Button } from '@rneui/base';
 import usePresenter from './usePresenter';
 
 const Home = () => {

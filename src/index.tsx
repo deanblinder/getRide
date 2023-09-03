@@ -10,10 +10,10 @@ import { navigationService } from './services';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Profile from './screens/profile';
-import Rides from './screens/rides';
+import Rides from './screens/upcomingRides';
 import { screenIds } from './constants';
 import { useSelector } from 'react-redux';
-import { State } from './redux/auth/authReducer';
+import { AuthState } from './redux/auth/authReducer';
 import SearchRidesOrigin from './screens/searchOrigin';
 import SearchRidesDestination from './screens/searchDestination';
 import OfferRides from './screens/OfferRides';
@@ -24,23 +24,23 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
 
-  const isLoggedIn = useSelector((state: State) => state.isLoggedIn);
+  const user = useSelector((state: AuthState) => state.user);
 
   const HomeStack = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen name={screenIds.HOME_SCREEN} component={Home} />
-      <Stack.Screen
-        options={{ presentation: 'modal' }}
-        name={screenIds.OFFER_RIDES}
-        component={OfferRides}
-      />
-      <Stack.Screen
-        options={{ presentation: 'modal' }}
-        name={screenIds.SEARCH_RIDE_SCREEN}
-        component={SearchRides}
-      />
-      <Stack.Screen
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.OFFER_RIDES}
+          component={OfferRides}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.SEARCH_RIDE_SCREEN}
+          component={SearchRides}
+        />
+        <Stack.Screen
           options={{ presentation: 'modal' }}
           name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
           component={SearchRidesDestination}
@@ -55,7 +55,6 @@ const App = () => {
           name={screenIds.RIDE_SCREEN}
           component={RideScreen}
         />
-        
       </Stack.Navigator>
     );
   };
@@ -87,7 +86,7 @@ const App = () => {
   return (
     <NavigationContainer ref={navigationService.setNavigationRef}>
       <StatusBar style="auto" />
-      {isLoggedIn ? (
+      {user ? (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Home" component={HomeStack} />
           <Tab.Screen name="Rides" component={RidesStack} />

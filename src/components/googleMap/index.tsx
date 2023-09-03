@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import * as Location from 'expo-location';
-import { Dialog } from '@rneui/themed';
 import { googleMapsActions } from '../../actions/index';
 import { Location as LocationData } from '../../typing';
 import { Point } from 'react-native-google-places-autocomplete';
+import { useSelector } from 'react-redux';
+import { AuthState } from '../../redux/auth/authReducer';
 
 export type Props = {
   origin?: LocationData;
@@ -24,32 +24,18 @@ const MapViewScreen = (props: Props) => {
     lng: 34.98557,
   });
   const [routeCoordinates, setRouteCoordinates] = useState([]);
-  const[myLocation, setMyLocation] = useState<Point | undefined>(undefined);
-  
-  console.log('### initialRegion', initialRegion);
+  const userLocation = useSelector((state: AuthState) => state.userLocation);
+
   useEffect(() => {
-    // getLocationAsync();
-    if (props.origin && props.destination) {
-      setInitialRegion(origin.location);
+    if (origin?.location && destination?.location) {
+      setInitialRegion(origin?.location);
 
       getRouteCoordinates({
         origin: origin?.location,
         destination: destination?.location,
       });
-      getLocationAsync();
     }
   }, [origin, destination]);
-
-  const getLocationAsync = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      console.log('Permission to access location was denied');
-      return;
-    }
-  
-    let location = await Location.getCurrentPositionAsync({});
-    setMyLocation(location);
-  };
 
   const getRouteCoordinates = async (props: {
     origin: Point;
@@ -69,40 +55,53 @@ const MapViewScreen = (props: Props) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={{
-          latitude: props.origin?.location?.lat ?? initialRegion?.lat ?? ROUTE?.origin.latitude,
-          longitude: props.origin?.location?.lng ?? initialRegion?.lng ?? ROUTE?.destination.longitude,
+          latitude:
+            props.origin?.location?.lat ??
+            initialRegion?.lat ??
+            ROUTE?.origin.latitude,
+          longitude:
+            props.origin?.location?.lng ??
+            initialRegion?.lng ??
+            ROUTE?.destination.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         initialRegion={{
           latitude: props.origin?.location?.lat ?? ROUTE?.origin.latitude,
-          longitude: props.origin?.location?.lng ?? ROUTE?.destination.longitude,
+          longitude:
+            props.origin?.location?.lng ?? ROUTE?.destination.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
-          coordinate={{
-            latitude: origin?.location?.lat,
-            longitude: origin?.location?.lng,
-          }}
-          title="Start point"
-        />
-        <Marker
-          coordinate={{
-            latitude: destination?.location?.lat,
-            longitude: destination?.location?.lng,
-          }}
-          title="End point"
-        />
-        {myLocation && <Marker
-        pinColor='purple'
+        {origin?.location?.lat && origin?.location?.lng && (
+          <Marker
             coordinate={{
-                latitude: myLocation?.coords?.latitude,
-                longitude: myLocation?.coords?.longitude,
+              latitude: origin?.location?.lat,
+              longitude: origin?.location?.lng,
+            }}
+            title="Start point"
+          />
+        )}
+        {destination?.location?.lng && destination.location.lat && (
+          <Marker
+            coordinate={{
+              latitude: destination?.location?.lat,
+              longitude: destination?.location?.lng,
+            }}
+            title="End point"
+          />
+        )}
+        {userLocation && (
+          <Marker
+            pinColor="purple"
+            coordinate={{
+              latitude: userLocation?.lat,
+              longitude: userLocation?.lng,
             }}
             title="My location"
-        />}
+          />
+        )}
         <Polyline
           coordinates={routeCoordinates}
           strokeWidth={3}
