@@ -2,8 +2,10 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Avatar, Text } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
+import usePresenter from './usePresenter';
 
 const Profile = () => {
+  const { user } = usePresenter();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.avatar}>
@@ -14,32 +16,34 @@ const Profile = () => {
             uri: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
           }}
         />
-        <Text fontSize={typography.fontSizes['2xl']}>Dean Blinder</Text>
+        <Text fontSize={typography.fontSizes['2xl']}>
+          {user?.firstName + ' ' + user?.lastName}
+        </Text>
       </View>
       <View>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Email:{' '}
+          Email: {user?.email.toLowerCase()}
         </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Phone:
+          Phone: {user?.phoneNumber}
         </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Address:{' '}
+          Address: {user?.address?.formatted_address}
         </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Age:
+          Birth Date: {user?.birthDate}
         </Text>
         <Text
           style={{ marginBottom: '2%' }}
@@ -57,7 +61,7 @@ const Profile = () => {
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Facebook:
+          Facebook: {user?.facebookLink?.toLowerCase()}
         </Text>
       </View>
     </ScrollView>
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
   avatar: {
     display: 'flex',
     alignItems: 'center',
-    // flex: 1,
   },
 });
 

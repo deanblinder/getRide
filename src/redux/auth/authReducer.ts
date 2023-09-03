@@ -1,24 +1,31 @@
-import { LOGIN, LOGOUT } from './authActionsType';
+import { SET_USER, SET_USER_LOCATION } from './authActionsType';
+import { User } from '../../typing';
+import { Point } from 'react-native-google-places-autocomplete';
 
-export type State = {
-  isLoggedIn: boolean;
+export type AuthState = {
+  user: User | undefined;
+  userLocation: Point | undefined;
 };
 //initializing state
-const initialState: State = {
-  isLoggedIn: false,
+const initialState: AuthState = {
+  user: undefined,
+  userLocation: undefined,
 };
 
-const authReducer = (state = initialState, action: { type: any }) => {
+const authReducer = (
+  state = initialState,
+  action: { type: 'SET_USER' | 'SET_USER_LOCATION'; payload: User }
+) => {
   switch (action.type) {
-    case LOGIN:
+    case SET_USER:
       return {
         ...state,
-        isLoggedIn: (state.isLoggedIn = true),
+        user: action.payload,
       };
-    case LOGOUT:
+    case SET_USER_LOCATION:
       return {
         ...state,
-        isLoggedIn: (state.isLoggedIn = false),
+        userLocation: action.payload,
       };
     default:
       return state;

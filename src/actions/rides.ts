@@ -1,129 +1,70 @@
-import { Ride } from '../components/rideCard/usePresenter';
+import { db, ridesRef } from '../config/firebase';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { Ride } from '../typing';
+import { Point } from 'react-native-google-places-autocomplete';
 
-export const getFavoritesRides = async () => {
-  const avatarImage =
-    'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png';
-  const favoritesRides: Ride[] = [
-    {
-      id: 1,
-      origin: {
-        formatted_address: 'tel aviv',
-        location: {
-          lng: 34.775517,
-          lat: 32.0986505,
-        },
-      },
-      destination: {
-        formatted_address: 'haifa',
-        location: {
-          lng: 34.985569,
-          lat: 32.78376,
-        },
-      },
-      hour: '12:00',
-      date: '12 jun',
-      image: avatarImage,
-      seats: 3,
-      price: 50,
-      name: 'david',
-      phone: '054-1234567',
-    },
-    {
-      id: 2,
-      origin: {
-        formatted_address: 'tel aviv',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      destination: {
-        formatted_address: 'atlit',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      hour: '12:00',
-      date: '12 jun',
-      image: avatarImage,
-      seats: 3,
-      price: 50,
-      name: 'dudu',
-      phone: '054-1234567',
-    },
-    {
-      id: 3,
-      origin: {
-        formatted_address: 'tel aviv',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      destination: {
-        formatted_address: 'ramat gan',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      hour: '11:00',
-      date: '15 jun',
-      image: avatarImage,
-      seats: 2,
-      price: 20,
-      name: 'tom',
-      phone: '054-1234567',
-    },
-    {
-      id: 4,
-      origin: {
-        formatted_address: 'eilat',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      destination: {
-        formatted_address: 'kfar saba',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      hour: '17:00',
-      date: '19 jun',
-      image: avatarImage,
-      seats: 1,
-      price: 10,
-      name: 'moshe',
-      phone: '054-1234567',
-    },
-    {
-      id: 5,
-      origin: {
-        formatted_address: 'haifa',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      destination: {
-        formatted_address: 'nahaariya',
-        location: {
-          lng: 34.7818,
-          lat: 32.0853,
-        },
-      },
-      hour: '05:00',
-      date: '12 dec',
-      image: avatarImage,
-      seats: 7,
-      price: 1,
-      name: 'shlomo',
-      phone: '054-1234567',
-    },
-  ];
-  return favoritesRides;
+export const getUpcomingRides = async () => {
+  return [];
+};
+
+export const addRide = async (ride: Ride) => {
+  await setDoc(doc(ridesRef), ride);
+};
+
+export const isWithinRadius = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number,
+  radius: number
+): boolean => {
+  // Radius of the Earth in kilometers (mean value)
+  const R = 7;
+
+  // Convert latitude and longitude from degrees to radians
+  const radLat1 = (Math.PI * lat1) / 180;
+  const radLon1 = (Math.PI * lon1) / 180;
+  const radLat2 = (Math.PI * lat2) / 180;
+  const radLon2 = (Math.PI * lon2) / 180;
+
+  // Haversine formula
+  const dLon = radLon2 - radLon1;
+  const dLat = radLat2 - radLat1;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(dLon / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+
+  return distance <= radius;
+};
+
+export const getRides = async (rideDate: {
+  date: Date;
+  time: Date;
+  origin: Point;
+  destination: Point;
+}): Promise<Ride[]> => {
+  const RADIUS = 7;
+  const querySnapshot = await getDocs(collection(db, 'rides'));
+  const allRides = querySnapshot.docs.map((doc) => doc.data()) as Ride[];
+
+  return allRides.filter((ride: Ride) => {
+    return (
+      isWithinRadius(
+        ride.origin.location!.lat,
+        ride.origin.location!.lng,
+        rideDate.origin.lat,
+        rideDate.origin.lng,
+        RADIUS
+      ) &&
+      isWithinRadius(
+        ride.destination.location!.lat,
+        ride.destination.location!.lng,
+        rideDate.destination.lat,
+        rideDate.destination.lng,
+        RADIUS
+      )
+    );
+  });
 };

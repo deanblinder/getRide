@@ -1,22 +1,10 @@
 import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
-import { Location } from '../../typing';
-
-export type Ride = {
-  id: number;
-  origin: Location;
-  destination: Location;
-  hour: string;
-  date: string;
-  image: string;
-  seats: number;
-  price: number;
-  name: string;
-  phone: string;
-};
+import { Ride } from '../../typing';
 
 export type Props = {
   ride: Ride;
+  disabled?: boolean;
 };
 
 const usePresenter = (props: Props) => {

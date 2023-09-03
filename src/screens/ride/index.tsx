@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'native-base';
+import { View, Text, Image, ScrollView } from 'native-base';
 import React from 'react';
 import { Card } from '@rneui/base';
 import { Props } from './usePresenter';
@@ -8,8 +8,8 @@ import GoogleMap from '../../components/googleMap';
 const RideScreen = (props: Props) => {
   const { ride } = props.route.params;
   return (
-    <View style={{ flex: 1, justifyContent: 'space-between' }}>
-      <RideCard ride={ride} />
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <RideCard ride={ride} disabled />
       <View style={{ flex: 1, margin: '5%' }}>
         <GoogleMap
           destination={{
@@ -22,7 +22,7 @@ const RideScreen = (props: Props) => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
