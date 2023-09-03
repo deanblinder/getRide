@@ -11,4 +11,5 @@ export const endpoints = {
       destination.lng
     }&key=${'AIzaSyCaBAGiUbPLCLYCryxhZiqYo7f7aNitmzw'}`;
   },
+  USERS: 'https://getride-e4c3e-default-rtdb.firebaseio.com',
 };
