@@ -19,10 +19,10 @@ const Rides = () => {
   return (
     <ScrollView contentContainerStyle={{ display: 'flex' }}>
       <Text style={{ padding: '5%' }} fontSize={typography.fontSizes['2xl']}>
-        Previous rides
+        Upcoming rides
       </Text>
-      {upcomingRides.map((ride) => (
-        <RideCard key={ride.rideId} ride={ride} />
+      {upcomingRides.map((ride, index) => (
+        <RideCard key={index} ride={ride} />
       ))}
     </ScrollView>
   );

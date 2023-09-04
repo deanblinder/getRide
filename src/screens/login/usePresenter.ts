@@ -9,10 +9,12 @@ const usePresenter = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     if (email && password) {
       try {
+        setLoading(true);
         const userCredentials = await signInWithEmailAndPassword(
           auth,
           email,
@@ -23,6 +25,8 @@ const usePresenter = () => {
         dispatch(setUser(user));
       } catch (err) {
         console.log('handleLogin error', err);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -39,6 +43,7 @@ const usePresenter = () => {
     handleLogin,
     onChangeEmail,
     onChangePassword,
+    loading,
   };
 };
 export default usePresenter;

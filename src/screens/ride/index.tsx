@@ -17,7 +17,7 @@ const RideScreen = (props: Props) => {
             location: ride.destination.location,
           }}
           origin={{
-            formatted_address: ride.name,
+            formatted_address: ride.origin.formatted_address,
             location: ride.origin.location,
           }}
         />

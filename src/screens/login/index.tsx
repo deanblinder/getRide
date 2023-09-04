@@ -3,10 +3,11 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text } from '@rneui/base';
 import { navigationService } from '../../services';
 import usePresenter from './usePresenter';
-import { Button, Input, Stack } from 'native-base';
+import { Button, Input, Spinner, Stack } from 'native-base';
 
 const Login = () => {
-  const { handleLogin, onChangePassword, onChangeEmail } = usePresenter();
+  const { handleLogin, onChangePassword, onChangeEmail, loading } =
+    usePresenter();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text h2>Enter Your Details</Text>
@@ -25,7 +26,9 @@ const Login = () => {
           />
         </Stack>
       </View>
-      <Button onPress={handleLogin}>Submit</Button>
+      <Button onPress={handleLogin} disabled={loading}>
+        {loading ? <Spinner color="emerald.500" /> : 'submit'}
+      </Button>
     </ScrollView>
   );
 };

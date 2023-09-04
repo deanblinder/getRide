@@ -6,14 +6,19 @@ import usePresenter from './usePresenter';
 
 const Profile = () => {
   const { user } = usePresenter();
+  console.log('### date ', user);
+
+  const birthDate = new Date(user?.birthDate.seconds).toDateString();
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.avatar}>
         <Avatar
+          style={{ marginBottom: '5%' }}
           size="xl"
           bg="green.500"
           source={{
-            uri: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+            uri: user?.profileImage,
           }}
         />
         <Text fontSize={typography.fontSizes['2xl']}>
@@ -43,25 +48,7 @@ const Profile = () => {
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['2xl']}
         >
-          Birth Date: {user?.birthDate}
-        </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
-          Rides Given:
-        </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
-          Rating:
-        </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
-          Facebook: {user?.facebookLink?.toLowerCase()}
+          Birth Date: {birthDate}
         </Text>
       </View>
     </ScrollView>
@@ -75,6 +62,7 @@ const styles = StyleSheet.create({
   avatar: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: '5%',
   },
 });
 

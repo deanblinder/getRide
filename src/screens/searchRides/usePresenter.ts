@@ -1,6 +1,6 @@
 import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
 
@@ -10,7 +10,7 @@ const usePresenter = () => {
     undefined
   );
   const [rides, setRides] = useState<Ride[] | undefined>(undefined);
-  const [shouldShowRides, setShouldShowRides] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getOrigin = (origin: Location) => {
     setOrigin(origin);
@@ -33,7 +33,7 @@ const usePresenter = () => {
 
   const onSearchPress = async () => {
     if (!destination?.location || !origin?.location) return;
-
+    setLoading(true);
     const rides = await ridesActions.getRides({
       origin: origin.location,
       destination: destination.location,
@@ -41,6 +41,7 @@ const usePresenter = () => {
       time: new Date(),
     });
     setRides(rides);
+    setLoading(false);
   };
   return {
     onOriginPressed,
@@ -48,7 +49,7 @@ const usePresenter = () => {
     origin,
     destination,
     rides,
-    shouldShowRides,
+    loading,
     onSearchPress,
   };
 };

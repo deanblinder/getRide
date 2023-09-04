@@ -7,15 +7,33 @@ import usePresenter, { Props } from './usePresenter';
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
 
-  const { pushRidePage } = usePresenter(props);
+  const {
+    pushRidePage,
+    onChatPress,
+    onViewProfilePress,
+    shouldCardBeDisabled,
+    isMyRide,
+  } = usePresenter(props);
 
   const hour = new Date(parseInt(ride.hour)).getHours().toString();
   const min = new Date(parseInt(ride.hour)).getMinutes().toString();
   const time = hour + ':' + min;
 
   return (
-    <TouchableOpacity onPress={pushRidePage} disabled={disabled}>
+    <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
       <Card>
+        <View
+          style={{
+            alignContent: 'flex-end',
+          }}
+        >
+          <View
+            style={{ justifyContent: 'space-between', flexDirection: 'row' }}
+          >
+            <Text>{ride.seats} seats available</Text>
+            <Text>{isMyRide ? 'Edit' : undefined}</Text>
+          </View>
+        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -48,8 +66,12 @@ const RideCard = (props: Props) => {
               marginTop: '10%',
             }}
           >
-            <Button style={{ width: '45%' }}>Chat</Button>
-            <Button style={{ width: '45%' }}>See Profile</Button>
+            <Button style={{ width: '45%' }} onPress={onChatPress}>
+              Chat
+            </Button>
+            <Button style={{ width: '45%' }} onPress={onViewProfilePress}>
+              See Profile
+            </Button>
           </View>
         )}
       </Card>

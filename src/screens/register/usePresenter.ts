@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/auth/authActions';
 import { useState } from 'react';
-import { collection, doc, setDoc } from 'firebase/firestore';
-
+import { doc, setDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-
-import { auth, usersRef } from '../../config/firebase';
+import * as ImagePicker from 'expo-image-picker';
+import { auth, storage, usersRef } from '../../config/firebase';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
 import { Location } from '../../typing';
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 const usePresenter = () => {
   const dispatch = useDispatch();
@@ -15,15 +16,18 @@ const usePresenter = () => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState<string | undefined>(
+    undefined
+  );
   const [phoneNumber, setPhoneNumber] = useState('');
   const [address, setAddress] = useState<Location | undefined>(undefined);
   const [facebookLink, setFacebookLink] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-
+  const [birthDate, setBirthDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
   const handleSignup = async () => {
     if (email && password) {
       try {
+        setLoading(true);
         const userCredentials = await createUserWithEmailAndPassword(
           auth,
           email,
@@ -43,6 +47,7 @@ const usePresenter = () => {
         };
 
         await setDoc(doc(usersRef), user);
+        setLoading(false);
         dispatch(setUser(user));
       } catch (err) {
         console.log('handle register error', err);
@@ -85,43 +90,38 @@ const usePresenter = () => {
     setFacebookLink(text);
   };
 
-  const onChangeBirthDate = (text: string) => {
-    setBirthDate(text);
+  const onChangeBirthDate = (
+    event: DateTimePickerEvent,
+    date?: Date | undefined
+  ) => {
+    setBirthDate(date!);
   };
 
-  // const handleGoogleAuth = async () => {
-  //   console.log('#########', signInWithPopup);
-  //   const userCred = await signInWithPopup(auth, new GoogleAuthProvider());
-  //
-  // getRedirectResult(auth)
-  //   .then((result) => {
-  //     console.log('#########');
-  //     // This gives you a Google Access Token. You can use it to access Google APIs.
-  //     const credential = GoogleAuthProvider.credentialFromResult(result);
-  //     const token = credential?.accessToken;
-  //
-  //     // The signed-in user info.
-  //     const user = result?.user;
-  //     // IdP data available using getAdditionalUserInfo(result)
-  //     // ...
-  //   })
-  //   .catch((error) => {
-  //     // Handle Errors here.
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     const email = error.customData.email;
-  //     // The AuthCredential type that was used.
-  //     const credential = GoogleAuthProvider.credentialFromError(error);
-  //     // ...
-  //   });
-  // };
+  const uploadImage = async (uri: string) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const storageRef = ref(storage, 'images/' + 'testImage');
+    const uploadTask = uploadBytesResumable(storageRef, blob);
+
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      setProfileImage(downloadURL);
+    });
+  };
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+    if (!result.canceled) {
+      await uploadImage(result.assets[0].uri);
+    }
+  };
 
   return {
     handleSignup,
     onChangeEmail,
     onChangePassword,
-    // handleGoogleAuth,
     onChangeFirstName,
     onChangeLastName,
     onChangeProfileImage,
@@ -129,6 +129,10 @@ const usePresenter = () => {
     onChangeAddress,
     onChangeFacebookLink,
     onChangeBirthDate,
+    pickImageAsync,
+    profileImage,
+    birthDate,
+    loading,
   };
 };
 export default usePresenter;

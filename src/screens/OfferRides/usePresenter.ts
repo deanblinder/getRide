@@ -60,6 +60,7 @@ const usePresenter = () => {
     };
 
     ridesActions.addRide(ride);
+    navigationService.pop();
   };
 
   const onOriginPressed = () => {

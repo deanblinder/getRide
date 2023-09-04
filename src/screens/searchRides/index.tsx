@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
-import GoogleMap from '../../components/googleMap';
-import { Input, Button, Stack, Icon } from 'native-base';
+import { Input, Button, Stack, Spinner } from 'native-base';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import RideCard from '../../components/rideCard';
 
@@ -16,6 +15,7 @@ const SearchRides = () => {
     destination,
     rides,
     onSearchPress,
+    loading,
   } = usePresenter();
 
   const renderRides = () => {
@@ -54,7 +54,7 @@ const SearchRides = () => {
           <RNDateTimePicker value={new Date()} mode="time" display="default" />
         </View>
         <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
-          Search
+          {loading ? <Spinner color="emerald.500" /> : 'search'}
         </Button>
       </Card>
       {renderRides()}
