@@ -15,7 +15,7 @@ export type User = {
   phoneNumber?: string;
   address?: Location;
   facebookLink?: string;
-  birthDate?: string;
+  birthDate?: Date;
 };
 
 export type Ride = {
@@ -28,4 +28,11 @@ export type Ride = {
   seats: number;
   price: number;
   userImage?: string;
+};
+
+export type Message = {
+  id: string;
+  content: string;
+  createdAt: Date;
+  userId: string;
 };

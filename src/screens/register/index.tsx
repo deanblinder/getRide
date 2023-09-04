@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text } from '@rneui/base';
 import usePresenter from './usePresenter';
-import { Button, Stack, Input, ScrollView } from 'native-base';
+import { Button, Stack, Input, ScrollView, Icon, Spinner } from 'native-base';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 // @ts-ignore
 import { API_KEY } from '@env';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const Register = () => {
   const {
@@ -16,9 +19,11 @@ const Register = () => {
     onChangeLastName,
     onChangeAddress,
     onChangePhoneNumber,
-    onChangeProfileImage,
+    pickImageAsync,
+    birthDate,
     onChangeBirthDate,
-    onChangeFacebookLink,
+    profileImage,
+    loading,
   } = usePresenter();
 
   return (
@@ -47,20 +52,51 @@ const Register = () => {
           size="lg"
         />
         <Input
-          placeholder={'Profile Image'}
-          onChangeText={onChangeProfileImage}
+          onPressIn={pickImageAsync}
+          placeholder={
+            profileImage ? 'Edit Profile Image' : 'Add Profile Image'
+          }
           size="lg"
+          InputRightElement={
+            profileImage ? (
+              <Icon
+                as={<MaterialIcon name="check" />}
+                size={5}
+                ml="2"
+                color="muted.400"
+              />
+            ) : undefined
+          }
         />
         <Input
           placeholder={'Phone Number'}
           onChangeText={onChangePhoneNumber}
           size="lg"
         />
-        <Input
-          placeholder={'Date of Birth'}
-          onChangeText={onChangeBirthDate}
-          size="lg"
-        />
+        {/*<Input*/}
+        {/*  placeholder={'Date of Birth'}*/}
+        {/*  onChangeText={onChangeBirthDate}*/}
+        {/*  size="lg"*/}
+        {/*/>*/}
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row-reverse',
+            direction: 'rtl',
+            width: '100%',
+            alignItems: 'center',
+            borderStyle: 'solid',
+            borderColor: 'grey',
+            borderWidth: 1,
+          }}
+        >
+          <Text style={{ marginRight: '5%' }}>Add birthdate</Text>
+          <RNDateTimePicker
+            value={birthDate}
+            onChange={onChangeBirthDate}
+            display="default"
+          />
+        </View>
         <GooglePlacesAutocomplete
           placeholder="Home Address"
           fetchDetails={true}
@@ -80,13 +116,10 @@ const Register = () => {
             language: 'en',
           }}
         />
-        <Input
-          placeholder={'FaceBook link'}
-          onChangeText={onChangeFacebookLink}
-          size="lg"
-        />
       </Stack>
-      <Button onPress={handleSignup}>Submit</Button>
+      <Button onPress={handleSignup}>
+        {loading ? <Spinner color="emerald.500" /> : 'submit'}
+      </Button>
     </ScrollView>
   );
 };

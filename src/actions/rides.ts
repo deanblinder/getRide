@@ -3,8 +3,12 @@ import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { Ride } from '../typing';
 import { Point } from 'react-native-google-places-autocomplete';
 
-export const getUpcomingRides = async () => {
-  return [];
+export const getUpcomingRides = async (userId: string) => {
+  const querySnapshot = await getDocs(collection(db, 'rides'));
+  const allRides = querySnapshot.docs.map((doc) => doc.data()) as Ride[];
+  return allRides.filter(
+    (ride) => new Date(ride.date) >= new Date() && ride.userId === userId
+  );
 };
 
 export const addRide = async (ride: Ride) => {

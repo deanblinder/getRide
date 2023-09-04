@@ -10,7 +10,6 @@ import { navigationService } from './services';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Profile from './screens/profile';
-import Rides from './screens/upcomingRides';
 import { screenIds } from './constants';
 import { useSelector } from 'react-redux';
 import { AuthState } from './redux/auth/authReducer';
@@ -19,6 +18,8 @@ import SearchRidesDestination from './screens/searchDestination';
 import OfferRides from './screens/OfferRides';
 import SearchRides from './screens/searchRides';
 import RideScreen from './screens/ride';
+import Rides from './screens/upcomingRides';
+import Conversation from './screens/conversation';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -55,6 +56,11 @@ const App = () => {
           name={screenIds.RIDE_SCREEN}
           component={RideScreen}
         />
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.CONVERSATION_SCREEN}
+          component={Conversation}
+        />
       </Stack.Navigator>
     );
   };
@@ -63,6 +69,16 @@ const App = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen name={screenIds.RIDES_SCREEN} component={Rides} />
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.RIDE_SCREEN}
+          component={RideScreen}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.CONVERSATION_SCREEN}
+          component={Conversation}
+        />
       </Stack.Navigator>
     );
   };

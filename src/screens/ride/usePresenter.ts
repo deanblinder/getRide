@@ -1,12 +1,12 @@
-import React from "react";
-import { Ride } from "../../components/rideCard/usePresenter";
+import { Ride } from '../../typing';
+
 export type Props = {
-    route:{
-        params:{
-            ride:Ride
-        }
-    }
+  route: {
+    params: {
+      ride: Ride;
+    };
+  };
 };
 export const usePresenter = () => {
-    return {};
-}
+  return {};
+};
