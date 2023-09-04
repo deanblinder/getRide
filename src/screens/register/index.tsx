@@ -27,7 +27,11 @@ const Register = () => {
   } = usePresenter();
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardDismissMode="interactive"
+      keyboardShouldPersistTaps
+    >
       <Text h2>Enter Your Details</Text>
       <Stack space={5} w="75%" maxW="300px" mx="auto">
         <Input
@@ -50,6 +54,25 @@ const Register = () => {
           placeholder={'Last Name'}
           onChangeText={onChangeLastName}
           size="lg"
+        />
+        <GooglePlacesAutocomplete
+          placeholder="Home Address"
+          fetchDetails={true}
+          onPress={(data, details = null) => {
+            onChangeAddress(details);
+            // 'details' is provided when fetchDetails = true
+            console.log(data, details);
+          }}
+          styles={{
+            textInput: styles.googleTextInput,
+            height: 50,
+            backgroundColor: 'white',
+            marginTop: 20,
+          }}
+          query={{
+            key: API_KEY,
+            language: 'en',
+          }}
         />
         <Input
           onPressIn={pickImageAsync}
@@ -97,27 +120,8 @@ const Register = () => {
             display="default"
           />
         </View>
-        <GooglePlacesAutocomplete
-          placeholder="Home Address"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            onChangeAddress(details);
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.googleTextInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: API_KEY,
-            language: 'en',
-          }}
-        />
       </Stack>
-      <Button onPress={handleSignup}>
+      <Button onPress={handleSignup} disabled={loading}>
         {loading ? <Spinner color="emerald.500" /> : 'submit'}
       </Button>
     </ScrollView>

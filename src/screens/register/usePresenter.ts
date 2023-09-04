@@ -25,7 +25,7 @@ const usePresenter = () => {
   const [birthDate, setBirthDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const handleSignup = async () => {
-    if (email && password) {
+    if (email && password && phoneNumber) {
       try {
         setLoading(true);
         const userCredentials = await createUserWithEmailAndPassword(
@@ -42,15 +42,16 @@ const usePresenter = () => {
           phoneNumber,
           address,
           facebookLink,
-          birthDate,
+          birthDate: birthDate.toDateString(),
           uid: userCredentials.user.uid,
         };
-
         await setDoc(doc(usersRef), user);
         setLoading(false);
         dispatch(setUser(user));
       } catch (err) {
         console.log('handle register error', err);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -80,6 +81,7 @@ const usePresenter = () => {
   };
 
   const onChangeAddress = (details: GooglePlaceDetail | null) => {
+    console.log('### details', details);
     setAddress({
       formatted_address: details?.formatted_address,
       location: details?.geometry?.location,
@@ -98,15 +100,29 @@ const usePresenter = () => {
   };
 
   const uploadImage = async (uri: string) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const storageRef = ref(storage, 'images/' + 'testImage');
-    const uploadTask = uploadBytesResumable(storageRef, blob);
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      const fileName = uri.substring(uri.lastIndexOf('/') + 1);
 
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      setProfileImage(downloadURL);
-    });
+      const storageRef = ref(storage, 'images/' + fileName);
+      const uploadTask = uploadBytesResumable(storageRef, blob);
+
+      uploadTask.then(() => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('### download', downloadURL);
+          setProfileImage(downloadURL);
+        });
+      });
+    } catch (err) {
+      console.log('### upload image error', err);
+    }
   };
+
+  // getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+  //   console.log('### download', downloadURL);
+  //   setProfileImage(downloadURL);
+  // });
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
