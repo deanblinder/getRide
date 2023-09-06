@@ -20,8 +20,9 @@ const SearchRides = () => {
     setRideRadius,
     isButtonDisabled,
     setShowDatePicker,
-    showDatePicker,
+    shouldShowDatePicker,
     onDateChange,
+    clearSearch,
   } = usePresenter();
 
   const renderRides = () => {
@@ -58,20 +59,22 @@ const SearchRides = () => {
               w="100%"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-            <Input
-              editable={false}
-              selectTextOnFocus={false}
-              onPressIn={() => setShowDatePicker(true)}
-              // value={destination?.formatted_address}
-              placeholder="Enter Date"
-              w="100%"
-            />
-          </TouchableOpacity>
+          {!shouldShowDatePicker && (
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <Input
+                editable={false}
+                selectTextOnFocus={false}
+                onPressIn={() => setShowDatePicker(true)}
+                // value={destination?.formatted_address}
+                placeholder="Enter Date"
+                w="100%"
+              />
+            </TouchableOpacity>
+          )}
         </Stack>
 
         <View style={{ flexDirection: 'row', marginTop: '5%' }}>
-          {showDatePicker && (
+          {shouldShowDatePicker && (
             <RNDateTimePicker
               value={new Date()}
               display="default"
@@ -97,10 +100,16 @@ const SearchRides = () => {
         </Slider>
         <Button
           style={{ padding: '5%', margin: '5%' }}
-          onPress={onSearchPress}
+          onPress={rides ? clearSearch : onSearchPress}
           disabled={isButtonDisabled}
         >
-          {loading ? <Spinner color="emerald.500" /> : 'search'}
+          {loading ? (
+            <Spinner color="emerald.500" />
+          ) : rides ? (
+            'Clear Search'
+          ) : (
+            'search'
+          )}
         </Button>
       </Card>
       {renderRides()}

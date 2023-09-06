@@ -33,7 +33,7 @@ const OfferStack: React.FC = () => {
         component={RideScreen}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal' }}
+        options={{ presentation: 'modal' }}
         name={screenIds.PROFILE_SCREEN}
         component={Profile}
       />

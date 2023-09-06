@@ -22,8 +22,8 @@ const OfferRides = () => {
     onPriceChange,
     onSeatsChange,
     isButtonDisabled,
-    showDatePicker,
-    showTimePicker,
+    shouldShowDatePicker,
+    shouldShowTimePicker,
     setShowTimePicker,
     setShowDatePicker,
     loading,
@@ -61,34 +61,38 @@ const OfferRides = () => {
               flexDirection: 'row',
             }}
           >
-            <TouchableOpacity
-              style={{ width: '40%' }}
-              onPress={() => {
-                setShowDatePicker(true);
-              }}
-            >
-              <Input
-                onPressIn={() => {
+            {!shouldShowDatePicker && (
+              <TouchableOpacity
+                style={{ width: '40%' }}
+                onPress={() => {
                   setShowDatePicker(true);
                 }}
-                placeholder="Enter Date"
-                w="100%"
-                editable={false}
-                selectTextOnFocus={false}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ width: '40%' }}
-              onPress={() => setShowTimePicker(true)}
-            >
-              <Input
-                onPressIn={() => setShowTimePicker(true)}
-                placeholder="Enter Time"
-                w="100%"
-                editable={false}
-                selectTextOnFocus={false}
-              />
-            </TouchableOpacity>
+              >
+                <Input
+                  onPressIn={() => {
+                    setShowDatePicker(true);
+                  }}
+                  placeholder="Enter Date"
+                  w="100%"
+                  editable={false}
+                  selectTextOnFocus={false}
+                />
+              </TouchableOpacity>
+            )}
+            {!shouldShowTimePicker && (
+              <TouchableOpacity
+                style={{ width: '40%' }}
+                onPress={() => setShowTimePicker(true)}
+              >
+                <Input
+                  onPressIn={() => setShowTimePicker(true)}
+                  placeholder="Enter Time"
+                  w="100%"
+                  editable={false}
+                  selectTextOnFocus={false}
+                />
+              </TouchableOpacity>
+            )}
           </View>
           <Text>seats: {seats}</Text>
           <Slider
@@ -122,14 +126,14 @@ const OfferRides = () => {
           </Slider>
         </Stack>
         <View style={{ flexDirection: 'row', marginTop: '5%' }}>
-          {showDatePicker && (
+          {shouldShowDatePicker && (
             <RNDateTimePicker
               value={date}
               onChange={onDateChange}
               display="default"
             />
           )}
-          {showTimePicker && (
+          {shouldShowTimePicker && (
             <RNDateTimePicker
               value={time}
               onChange={onTimeChange}

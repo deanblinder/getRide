@@ -18,21 +18,22 @@ const GetRide = () => {
 
   const Tab = createBottomTabNavigator();
   const user = useSelector((state: AuthState) => state.user);
-
+  console.log('###user', user);
   const [profileImage, setProfileImage] = useState('');
 
-  // useEffect(() => {
-  //   getUser();
-  // }, []);
-  //
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
+    console.log('###', user);
+    user && dispatch(setUser(user));
+  };
+
   // useEffect(() => {
   //   user?.profileImage && setProfileImage(user?.profileImage);
   // }, [user?.profileImage]);
-
-  // const getUser = async () => {
-  //   const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
-  //   user && dispatch(setUser(user));
-  // };
 
   const CustomHeaderComponent = () => {
     const navigation = useNavigation();

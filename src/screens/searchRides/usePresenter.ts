@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
-import { Platform } from 'react-native';
+import { IS_IOS } from '../OfferRides/usePresenter';
 
 const usePresenter = () => {
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
@@ -15,13 +15,11 @@ const usePresenter = () => {
   const [radius, setRadius] = useState(7);
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(
-    Platform.OS === 'ios'
-  );
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
 
   const onDateChange = (event: any, selectedDate: any) => {
     if (selectedDate) {
-      setShowDatePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setShowDatePicker(IS_IOS);
       setDate(selectedDate);
     }
   };
@@ -42,6 +40,12 @@ const usePresenter = () => {
     navigation.navigate(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
       getLocations: getOrigin,
     });
+  };
+
+  const clearSearch = () => {
+    setOrigin(undefined);
+    setDestination(undefined);
+    setRides(undefined);
   };
 
   const onDestinationPressed = () => {
@@ -81,9 +85,10 @@ const usePresenter = () => {
     setRideRadius,
     radius,
     isButtonDisabled: !origin || !destination,
-    showDatePicker,
+    shouldShowDatePicker: IS_IOS || showDatePicker,
     setShowDatePicker,
     onDateChange,
+    clearSearch,
   };
 };
 export default usePresenter;

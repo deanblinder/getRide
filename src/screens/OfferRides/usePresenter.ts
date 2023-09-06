@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
 import { Platform } from 'react-native';
 
+export const IS_IOS = Platform.OS === 'ios';
+
 const usePresenter = () => {
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
   const [destination, setDestination] = useState<Location | undefined>(
@@ -19,23 +21,19 @@ const usePresenter = () => {
   const [seats, setSeats] = useState<number>(4);
   const [price, setPrice] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(
-    Platform.OS === 'ios'
-  );
-  const [showTimePicker, setShowTimePicker] = useState<boolean>(
-    Platform.OS === 'ios'
-  );
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
+  const [showTimePicker, setShowTimePicker] = useState<boolean>(IS_IOS);
 
   const onDateChange = (event: any, selectedDate: any) => {
     if (selectedDate) {
-      setShowDatePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setShowDatePicker(IS_IOS); // On Android, it's better to manually control when to close the picker
       setDate(selectedDate);
     }
   };
 
   const onTimeChange = (event: any, selectedDate: any) => {
     if (selectedDate) {
-      setShowTimePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setShowTimePicker(IS_IOS); // On Android, it's better to manually control when to close the picker
       setTime(selectedDate);
     }
   };
@@ -142,8 +140,8 @@ const usePresenter = () => {
     onPriceChange,
     price,
     isButtonDisabled: !origin || !destination || !time || !date,
-    showDatePicker,
-    showTimePicker,
+    shouldShowDatePicker: showDatePicker || IS_IOS,
+    shouldShowTimePicker: showTimePicker || IS_IOS,
     setShowTimePicker,
     setShowDatePicker,
     loading,

@@ -109,11 +109,13 @@ const MapViewScreen = (props: Props) => {
             title="My location"
           />
         )}
-        <Polyline
-          coordinates={routeCoordinates}
-          strokeWidth={3}
-          strokeColor="red"
-        />
+        {destination && origin && (
+          <Polyline
+            coordinates={routeCoordinates}
+            strokeWidth={3}
+            strokeColor="red"
+          />
+        )}
       </MapView>
     </View>
   );
