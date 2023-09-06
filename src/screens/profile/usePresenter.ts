@@ -11,16 +11,18 @@ const usePresenter = () => {
   const [profileImage, setProfileImage] = useState<string | undefined>(
     user?.profileImage
   );
+  const [profileImageLoading, setProfileImageLoading] =
+    useState<boolean>(false);
 
   const uploadImage = async (uri: string) => {
     try {
+      setProfileImageLoading(true);
       const response = await fetch(uri);
       const blob = await response.blob();
-      const fileName = uri.substring(uri.lastIndexOf('/') + 1);
 
+      const fileName = uri.substring(uri.lastIndexOf('/') + 1);
       const storageRef = ref(storage, 'images/' + fileName);
       const uploadTask = uploadBytesResumable(storageRef, blob);
-
       uploadTask.then(() => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           usersActions.updateUser(user?.uid!, {
@@ -32,6 +34,8 @@ const usePresenter = () => {
       });
     } catch (err) {
       console.log('### upload image error', err);
+    } finally {
+      setProfileImageLoading(false);
     }
   };
 
@@ -50,7 +54,7 @@ const usePresenter = () => {
     }
   };
 
-  return { user, onAvatarPress, profileImage };
+  return { user, onAvatarPress, profileImage, profileImageLoading };
 };
 
 export default usePresenter;

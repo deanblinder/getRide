@@ -26,12 +26,12 @@ const usePresenter = () => {
       } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
           alert('User not found');
-        }
-        if (error.code === 'auth/wrong-password') {
+        } else if (error.code === 'auth/wrong-password') {
           alert('Wrong password');
-        }
-        if (error.code === 'auth/invalid-email') {
+        } else if (error.code === 'auth/invalid-email') {
           alert('Invalid email');
+        } else {
+          alert(error);
         }
         console.log('handleLogin error', error);
       } finally {

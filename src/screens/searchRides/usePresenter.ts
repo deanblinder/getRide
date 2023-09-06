@@ -1,10 +1,10 @@
-import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
 import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
 import { IS_IOS } from '../OfferRides/usePresenter';
+import { useToast } from 'native-base';
 
 const usePresenter = () => {
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
@@ -16,6 +16,7 @@ const usePresenter = () => {
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
+  const toast = useToast();
 
   const onDateChange = (event: any, selectedDate: any) => {
     if (selectedDate) {
@@ -57,7 +58,13 @@ const usePresenter = () => {
   };
 
   const onSearchPress = async () => {
-    if (!destination?.location || !origin?.location) return;
+    if (!destination?.location || !origin?.location) {
+      toast.show({
+        title: 'Please select origin and destination',
+      });
+      return;
+    }
+
     setLoading(true);
     const rides = await ridesActions.getRides({
       origin: origin.location,
@@ -84,7 +91,6 @@ const usePresenter = () => {
     onSearchPress,
     setRideRadius,
     radius,
-    isButtonDisabled: !origin || !destination,
     shouldShowDatePicker: IS_IOS || showDatePicker,
     setShowDatePicker,
     onDateChange,

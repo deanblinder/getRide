@@ -68,7 +68,12 @@ const usePresenter = () => {
   };
 
   const addRide = async () => {
-    if (!origin || !destination || !time || !date) return;
+    if (!origin || !destination) {
+      toast.show({
+        title: 'Please enter all fields',
+      });
+      return;
+    }
 
     const chance = new Chance();
 
@@ -139,7 +144,6 @@ const usePresenter = () => {
     seats,
     onPriceChange,
     price,
-    isButtonDisabled: !origin || !destination || !time || !date,
     shouldShowDatePicker: showDatePicker || IS_IOS,
     shouldShowTimePicker: showTimePicker || IS_IOS,
     setShowTimePicker,

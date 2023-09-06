@@ -39,7 +39,6 @@ const usePresenter = () => {
             alert(error);
           }
         }
-
         console.log('handle register error', error);
       } finally {
         setLoading(false);

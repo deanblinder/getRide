@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Text } from 'native-base';
+import { Avatar, Spinner, Text } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter from './usePresenter';
 
 const Profile = () => {
-  const { user, onAvatarPress, profileImage } = usePresenter();
-
-  const birthDate = new Date(user?.birthDate!).toDateString();
+  const { user, onAvatarPress, profileImage, profileImageLoading } =
+    usePresenter();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -22,24 +21,41 @@ const Profile = () => {
             }}
           />
           <TouchableOpacity onPress={onAvatarPress}>
-            <Avatar
-              style={{
-                marginBottom: '5%',
-                position: 'absolute',
-                right: 5,
-                bottom: 5,
-              }}
-              size="sm"
-              bg="blue.500"
-              source={{
-                uri: 'profileImage',
-              }}
-            />
+            {profileImageLoading ? (
+              <Spinner
+                style={{
+                  marginBottom: '5%',
+                  position: 'absolute',
+                  right: 5,
+                  bottom: 5,
+                }}
+                color="emerald.500"
+              />
+            ) : (
+              <Avatar
+                style={{
+                  borderStyle: 'soled',
+                  borderWidth: 3,
+                  borderColor: 'white',
+                  marginBottom: '5%',
+                  position: 'absolute',
+                  right: 5,
+                  bottom: 5,
+                }}
+                size="sm"
+                bg="blue.500"
+                source={{
+                  uri: 'profileImage',
+                }}
+              />
+            )}
           </TouchableOpacity>
         </View>
-        <Text fontSize={typography.fontSizes['2xl']}>
-          {user?.firstName + ' ' + user?.lastName}
-        </Text>
+        {(user?.firstName || user?.lastName) && (
+          <Text fontSize={typography.fontSizes['2xl']}>
+            {user?.firstName + ' ' + user?.lastName}
+          </Text>
+        )}
       </View>
       <View>
         <Text
@@ -54,18 +70,6 @@ const Profile = () => {
         >
           Phone: {user?.phoneNumber}
         </Text>
-        {/*<Text*/}
-        {/*  style={{ marginBottom: '2%' }}*/}
-        {/*  fontSize={typography.fontSizes['2xl']}*/}
-        {/*>*/}
-        {/*  Address: {user?.address?.formatted_address}*/}
-        {/*</Text>*/}
-        {/*<Text*/}
-        {/*  style={{ marginBottom: '2%' }}*/}
-        {/*  fontSize={typography.fontSizes['2xl']}*/}
-        {/*>*/}
-        {/*  Birth Date: {birthDate}*/}
-        {/*</Text>*/}
       </View>
     </ScrollView>
   );

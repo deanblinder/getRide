@@ -21,7 +21,6 @@ const OfferRides = () => {
     price,
     onPriceChange,
     onSeatsChange,
-    isButtonDisabled,
     shouldShowDatePicker,
     shouldShowTimePicker,
     setShowTimePicker,
@@ -143,18 +142,7 @@ const OfferRides = () => {
           )}
         </View>
       </Card>
-      {/*<Button*/}
-      {/*  onPress={addRide}*/}
-      {/*  style={{ padding: '5%', margin: '10%' }}*/}
-      {/*  disabled={isButtonDisabled}*/}
-      {/*>*/}
-      {/*  Add Offer*/}
-      {/*</Button>*/}
-      <Button
-        onPress={addRide}
-        disabled={loading || isButtonDisabled}
-        style={{ padding: '5%', margin: '10%' }}
-      >
+      <Button onPress={addRide} style={{ padding: '5%', margin: '10%' }}>
         {loading ? <Spinner color="emerald.500" /> : 'Add Offer'}
       </Button>
     </View>

@@ -21,15 +21,14 @@ const GetRide = () => {
   console.log('###user', user);
   const [profileImage, setProfileImage] = useState('');
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  const getUser = async () => {
-    const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
-    console.log('###', user);
-    user && dispatch(setUser(user));
-  };
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
+  //
+  // const getUser = async () => {
+  //   const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
+  //   user && dispatch(setUser(user));
+  // };
 
   // useEffect(() => {
   //   user?.profileImage && setProfileImage(user?.profileImage);
