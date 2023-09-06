@@ -12,7 +12,8 @@ export const getUpcomingRides = async (userId: string) => {
 };
 
 export const addRide = async (ride: Ride) => {
-  await setDoc(doc(ridesRef), ride);
+  const newRideRef = doc(db, 'rides', ride.rideId);
+  await setDoc(newRideRef, ride);
 };
 
 export const isWithinRadius = (
@@ -23,7 +24,7 @@ export const isWithinRadius = (
   radius: number
 ): boolean => {
   // Radius of the Earth in kilometers (mean value)
-  const R = 7;
+  const R = 6371.0;
 
   // Convert latitude and longitude from degrees to radians
   const radLat1 = (Math.PI * lat1) / 180;
@@ -48,8 +49,8 @@ export const getRides = async (rideDate: {
   time: Date;
   origin: Point;
   destination: Point;
+  radius: number;
 }): Promise<Ride[]> => {
-  const RADIUS = 7;
   const querySnapshot = await getDocs(collection(db, 'rides'));
   const allRides = querySnapshot.docs.map((doc) => doc.data()) as Ride[];
 
@@ -60,14 +61,14 @@ export const getRides = async (rideDate: {
         ride.origin.location!.lng,
         rideDate.origin.lat,
         rideDate.origin.lng,
-        RADIUS
+        rideDate.radius
       ) &&
       isWithinRadius(
         ride.destination.location!.lat,
         ride.destination.location!.lng,
         rideDate.destination.lat,
         rideDate.destination.lng,
-        RADIUS
+        rideDate.radius
       )
     );
   });

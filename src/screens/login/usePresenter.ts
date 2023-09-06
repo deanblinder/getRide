@@ -17,14 +17,23 @@ const usePresenter = () => {
         setLoading(true);
         const userCredentials = await signInWithEmailAndPassword(
           auth,
-          email,
+          email.toLowerCase(),
           password
         );
         const uid = userCredentials.user.uid;
         const user = await usersActions.getUserById(uid);
         dispatch(setUser(user));
-      } catch (err) {
-        console.log('handleLogin error', err);
+      } catch (error: any) {
+        if (error.code === 'auth/user-not-found') {
+          alert('User not found');
+        }
+        if (error.code === 'auth/wrong-password') {
+          alert('Wrong password');
+        }
+        if (error.code === 'auth/invalid-email') {
+          alert('Invalid email');
+        }
+        console.log('handleLogin error', error);
       } finally {
         setLoading(false);
       }

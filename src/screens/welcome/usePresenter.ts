@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
 
 const usePresenter = () => {
   const [shouldShowLogin, setShouldShowLogin] = useState(false);
 
+  const navigation = useNavigation();
+
   const onSignupPressed = () => {
-    navigationService.push(screenIds.REGISTER_SCREEN, {});
+    // @ts-ignore
+    navigation.navigate(screenIds.REGISTER_SCREEN, {});
   };
   const onHaveAccountPressed = () => {
-    navigationService.push(screenIds.LOGIN_SCREEN, {});
+    // @ts-ignore
+    navigation.navigate(screenIds.LOGIN_SCREEN, {});
   };
   return {
     shouldShowLogin,

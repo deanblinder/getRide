@@ -1,12 +1,13 @@
-import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
 import { useState } from 'react';
 import { Location, Ride } from '../../typing';
-import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { ridesActions } from '../../actions';
 import { useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import Chance from 'chance';
+import { useNavigation } from '@react-navigation/native';
+import { useToast } from 'native-base';
+import { Platform } from 'react-native';
 
 const usePresenter = () => {
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
@@ -17,22 +18,39 @@ const usePresenter = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [seats, setSeats] = useState<number>(4);
   const [price, setPrice] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(
+    Platform.OS === 'ios'
+  );
+  const [showTimePicker, setShowTimePicker] = useState<boolean>(
+    Platform.OS === 'ios'
+  );
+
+  const onDateChange = (event: any, selectedDate: any) => {
+    if (selectedDate) {
+      setShowDatePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setDate(selectedDate);
+    }
+  };
+
+  const onTimeChange = (event: any, selectedDate: any) => {
+    if (selectedDate) {
+      setShowTimePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setTime(selectedDate);
+    }
+  };
+
+  // const showDatepicker = () => {
+  //   setShowDatePicker(true);
+  // };
+
+  // const showTimepicker = () => {
+  //   setShowTimePicker(true);
+  // };
 
   const user = useSelector((state: AuthState) => state.user);
-
-  const onTimeChange = (
-    _event: DateTimePickerEvent,
-    time?: Date | undefined
-  ) => {
-    setTime(time ?? new Date());
-  };
-
-  const onDateChange = (
-    _event: DateTimePickerEvent,
-    date?: Date | undefined
-  ) => {
-    setDate(date ?? new Date());
-  };
+  const navigation = useNavigation();
+  const toast = useToast();
 
   const getOrigin = (origin: Location) => {
     setOrigin(origin);
@@ -40,6 +58,15 @@ const usePresenter = () => {
 
   const getDestination = (destination: Location) => {
     setDestination(destination);
+  };
+
+  const clearState = () => {
+    setOrigin(undefined);
+    setDestination(undefined);
+    setTime(new Date());
+    setDate(new Date());
+    setSeats(4);
+    setPrice(0);
   };
 
   const addRide = async () => {
@@ -56,21 +83,38 @@ const usePresenter = () => {
       date: date.toDateString(),
       seats,
       price,
-      userImage: user?.profileImage,
+      userImage: user?.profileImage ?? '',
     };
 
-    ridesActions.addRide(ride);
-    navigationService.pop();
+    try {
+      setLoading(true);
+      await ridesActions.addRide(ride);
+      clearState();
+      setLoading(false);
+      // @ts-ignore
+      await navigation.navigate(screenIds.RIDES_SCREEN);
+      toast.show({
+        description: 'Ride added successfully',
+        color: 'green',
+      });
+    } catch (error) {
+      toast.show({
+        description: 'Ride didnt added',
+        color: 'red',
+      });
+    }
   };
 
   const onOriginPressed = () => {
-    navigationService.push(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
+    // @ts-ignore
+    navigation.navigate(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
       getLocations: getOrigin,
     });
   };
 
   const onDestinationPressed = () => {
-    navigationService.push(screenIds.SEARCH_RIDE_DESTINATION_SCREEN, {
+    // @ts-ignore
+    navigation.navigate(screenIds.SEARCH_RIDE_DESTINATION_SCREEN, {
       getLocations: getDestination,
     });
   };
@@ -97,6 +141,12 @@ const usePresenter = () => {
     seats,
     onPriceChange,
     price,
+    isButtonDisabled: !origin || !destination || !time || !date,
+    showDatePicker,
+    showTimePicker,
+    setShowTimePicker,
+    setShowDatePicker,
+    loading,
   };
 };
 export default usePresenter;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
-import { Input, Button, Stack, Spinner } from 'native-base';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { Input, Button, Stack, Spinner, Slider, Text } from 'native-base';
 import RideCard from '../../components/rideCard';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const SearchRides = () => {
   const {
@@ -16,6 +16,12 @@ const SearchRides = () => {
     rides,
     onSearchPress,
     loading,
+    radius,
+    setRideRadius,
+    isButtonDisabled,
+    setShowDatePicker,
+    showDatePicker,
+    onDateChange,
   } = usePresenter();
 
   const renderRides = () => {
@@ -32,28 +38,68 @@ const SearchRides = () => {
     <ScrollView style={styles.container}>
       <Card containerStyle={{ margin: '10%' }}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          <Input
-            editable={false}
-            selectTextOnFocus={false}
-            value={origin?.formatted_address}
-            onPressIn={onOriginPressed}
-            placeholder="Enter Origin"
-            w="100%"
-          />
-          <Input
-            editable={false}
-            selectTextOnFocus={false}
-            value={destination?.formatted_address}
-            onPressIn={onDestinationPressed}
-            placeholder="Enter Destination"
-            w="100%"
-          />
+          <TouchableOpacity onPress={onOriginPressed}>
+            <Input
+              onPressIn={onOriginPressed}
+              editable={false}
+              selectTextOnFocus={false}
+              value={origin?.formatted_address}
+              placeholder="Enter Origin"
+              w="100%"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onDestinationPressed}>
+            <Input
+              onPressIn={onDestinationPressed}
+              editable={false}
+              selectTextOnFocus={false}
+              value={destination?.formatted_address}
+              placeholder="Enter Destination"
+              w="100%"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+            <Input
+              editable={false}
+              selectTextOnFocus={false}
+              onPressIn={() => setShowDatePicker(true)}
+              // value={destination?.formatted_address}
+              placeholder="Enter Date"
+              w="100%"
+            />
+          </TouchableOpacity>
         </Stack>
+
         <View style={{ flexDirection: 'row', marginTop: '5%' }}>
-          <RNDateTimePicker value={new Date()} display="default" />
-          <RNDateTimePicker value={new Date()} mode="time" display="default" />
+          {showDatePicker && (
+            <RNDateTimePicker
+              value={new Date()}
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
         </View>
-        <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
+        <Text style={{ marginVertical: '5%' }}>
+          radius from search: {radius} km
+        </Text>
+        <Slider
+          defaultValue={7}
+          minValue={0}
+          maxValue={15}
+          accessibilityLabel="hello world"
+          step={1}
+          onChange={setRideRadius}
+        >
+          <Slider.Track>
+            <Slider.FilledTrack />
+          </Slider.Track>
+          <Slider.Thumb />
+        </Slider>
+        <Button
+          style={{ padding: '5%', margin: '5%' }}
+          onPress={onSearchPress}
+          disabled={isButtonDisabled}
+        >
           {loading ? <Spinner color="emerald.500" /> : 'search'}
         </Button>
       </Card>
@@ -68,7 +114,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // justifyContent: 'space-between',
   },
 });
 

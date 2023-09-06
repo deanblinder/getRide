@@ -13,6 +13,8 @@ const RideCard = (props: Props) => {
     onViewProfilePress,
     shouldCardBeDisabled,
     isMyRide,
+    rideUser,
+    onEditPress,
   } = usePresenter(props);
 
   const hour = new Date(parseInt(ride.hour)).getHours().toString();
@@ -31,7 +33,7 @@ const RideCard = (props: Props) => {
             style={{ justifyContent: 'space-between', flexDirection: 'row' }}
           >
             <Text>{ride.seats} seats available</Text>
-            <Text>{isMyRide ? 'Edit' : undefined}</Text>
+            {isMyRide && <Button onPress={onEditPress}>{'Edit'}</Button>}
           </View>
         </View>
         <View
@@ -41,7 +43,7 @@ const RideCard = (props: Props) => {
           }}
         >
           <View style={{ marginRight: '10%' }}>
-            <Avatar source={{ uri: ride.userImage }} />
+            <Avatar source={{ uri: rideUser?.profileImage }} />
           </View>
           <Center>
             <Text>{ride.date + ' | ' + time}</Text>
@@ -58,7 +60,7 @@ const RideCard = (props: Props) => {
           <Text style={{ flex: 1 }}>-----------{'>'}</Text>
           <Text style={{ flex: 1 }}>{ride.destination.formatted_address}</Text>
         </View>
-        {disabled && (
+        {disabled && !isMyRide && (
           <View
             style={{
               flexDirection: 'row',

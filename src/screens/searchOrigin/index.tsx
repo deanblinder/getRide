@@ -28,7 +28,8 @@ const SearchRidesOrigin = (props: Props) => {
         }}
         query={{
           key: API_KEY,
-          language: 'en',
+          language: 'iw',
+          components: 'country:il',
         }}
       />
       <Button style={{ borderRadius: 20 }} onPress={onDonePressed}>

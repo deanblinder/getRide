@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
-import { Input, Stack, Button, Slider, Text } from 'native-base';
+import { Input, Stack, Button, Slider, Text, Spinner } from 'native-base';
 import usePresenter from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
@@ -21,6 +21,12 @@ const OfferRides = () => {
     price,
     onPriceChange,
     onSeatsChange,
+    isButtonDisabled,
+    showDatePicker,
+    showTimePicker,
+    setShowTimePicker,
+    setShowDatePicker,
+    loading,
   } = usePresenter();
 
   return (
@@ -28,22 +34,62 @@ const OfferRides = () => {
       <GoogleMap origin={origin} destination={destination} />
       <Card containerStyle={{ margin: '10%' }}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          <Input
-            value={origin?.formatted_address}
-            onPressIn={onOriginPressed}
-            placeholder="Enter Origin"
-            w="100%"
-            editable={false}
-            selectTextOnFocus={false}
-          />
-          <Input
-            value={destination?.formatted_address}
-            onPressIn={onDestinationPressed}
-            placeholder="Enter Destination"
-            w="100%"
-            editable={false}
-            selectTextOnFocus={false}
-          />
+          <TouchableOpacity onPress={onOriginPressed}>
+            <Input
+              onPressIn={onOriginPressed}
+              value={origin?.formatted_address}
+              placeholder="Enter Origin"
+              w="100%"
+              editable={false}
+              selectTextOnFocus={false}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onDestinationPressed}>
+            <Input
+              onPressIn={onDestinationPressed}
+              value={destination?.formatted_address}
+              placeholder="Enter Destination"
+              w="100%"
+              editable={false}
+              selectTextOnFocus={false}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+            }}
+          >
+            <TouchableOpacity
+              style={{ width: '40%' }}
+              onPress={() => {
+                setShowDatePicker(true);
+              }}
+            >
+              <Input
+                onPressIn={() => {
+                  setShowDatePicker(true);
+                }}
+                placeholder="Enter Date"
+                w="100%"
+                editable={false}
+                selectTextOnFocus={false}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ width: '40%' }}
+              onPress={() => setShowTimePicker(true)}
+            >
+              <Input
+                onPressIn={() => setShowTimePicker(true)}
+                placeholder="Enter Time"
+                w="100%"
+                editable={false}
+                selectTextOnFocus={false}
+              />
+            </TouchableOpacity>
+          </View>
           <Text>seats: {seats}</Text>
           <Slider
             maxW="300"
@@ -76,21 +122,36 @@ const OfferRides = () => {
           </Slider>
         </Stack>
         <View style={{ flexDirection: 'row', marginTop: '5%' }}>
-          <RNDateTimePicker
-            value={date}
-            onChange={onDateChange}
-            display="default"
-          />
-          <RNDateTimePicker
-            value={time}
-            onChange={onTimeChange}
-            mode="time"
-            display="default"
-          />
+          {showDatePicker && (
+            <RNDateTimePicker
+              value={date}
+              onChange={onDateChange}
+              display="default"
+            />
+          )}
+          {showTimePicker && (
+            <RNDateTimePicker
+              value={time}
+              onChange={onTimeChange}
+              mode="time"
+              display="default"
+            />
+          )}
         </View>
       </Card>
-      <Button onPress={addRide} style={{ padding: '5%', margin: '10%' }}>
-        Add Offer
+      {/*<Button*/}
+      {/*  onPress={addRide}*/}
+      {/*  style={{ padding: '5%', margin: '10%' }}*/}
+      {/*  disabled={isButtonDisabled}*/}
+      {/*>*/}
+      {/*  Add Offer*/}
+      {/*</Button>*/}
+      <Button
+        onPress={addRide}
+        disabled={loading || isButtonDisabled}
+        style={{ padding: '5%', margin: '10%' }}
+      >
+        {loading ? <Spinner color="emerald.500" /> : 'Add Offer'}
       </Button>
     </View>
   );

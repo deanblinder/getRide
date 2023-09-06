@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import  {Text } from '@rneui/base';
+import { Text } from '@rneui/base';
 import usePresenter from './usePresenter';
-import {Button} from 'native-base';
+import { Button } from 'native-base';
 import { Props } from '../searchOrigin/usePresenter';
 
 const SearchRidesDestination = (props: Props) => {
@@ -29,10 +29,11 @@ const SearchRidesDestination = (props: Props) => {
         }}
         query={{
           key: API_KEY,
-          language: 'en',
+          language: 'iw',
+          components: 'country:il',
         }}
       />
-      <Button style={{borderRadius:20}} onPress={onDonePressed}>
+      <Button style={{ borderRadius: 20 }} onPress={onDonePressed}>
         Done
       </Button>
     </View>

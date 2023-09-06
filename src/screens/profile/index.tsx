@@ -1,26 +1,42 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Text } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter from './usePresenter';
 
 const Profile = () => {
-  const { user } = usePresenter();
-  console.log('### date ', user);
+  const { user, onAvatarPress, profileImage } = usePresenter();
 
-  const birthDate = new Date(user?.birthDate.seconds).toDateString();
+  const birthDate = new Date(user?.birthDate!).toDateString();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.avatar}>
-        <Avatar
-          style={{ marginBottom: '5%' }}
-          size="xl"
-          bg="green.500"
-          source={{
-            uri: user?.profileImage,
-          }}
-        />
+        <View>
+          <Avatar
+            style={{ marginBottom: '5%' }}
+            size="xl"
+            bg="green.500"
+            source={{
+              uri: profileImage,
+            }}
+          />
+          <TouchableOpacity onPress={onAvatarPress}>
+            <Avatar
+              style={{
+                marginBottom: '5%',
+                position: 'absolute',
+                right: 5,
+                bottom: 5,
+              }}
+              size="sm"
+              bg="blue.500"
+              source={{
+                uri: 'profileImage',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
         <Text fontSize={typography.fontSizes['2xl']}>
           {user?.firstName + ' ' + user?.lastName}
         </Text>
@@ -38,18 +54,18 @@ const Profile = () => {
         >
           Phone: {user?.phoneNumber}
         </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
-          Address: {user?.address?.formatted_address}
-        </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
-          Birth Date: {birthDate}
-        </Text>
+        {/*<Text*/}
+        {/*  style={{ marginBottom: '2%' }}*/}
+        {/*  fontSize={typography.fontSizes['2xl']}*/}
+        {/*>*/}
+        {/*  Address: {user?.address?.formatted_address}*/}
+        {/*</Text>*/}
+        {/*<Text*/}
+        {/*  style={{ marginBottom: '2%' }}*/}
+        {/*  fontSize={typography.fontSizes['2xl']}*/}
+        {/*>*/}
+        {/*  Birth Date: {birthDate}*/}
+        {/*</Text>*/}
       </View>
     </ScrollView>
   );

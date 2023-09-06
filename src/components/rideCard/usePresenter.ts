@@ -1,10 +1,11 @@
-import { navigationService } from '../../services';
 import { screenIds } from '../../constants';
-import { Ride } from '../../typing';
+import { Ride, User } from '../../typing';
 import { usersActions } from '../../actions';
 import { useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { Linking } from 'react-native';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export type Props = {
   ride: Ride;
@@ -13,11 +14,22 @@ export type Props = {
 
 const usePresenter = (props: Props) => {
   const { ride, disabled } = props;
+  const [rideUser, setRideUser] = useState<User | undefined>(undefined);
 
+  const navigation = useNavigation();
   const user = useSelector((state: AuthState) => state.user);
 
   const pushRidePage = () => {
-    navigationService.push(screenIds.RIDE_SCREEN, { ride });
+    // @ts-ignore
+    navigation.navigate(screenIds.RIDE_SCREEN, { ride });
+  };
+
+  useEffect(() => {
+    getUserImage();
+  }, []);
+
+  const getUserImage = async () => {
+    setRideUser(await usersActions.getUserById(ride.userId));
   };
 
   const onChatPress = async () => {
@@ -34,12 +46,19 @@ const usePresenter = (props: Props) => {
 
   const onViewProfilePress = () => {};
 
+  const onEditPress = () => {
+    // @ts-ignore
+    navigation.navigate(screenIds.EDIT_RIDE_SCREEN, { ride });
+  };
+
   return {
     pushRidePage,
     onChatPress,
     onViewProfilePress,
     isMyRide: user?.uid === ride.userId,
-    shouldCardBeDisabled: user?.uid === ride.userId || disabled,
+    shouldCardBeDisabled: disabled,
+    rideUser,
+    onEditPress,
   };
 };
 export default usePresenter;

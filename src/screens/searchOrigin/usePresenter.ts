@@ -1,6 +1,6 @@
-import { navigationService } from '../../services';
 import { Location } from '../../typing';
 import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
+import { useNavigation } from '@react-navigation/native';
 
 export type Props = {
   route: {
@@ -14,11 +14,11 @@ export type Props = {
 };
 
 const usePresenter = (props: Props) => {
+  const navigation = useNavigation();
   const onDonePressed = () => {
-    navigationService.pop();
+    navigation.goBack();
   };
   const onLocationSelected = (origin: GooglePlaceDetail | null) => {
-    console.log('onLocationSelected', origin);
     const location = {
       location: origin?.geometry.location,
       formatted_address: origin?.formatted_address,

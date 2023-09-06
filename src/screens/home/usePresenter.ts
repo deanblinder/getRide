@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import * as Location from 'expo-location';
 import { setUserLocation } from '../../redux/auth/authActions';
 
-const usePresenter = () => {
+const usePresenter = (props: any) => {
   const dispatch = useDispatch();
 
   const showFindRideScreen = () => {

@@ -19,14 +19,21 @@ const ROUTE = {
 
 const MapViewScreen = (props: Props) => {
   const { origin, destination } = props;
+  const userLocation = useSelector((state: AuthState) => state.userLocation);
   const [initialRegion, setInitialRegion] = useState<Point | undefined>({
-    lat: 32.78376,
-    lng: 34.98557,
+    lat: userLocation?.lat || 32.78376,
+    lng: userLocation?.lng || 34.98557,
   });
   const [routeCoordinates, setRouteCoordinates] = useState([]);
-  const userLocation = useSelector((state: AuthState) => state.userLocation);
 
   useEffect(() => {
+    if (!origin || !destination) {
+      setRouteCoordinates([]);
+      getRouteCoordinates({
+        origin: { lat: 0, lng: 0 },
+        destination: { lat: 0, lng: 0 },
+      });
+    }
     if (origin?.location && destination?.location) {
       setInitialRegion(origin?.location);
 

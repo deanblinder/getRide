@@ -17,7 +17,10 @@ const usePresenter = () => {
       let rides: Ride[] = [];
       querySnapshot.forEach((doc: any) => {
         const ride = doc.data() as Ride;
-        if (new Date(ride.date) >= new Date() && ride.userId === user?.uid) {
+        if (
+          new Date(ride.date).getTime() >= new Date().getTime() &&
+          ride.userId === user?.uid
+        ) {
           rides.push(doc.data() as Ride);
         }
       });

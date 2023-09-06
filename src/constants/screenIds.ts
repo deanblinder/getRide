@@ -12,4 +12,5 @@ export default {
   SEARCH_RIDE_DESTINATION_SCREEN: 'SearchRideDestinationScreen',
   RIDE_SCREEN: 'RideScreen',
   CONVERSATION_SCREEN: 'ConversationScreen',
+  EDIT_RIDE_SCREEN: 'EditRideScreen',
 };

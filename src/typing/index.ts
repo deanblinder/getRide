@@ -15,7 +15,7 @@ export type User = {
   phoneNumber?: string;
   address?: Location;
   facebookLink?: string;
-  birthDate?: Date;
+  birthDate?: string;
 };
 
 export type Ride = {

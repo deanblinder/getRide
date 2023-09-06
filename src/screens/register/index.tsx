@@ -3,26 +3,16 @@ import { View, StyleSheet } from 'react-native';
 import { Text } from '@rneui/base';
 import usePresenter from './usePresenter';
 import { Button, Stack, Input, ScrollView, Icon, Spinner } from 'native-base';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 // @ts-ignore
 import { API_KEY } from '@env';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const Register = () => {
   const {
     handleSignup,
     onChangeEmail,
     onChangePassword,
-    onChangeFirstName,
-    onChangeLastName,
-    onChangeAddress,
     onChangePhoneNumber,
-    pickImageAsync,
-    birthDate,
-    onChangeBirthDate,
-    profileImage,
     loading,
   } = usePresenter();
 
@@ -46,80 +36,10 @@ const Register = () => {
           type={'password'}
         />
         <Input
-          placeholder={'First Name'}
-          onChangeText={onChangeFirstName}
-          size="lg"
-        />
-        <Input
-          placeholder={'Last Name'}
-          onChangeText={onChangeLastName}
-          size="lg"
-        />
-        <GooglePlacesAutocomplete
-          placeholder="Home Address"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            onChangeAddress(details);
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.googleTextInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: API_KEY,
-            language: 'en',
-          }}
-        />
-        <Input
-          onPressIn={pickImageAsync}
-          placeholder={
-            profileImage ? 'Edit Profile Image' : 'Add Profile Image'
-          }
-          size="lg"
-          InputRightElement={
-            profileImage ? (
-              <Icon
-                as={<MaterialIcon name="check" />}
-                size={5}
-                ml="2"
-                color="muted.400"
-              />
-            ) : undefined
-          }
-        />
-        <Input
           placeholder={'Phone Number'}
           onChangeText={onChangePhoneNumber}
           size="lg"
         />
-        {/*<Input*/}
-        {/*  placeholder={'Date of Birth'}*/}
-        {/*  onChangeText={onChangeBirthDate}*/}
-        {/*  size="lg"*/}
-        {/*/>*/}
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row-reverse',
-            direction: 'rtl',
-            width: '100%',
-            alignItems: 'center',
-            borderStyle: 'solid',
-            borderColor: 'grey',
-            borderWidth: 1,
-          }}
-        >
-          <Text style={{ marginRight: '5%' }}>Add birthdate</Text>
-          <RNDateTimePicker
-            value={birthDate}
-            onChange={onChangeBirthDate}
-            display="default"
-          />
-        </View>
       </Stack>
       <Button onPress={handleSignup} disabled={loading}>
         {loading ? <Spinner color="emerald.500" /> : 'submit'}

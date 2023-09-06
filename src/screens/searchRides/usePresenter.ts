@@ -3,6 +3,8 @@ import { screenIds } from '../../constants';
 import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
+import { useNavigation } from '@react-navigation/native';
+import { Platform } from 'react-native';
 
 const usePresenter = () => {
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
@@ -10,7 +12,21 @@ const usePresenter = () => {
     undefined
   );
   const [rides, setRides] = useState<Ride[] | undefined>(undefined);
+  const [radius, setRadius] = useState(7);
   const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState<Date>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(
+    Platform.OS === 'ios'
+  );
+
+  const onDateChange = (event: any, selectedDate: any) => {
+    if (selectedDate) {
+      setShowDatePicker(Platform.OS === 'ios'); // On Android, it's better to manually control when to close the picker
+      setDate(selectedDate);
+    }
+  };
+
+  const navigation = useNavigation();
 
   const getOrigin = (origin: Location) => {
     setOrigin(origin);
@@ -21,12 +37,17 @@ const usePresenter = () => {
   };
 
   const onOriginPressed = () => {
-    navigationService.push(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
+    console.log('onOriginPressed');
+    // @ts-ignore
+    navigation.navigate(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
       getLocations: getOrigin,
     });
   };
+
   const onDestinationPressed = () => {
-    navigationService.push(screenIds.SEARCH_RIDE_DESTINATION_SCREEN, {
+    console.log('onDestinationPressed');
+    // @ts-ignore
+    navigation.navigate(screenIds.SEARCH_RIDE_DESTINATION_SCREEN, {
       getLocations: getDestination,
     });
   };
@@ -39,10 +60,16 @@ const usePresenter = () => {
       destination: destination.location,
       date: new Date(),
       time: new Date(),
+      radius,
     });
     setRides(rides);
     setLoading(false);
   };
+
+  const setRideRadius = (radius: number) => {
+    setRadius(radius);
+  };
+
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -51,6 +78,12 @@ const usePresenter = () => {
     rides,
     loading,
     onSearchPress,
+    setRideRadius,
+    radius,
+    isButtonDisabled: !origin || !destination,
+    showDatePicker,
+    setShowDatePicker,
+    onDateChange,
   };
 };
 export default usePresenter;

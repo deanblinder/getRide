@@ -18,12 +18,6 @@ export function pop(count = 1) {
   }
 }
 
-export function dismiss(count = 1) {
-  // if (navigationRef.isReady()) {
-  //   navigationRef.dispatch(StackActions.popToTop());
-  // }
-}
-
 export default {
   navigationRef,
 };

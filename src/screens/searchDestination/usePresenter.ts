@@ -6,6 +6,8 @@ import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
 import { Props } from '../searchOrigin/usePresenter';
 
 const usePresenter = (props: Props) => {
+  const navigation = useNavigation();
+
   const onLocationSelected = (origin: GooglePlaceDetail | null) => {
     const location = {
       location: origin?.geometry.location,
@@ -16,10 +18,9 @@ const usePresenter = (props: Props) => {
 
   const onDonePressed = () => {
     props.navigation.reset({
-      // index: 0,
       routes: [{ name: screenIds.HOME_SCREEN }],
     });
-    navigationService.pop();
+    navigation.goBack();
   };
   return {
     onDonePressed,
