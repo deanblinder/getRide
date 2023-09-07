@@ -19,11 +19,9 @@ const GetRide = () => {
 
   const Tab = createBottomTabNavigator();
   const user = useSelector((state: AuthState) => state.user);
-  console.log('###user', user);
-  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
-    getUser();
+    // getUser();
     getLocationAsync();
   }, []);
 
