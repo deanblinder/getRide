@@ -3,10 +3,17 @@ import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Spinner, Text } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter from './usePresenter';
+import { Button } from '@rneui/base';
 
 const Profile = () => {
-  const { user, onAvatarPress, profileImage, profileImageLoading } =
-    usePresenter();
+  const {
+    user,
+    onAvatarPress,
+    profileImage,
+    profileImageLoading,
+    onEditPress,
+    onFacebookPress,
+  } = usePresenter();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -33,6 +40,7 @@ const Profile = () => {
               />
             ) : (
               <Avatar
+                // @ts-ignore
                 style={{
                   borderStyle: 'soled',
                   borderWidth: 3,
@@ -70,7 +78,13 @@ const Profile = () => {
         >
           Phone: {user?.phoneNumber}
         </Text>
+        {user?.facebookLink && (
+          <Button onPress={onFacebookPress}>go to faceBook profile</Button>
+        )}
       </View>
+      <Button style={{ display: 'flex' }} onPress={onEditPress}>
+        Edit
+      </Button>
     </ScrollView>
   );
 };
@@ -78,6 +92,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     padding: '5%',
+    justifyContent: 'space-between',
   },
   avatar: {
     display: 'flex',

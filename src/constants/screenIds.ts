@@ -13,4 +13,6 @@ export default {
   RIDE_SCREEN: 'RideScreen',
   CONVERSATION_SCREEN: 'ConversationScreen',
   EDIT_RIDE_SCREEN: 'EditRideScreen',
+  OFFERING_PROFILE_SCREEN: 'OfferingProfileScreen',
+  EDIT_PROFILE_SCREEN: 'EditProfileScreen',
 };

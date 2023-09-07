@@ -1,5 +1,12 @@
-import { db, ridesRef } from '../config/firebase';
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 import { Ride } from '../typing';
 import { Point } from 'react-native-google-places-autocomplete';
 
@@ -14,6 +21,18 @@ export const getUpcomingRides = async (userId: string) => {
 export const addRide = async (ride: Ride) => {
   const newRideRef = doc(db, 'rides', ride.rideId);
   await setDoc(newRideRef, ride);
+};
+
+export const updateRide = async (rideId: string, props: Partial<Ride>) => {
+  const rideToUpdateRef = doc(db, 'rides', rideId);
+  await updateDoc(rideToUpdateRef, {
+    ...props,
+  });
+};
+
+export const deleteRide = async (rideId: string) => {
+  const rideToDeleteRef = doc(db, 'rides', rideId);
+  await deleteDoc(rideToDeleteRef);
 };
 
 export const isWithinRadius = (

@@ -18,11 +18,11 @@ const SearchRides = () => {
     loading,
     radius,
     setRideRadius,
-    isButtonDisabled,
     setShowDatePicker,
     shouldShowDatePicker,
     onDateChange,
     clearSearch,
+    date,
   } = usePresenter();
 
   const renderRides = () => {
@@ -76,7 +76,7 @@ const SearchRides = () => {
         <View style={{ flexDirection: 'row', marginTop: '5%' }}>
           {shouldShowDatePicker && (
             <RNDateTimePicker
-              value={new Date()}
+              value={date}
               display="default"
               onChange={onDateChange}
             />
@@ -101,7 +101,6 @@ const SearchRides = () => {
         <Button
           style={{ padding: '5%', margin: '5%' }}
           onPress={rides ? clearSearch : onSearchPress}
-          disabled={isButtonDisabled}
         >
           {loading ? (
             <Spinner color="emerald.500" />

@@ -1,6 +1,6 @@
 import { screenIds } from '../../constants';
 import { Ride, User } from '../../typing';
-import { usersActions } from '../../actions';
+import { ridesActions, usersActions } from '../../actions';
 import { useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { Linking } from 'react-native';
@@ -17,6 +17,7 @@ const usePresenter = (props: Props) => {
   const [rideUser, setRideUser] = useState<User | undefined>(undefined);
 
   const navigation = useNavigation();
+
   const user = useSelector((state: AuthState) => state.user);
 
   const pushRidePage = () => {
@@ -44,11 +45,23 @@ const usePresenter = (props: Props) => {
       });
   };
 
-  const onViewProfilePress = () => {};
+  const onViewProfilePress = () => {
+    // @ts-ignore
+    navigation.navigate(screenIds.OFFERING_PROFILE_SCREEN, {
+      userId: ride.userId,
+    });
+  };
+
+  const onDeletePress = async () => {
+    await ridesActions.deleteRide(ride.rideId);
+  };
 
   const onEditPress = () => {
     // @ts-ignore
-    navigation.navigate(screenIds.EDIT_RIDE_SCREEN, { ride });
+    navigation.navigate(screenIds.EDIT_RIDE_SCREEN, {
+      rideToEdit: props.ride,
+      isEdit: true,
+    });
   };
 
   return {
@@ -59,6 +72,7 @@ const usePresenter = (props: Props) => {
     shouldCardBeDisabled: disabled,
     rideUser,
     onEditPress,
+    onDeletePress,
   };
 };
 export default usePresenter;

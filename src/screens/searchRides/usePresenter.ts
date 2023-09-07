@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
-import { IS_IOS } from '../OfferRides/usePresenter';
+import { IS_IOS } from '../OfferOrEditRides/usePresenter';
 import { useToast } from 'native-base';
 
 const usePresenter = () => {
@@ -44,8 +44,6 @@ const usePresenter = () => {
   };
 
   const clearSearch = () => {
-    setOrigin(undefined);
-    setDestination(undefined);
     setRides(undefined);
   };
 
@@ -95,6 +93,7 @@ const usePresenter = () => {
     setShowDatePicker,
     onDateChange,
     clearSearch,
+    date,
   };
 };
 export default usePresenter;

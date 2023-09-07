@@ -25,4 +25,5 @@ export const updateUser = async (userId: string, props: Partial<User>) => {
   await updateDoc(userToUpdateRef, {
     ...props,
   });
+  return await getUserById(userId);
 };

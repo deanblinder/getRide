@@ -3,10 +3,10 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
 import { Input, Stack, Button, Slider, Text, Spinner } from 'native-base';
-import usePresenter from './usePresenter';
+import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
-const OfferRides = () => {
+const OfferRides = (props: Props) => {
   const {
     onOriginPressed,
     onDestinationPressed,
@@ -26,7 +26,7 @@ const OfferRides = () => {
     setShowTimePicker,
     setShowDatePicker,
     loading,
-  } = usePresenter();
+  } = usePresenter(props);
 
   return (
     <View style={styles.container}>

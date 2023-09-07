@@ -5,12 +5,19 @@ import { storage } from '../../config/firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from 'react';
 import { usersActions } from '../../actions';
+import { useNavigation } from '@react-navigation/native';
+import screenIds from '../../constants/screenIds';
+import { Linking } from 'react-native';
 
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
+  console.log('### user', user);
+  const navigation = useNavigation();
+
   const [profileImage, setProfileImage] = useState<string | undefined>(
     user?.profileImage
   );
+
   const [profileImageLoading, setProfileImageLoading] =
     useState<boolean>(false);
 
@@ -21,6 +28,7 @@ const usePresenter = () => {
       const blob = await response.blob();
 
       const fileName = uri.substring(uri.lastIndexOf('/') + 1);
+      console.log('### fileName', fileName);
       const storageRef = ref(storage, 'images/' + fileName);
       const uploadTask = uploadBytesResumable(storageRef, blob);
       uploadTask.then(() => {
@@ -54,7 +62,24 @@ const usePresenter = () => {
     }
   };
 
-  return { user, onAvatarPress, profileImage, profileImageLoading };
+  const onEditPress = () => {
+    console.log('### onEditPress');
+    // @ts-ignore
+    navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
+  };
+
+  const onFacebookPress = () => {
+    user?.facebookLink && Linking.openURL(user?.facebookLink);
+  };
+
+  return {
+    user,
+    onAvatarPress,
+    profileImage,
+    profileImageLoading,
+    onEditPress,
+    onFacebookPress,
+  };
 };
 
 export default usePresenter;

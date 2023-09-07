@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from './redux/auth/authReducer';
 import WelcomeStack from './routes/welcomeStack';
 import { usersActions } from './actions';
-import { setUser } from './redux/auth/authActions';
+import { setUser, setUserLocation } from './redux/auth/authActions';
+import * as Location from 'expo-location';
 
 const GetRide = () => {
   const dispatch = useDispatch();
@@ -21,14 +22,31 @@ const GetRide = () => {
   console.log('###user', user);
   const [profileImage, setProfileImage] = useState('');
 
-  // useEffect(() => {
-  //   getUser();
-  // }, []);
-  //
-  // const getUser = async () => {
-  //   const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
-  //   user && dispatch(setUser(user));
-  // };
+  useEffect(() => {
+    getUser();
+    getLocationAsync();
+  }, []);
+
+  const getUser = async () => {
+    const user = await usersActions.getUserById('LdjM9Tk4UwVXW5b4EKqeGIAdtlH3');
+    user && dispatch(setUser(user));
+  };
+
+  const getLocationAsync = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    dispatch(
+      setUserLocation({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      })
+    );
+  };
 
   // useEffect(() => {
   //   user?.profileImage && setProfileImage(user?.profileImage);

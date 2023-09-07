@@ -4,7 +4,11 @@ import screenIds from '../constants/screenIds';
 import Rides from '../screens/upcomingRides';
 import React from 'react';
 import Profile from '../screens/profile';
-import EditRide from '../screens/editRide';
+import EditRide from '../screens/OfferOrEditRides/EditRide';
+import SearchRidesDestination from '../screens/searchDestination';
+import SearchRidesOrigin from '../screens/searchOrigin';
+import OfferingProfilePresenter from '../screens/offeringProfile';
+import EditProfile from '../screens/editProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +35,26 @@ const RidesStack = () => {
           options={{ presentation: 'modal' }}
           name={screenIds.EDIT_RIDE_SCREEN}
           component={EditRide}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal', headerShown: false }}
+          name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
+          component={SearchRidesDestination}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal', headerShown: false }}
+          name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
+          component={SearchRidesOrigin}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal', headerShown: false }}
+          name={screenIds.OFFERING_PROFILE_SCREEN}
+          component={OfferingProfilePresenter}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal', headerShown: false }}
+          name={screenIds.EDIT_PROFILE_SCREEN}
+          component={EditProfile}
         />
       </Stack.Group>
     </Stack.Navigator>

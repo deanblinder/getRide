@@ -15,6 +15,7 @@ const RideCard = (props: Props) => {
     isMyRide,
     rideUser,
     onEditPress,
+    onDeletePress,
   } = usePresenter(props);
 
   const hour = new Date(parseInt(ride.hour)).getHours().toString();
@@ -33,7 +34,19 @@ const RideCard = (props: Props) => {
             style={{ justifyContent: 'space-between', flexDirection: 'row' }}
           >
             <Text>{ride.seats} seats available</Text>
-            {isMyRide && <Button onPress={onEditPress}>{'Edit'}</Button>}
+            {isMyRide && (
+              <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Button
+                  style={{ marginRight: '3%' }}
+                  onPress={onDeletePress}
+                  color={'pink.50'}
+                  colorScheme="danger"
+                >
+                  {'Delete'}
+                </Button>
+                <Button onPress={onEditPress}>{'Edit'}</Button>
+              </View>
+            )}
           </View>
         </View>
         <View

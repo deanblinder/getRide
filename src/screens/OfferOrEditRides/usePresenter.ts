@@ -11,15 +11,27 @@ import { Platform } from 'react-native';
 
 export const IS_IOS = Platform.OS === 'ios';
 
-const usePresenter = () => {
-  const [origin, setOrigin] = useState<Location | undefined>(undefined);
-  const [destination, setDestination] = useState<Location | undefined>(
-    undefined
+export type Props = {
+  route?: {
+    params?: {
+      rideToEdit?: Ride;
+      isEdit?: false;
+    };
+  };
+};
+
+const usePresenter = (props: Props) => {
+  const { rideToEdit } = props?.route?.params || {};
+  const [origin, setOrigin] = useState<Location | undefined>(
+    rideToEdit ? rideToEdit.origin : undefined
   );
-  const [time, setTime] = useState<Date>(new Date());
-  const [date, setDate] = useState<Date>(new Date());
-  const [seats, setSeats] = useState<number>(4);
-  const [price, setPrice] = useState<number>(0);
+  const [destination, setDestination] = useState<Location | undefined>(
+    rideToEdit ? rideToEdit.destination : undefined
+  );
+  const [time, setTime] = useState<Date>(rideToEdit ? new Date() : new Date());
+  const [date, setDate] = useState<Date>(rideToEdit ? new Date() : new Date());
+  const [seats, setSeats] = useState<number>(rideToEdit ? rideToEdit.seats : 4);
+  const [price, setPrice] = useState<number>(rideToEdit ? rideToEdit.price : 0);
   const [loading, setLoading] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(IS_IOS);
@@ -91,6 +103,9 @@ const usePresenter = () => {
 
     try {
       setLoading(true);
+      if (rideToEdit) {
+        await ridesActions.updateRide(rideToEdit.rideId, ride);
+      }
       await ridesActions.addRide(ride);
       clearState();
       setLoading(false);
@@ -149,6 +164,7 @@ const usePresenter = () => {
     setShowTimePicker,
     setShowDatePicker,
     loading,
+    isEdit: !!rideToEdit,
   };
 };
 export default usePresenter;
