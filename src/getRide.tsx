@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OfferStack from './routes/offerStack';
 import SearchStack from './routes/searchStack';
 import RidesStack from './routes/ridesStack';
-import { View, Avatar } from 'native-base';
+import { View, Avatar, Text } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { screenIds } from './constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,9 +65,10 @@ const GetRide = () => {
           alignItems: 'center',
           width: '100%',
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
         }}
       >
+        <Text>Tremp</Text>
         <TouchableOpacity onPress={onPress}>
           <Avatar
             size={'sm'}

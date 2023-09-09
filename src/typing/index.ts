@@ -26,7 +26,7 @@ export type Ride = {
   hour: string;
   date: string;
   seats: number;
-  price: number;
+  price?: number;
   userImage?: string;
 };
 

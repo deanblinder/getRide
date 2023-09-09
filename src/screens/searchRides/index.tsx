@@ -71,33 +71,34 @@ const SearchRides = () => {
               />
             </TouchableOpacity>
           )}
+          <View
+            style={{ flexDirection: 'row', marginTop: '5%', marginLeft: '-5%' }}
+          >
+            {shouldShowDatePicker && (
+              <RNDateTimePicker
+                value={date}
+                display="default"
+                onChange={onDateChange}
+              />
+            )}
+          </View>
+          <Text style={{ marginVertical: '5%' }}>
+            radius from search: {radius} km
+          </Text>
+          <Slider
+            defaultValue={7}
+            minValue={0}
+            maxValue={15}
+            accessibilityLabel="hello world"
+            step={1}
+            onChange={setRideRadius}
+          >
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb />
+          </Slider>
         </Stack>
-
-        <View style={{ flexDirection: 'row', marginTop: '5%' }}>
-          {shouldShowDatePicker && (
-            <RNDateTimePicker
-              value={date}
-              display="default"
-              onChange={onDateChange}
-            />
-          )}
-        </View>
-        <Text style={{ marginVertical: '5%' }}>
-          radius from search: {radius} km
-        </Text>
-        <Slider
-          defaultValue={7}
-          minValue={0}
-          maxValue={15}
-          accessibilityLabel="hello world"
-          step={1}
-          onChange={setRideRadius}
-        >
-          <Slider.Track>
-            <Slider.FilledTrack />
-          </Slider.Track>
-          <Slider.Thumb />
-        </Slider>
         <Button
           style={{ padding: '5%', margin: '5%' }}
           onPress={rides ? clearSearch : onSearchPress}

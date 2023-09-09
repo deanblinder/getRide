@@ -28,17 +28,20 @@ const usePresenter = (props: Props) => {
   const [destination, setDestination] = useState<Location | undefined>(
     rideToEdit ? rideToEdit.destination : undefined
   );
-  const [time, setTime] = useState<Date>(rideToEdit ? new Date() : new Date());
-  const [date, setDate] = useState<Date>(rideToEdit ? new Date() : new Date());
+  const [time, setTime] = useState<Date>(
+    rideToEdit ? new Date(parseInt(rideToEdit?.hour)) : new Date()
+  );
+  const [date, setDate] = useState<Date>(
+    rideToEdit ? new Date(rideToEdit.date) : new Date()
+  );
   const [seats, setSeats] = useState<number>(rideToEdit ? rideToEdit.seats : 4);
-  const [price, setPrice] = useState<number>(rideToEdit ? rideToEdit.price : 0);
   const [loading, setLoading] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(IS_IOS);
 
   const onDateChange = (event: any, selectedDate: any) => {
     if (selectedDate) {
-      setShowDatePicker(IS_IOS); // On Android, it's better to manually control when to close the picker
+      setShowDatePicker(IS_IOS);
       setDate(selectedDate);
     }
   };
@@ -49,14 +52,6 @@ const usePresenter = (props: Props) => {
       setTime(selectedDate);
     }
   };
-
-  // const showDatepicker = () => {
-  //   setShowDatePicker(true);
-  // };
-
-  // const showTimepicker = () => {
-  //   setShowTimePicker(true);
-  // };
 
   const user = useSelector((state: AuthState) => state.user);
   const navigation = useNavigation();
@@ -76,7 +71,6 @@ const usePresenter = (props: Props) => {
     setTime(new Date());
     setDate(new Date());
     setSeats(4);
-    setPrice(0);
   };
 
   const addRide = async () => {
@@ -97,16 +91,21 @@ const usePresenter = (props: Props) => {
       hour: time.getTime().toString(),
       date: date.toDateString(),
       seats,
-      price,
-      userImage: user?.profileImage ?? '',
     };
 
     try {
       setLoading(true);
       if (rideToEdit) {
-        await ridesActions.updateRide(rideToEdit.rideId, ride);
+        const rideToUpdate = {
+          ...rideToEdit,
+          date: date.toDateString(),
+          hour: time.getTime().toString(),
+          rideId: rideToEdit.rideId,
+        };
+        await ridesActions.updateRide(rideToEdit.rideId, rideToUpdate);
+      } else {
+        await ridesActions.addRide(ride);
       }
-      await ridesActions.addRide(ride);
       clearState();
       setLoading(false);
       // @ts-ignore
@@ -141,10 +140,6 @@ const usePresenter = (props: Props) => {
     setSeats(value);
   };
 
-  const onPriceChange = (value: number) => {
-    setPrice(value);
-  };
-
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -157,8 +152,6 @@ const usePresenter = (props: Props) => {
     addRide,
     onSeatsChange,
     seats,
-    onPriceChange,
-    price,
     shouldShowDatePicker: showDatePicker || IS_IOS,
     shouldShowTimePicker: showTimePicker || IS_IOS,
     setShowTimePicker,

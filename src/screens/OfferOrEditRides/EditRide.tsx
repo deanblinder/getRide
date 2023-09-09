@@ -18,8 +18,6 @@ const EditRides = (props: Props) => {
     date,
     addRide,
     seats,
-    price,
-    onPriceChange,
     onSeatsChange,
     shouldShowDatePicker,
     shouldShowTimePicker,
@@ -102,21 +100,6 @@ const EditRides = (props: Props) => {
             accessibilityLabel="hello world"
             step={1}
             onChange={onSeatsChange}
-          >
-            <Slider.Track>
-              <Slider.FilledTrack />
-            </Slider.Track>
-            <Slider.Thumb />
-          </Slider>
-          <Text>price: {price} ₪</Text>
-          <Slider
-            maxW="300"
-            defaultValue={0}
-            minValue={0}
-            maxValue={100}
-            accessibilityLabel="hello world"
-            step={1}
-            onChange={onPriceChange}
           >
             <Slider.Track>
               <Slider.FilledTrack />
