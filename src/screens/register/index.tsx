@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import { Text } from '@rneui/base';
 import usePresenter from './usePresenter';
 import { Button, Stack, Input, ScrollView, Icon, Spinner } from 'native-base';
@@ -17,34 +17,39 @@ const Register = () => {
   } = usePresenter();
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardDismissMode="interactive"
-      keyboardShouldPersistTaps
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
     >
-      <Text h2>Enter Your Details</Text>
-      <Stack space={5} w="75%" maxW="300px" mx="auto">
-        <Input
-          placeholder={'Enter Email'}
-          onChangeText={onChangeEmail}
-          size="lg"
-        />
-        <Input
-          placeholder={'Enter Password'}
-          onChangeText={onChangePassword}
-          size="lg"
-          type={'password'}
-        />
-        <Input
-          placeholder={'Phone Number'}
-          onChangeText={onChangePhoneNumber}
-          size="lg"
-        />
-      </Stack>
-      <Button onPress={handleSignup} disabled={loading}>
-        {loading ? <Spinner color="emerald.500" /> : 'submit'}
-      </Button>
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardDismissMode="interactive"
+        keyboardShouldPersistTaps
+      >
+        <Text h2>Enter Your Details</Text>
+        <Stack space={5} w="75%" maxW="300px" mx="auto">
+          <Input
+            placeholder={'Enter Email'}
+            onChangeText={onChangeEmail}
+            size="lg"
+          />
+          <Input
+            placeholder={'Enter Password'}
+            onChangeText={onChangePassword}
+            size="lg"
+            type={'password'}
+          />
+          <Input
+            placeholder={'Phone Number'}
+            onChangeText={onChangePhoneNumber}
+            size="lg"
+          />
+        </Stack>
+        <Button onPress={handleSignup} disabled={loading}>
+          {loading ? <Spinner color="emerald.500" /> : 'submit'}
+        </Button>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

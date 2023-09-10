@@ -97,10 +97,12 @@ const usePresenter = (props: Props) => {
       setLoading(true);
       if (rideToEdit) {
         const rideToUpdate = {
-          ...rideToEdit,
           date: date.toDateString(),
           hour: time.getTime().toString(),
           rideId: rideToEdit.rideId,
+          origin: origin,
+          destination: destination,
+          seats,
         };
         await ridesActions.updateRide(rideToEdit.rideId, rideToUpdate);
       } else {

@@ -6,7 +6,7 @@ import { Input, Stack, Button, Slider, Text, Spinner } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
-const OfferRides = (props: Props) => {
+const OfferOrEditRides = (props: Props) => {
   const {
     onOriginPressed,
     onDestinationPressed,
@@ -24,6 +24,7 @@ const OfferRides = (props: Props) => {
     setShowTimePicker,
     setShowDatePicker,
     loading,
+    isEdit,
   } = usePresenter(props);
 
   return (
@@ -126,7 +127,13 @@ const OfferRides = (props: Props) => {
         </View>
       </Card>
       <Button onPress={addRide} style={{ padding: '5%', margin: '10%' }}>
-        {loading ? <Spinner color="emerald.500" /> : 'Add Offer'}
+        {loading ? (
+          <Spinner color="emerald.500" />
+        ) : isEdit ? (
+          'Update Offer'
+        ) : (
+          'Add Offer'
+        )}
       </Button>
     </View>
   );
@@ -141,4 +148,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
-export default OfferRides;
+export default OfferOrEditRides;

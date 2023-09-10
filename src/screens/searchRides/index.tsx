@@ -99,18 +99,22 @@ const SearchRides = () => {
             <Slider.Thumb />
           </Slider>
         </Stack>
-        <Button
-          style={{ padding: '5%', margin: '5%' }}
-          onPress={rides ? clearSearch : onSearchPress}
-        >
-          {loading ? (
-            <Spinner color="emerald.500" />
-          ) : rides ? (
-            'Clear Search'
-          ) : (
-            'search'
-          )}
+        <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
+          {loading ? <Spinner color="emerald.500" /> : 'search'}
         </Button>
+        {rides && (
+          <Button
+            style={{
+              padding: '5%',
+              marginBottom: '5%',
+              marginRight: '5%',
+              marginLeft: '5%',
+            }}
+            onPress={clearSearch}
+          >
+            Clear Rides
+          </Button>
+        )}
       </Card>
       {renderRides()}
     </ScrollView>

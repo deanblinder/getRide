@@ -7,7 +7,7 @@ const usePresenter = (props: any) => {
   const dispatch = useDispatch();
 
   const showFindRideScreen = () => {
-    navigationService.push(screenIds.OFFER_RIDES);
+    navigationService.push(screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN);
   };
 
   const showSearchRideScreen = () => {

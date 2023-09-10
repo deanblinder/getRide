@@ -1,6 +1,6 @@
 export default {
   HOME_SCREEN: 'HomeScreen',
-  OFFER_RIDES: 'OfferRidesScreen',
+  OFFER_RIDES_OR_EDIT_RIDES_SCREEN: 'OfferOrEditRidesScreen',
   CHAT_SCREEN: 'ChatScreen',
   LOGIN_SCREEN: 'LoginScreen',
   REGISTER_SCREEN: 'RegisterScreen',

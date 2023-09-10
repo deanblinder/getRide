@@ -5,7 +5,7 @@ import SearchRidesDestination from '../screens/searchDestination';
 import SearchRidesOrigin from '../screens/searchOrigin';
 import RideScreen from '../screens/ride';
 import Profile from '../screens/profile';
-import OfferRides from '../screens/OfferOrEditRides/offerRides';
+import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
 
@@ -16,8 +16,8 @@ const OfferStack: React.FC = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{ presentation: 'modal', headerShown: false }}
-        name={screenIds.OFFER_RIDES}
-        component={OfferRides}
+        name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
+        component={OfferOrEditRides}
       />
       <Stack.Screen
         options={{ presentation: 'modal', headerShown: false }}

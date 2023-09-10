@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Location, Ride } from '../../typing';
 import { ridesActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
-import { IS_IOS } from '../OfferOrEditRides/usePresenter';
+import { IS_IOS } from '../offerOrEditRides/usePresenter';
 import { useToast } from 'native-base';
 
 const usePresenter = () => {

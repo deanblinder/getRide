@@ -58,7 +58,7 @@ const usePresenter = (props: Props) => {
 
   const onEditPress = () => {
     // @ts-ignore
-    navigation.navigate(screenIds.EDIT_RIDE_SCREEN, {
+    navigation.navigate(screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN, {
       rideToEdit: props.ride,
       isEdit: true,
     });

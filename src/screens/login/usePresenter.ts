@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/auth/authActions';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { useState } from 'react';
 import { usersActions } from '../../actions';
@@ -14,6 +18,7 @@ const usePresenter = () => {
   const handleLogin = async () => {
     if (email && password) {
       try {
+        // setPersistence(auth, browserSessionPersistence);
         setLoading(true);
         const userCredentials = await signInWithEmailAndPassword(
           auth,
@@ -23,6 +28,8 @@ const usePresenter = () => {
         const uid = userCredentials.user.uid;
         const user = await usersActions.getUserById(uid);
         dispatch(setUser(user));
+        const currentUser = auth.currentUser;
+        console.log('###currentUser', currentUser);
       } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
           alert('User not found');
