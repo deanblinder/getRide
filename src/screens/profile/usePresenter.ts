@@ -62,29 +62,7 @@ const usePresenter = () => {
   };
 
   const onFacebookPress = () => {
-    // Extract the username from the URL
-    const username = user?.facebookLink?.split('/').pop();
-
-    if (username) {
-      // Construct the URL to open the Facebook app
-      const fbProfileURL = `fb://profile/${username}`;
-
-      // Attempt to open the Facebook app
-      Linking.openURL(fbProfileURL)
-        .then((supported) => {
-          if (!supported) {
-            // If the Facebook app is not installed, open the profile in a browser
-            return Linking.openURL(user?.facebookLink!);
-          }
-        })
-        .catch(() => {
-          // Handle any errors that occur during the linking attempt
-          console.warn('An error occurred while opening the Facebook app.');
-        });
-    } else {
-      // Handle cases where the URL does not contain a valid username
-      console.warn('Invalid Facebook profile URL.');
-    }
+    Linking.openURL(user?.facebookLink!);
   };
 
   return {
