@@ -3,6 +3,7 @@ import { usersActions } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { setUser } from '../../redux/auth/authActions';
+import { useNavigation } from '@react-navigation/native';
 
 export type Props = {
   route: {
@@ -14,6 +15,7 @@ export type Props = {
 const usePresenter = (props: Props) => {
   const user = useSelector((state: AuthState) => state.user);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [firstName, setFirstName] = useState<string>(user?.firstName || '');
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [facebookLink, setFacebookLink] = useState<string>(
@@ -27,6 +29,7 @@ const usePresenter = (props: Props) => {
       facebookLink,
     });
     dispatch(setUser(updatedUser));
+    navigation.goBack();
   };
 
   const onFacebookLinkChange = (text: string) => {
@@ -47,6 +50,9 @@ const usePresenter = (props: Props) => {
     onFirstNameChange,
     onLastNameChange,
     updateUser,
+    firstName,
+    lastName,
+    facebookLink,
   };
 };
 export default usePresenter;

@@ -11,7 +11,6 @@ import { Linking } from 'react-native';
 
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
-  console.log('### user', user);
   const navigation = useNavigation();
 
   const [profileImage, setProfileImage] = useState<string | undefined>(
@@ -47,11 +46,6 @@ const usePresenter = () => {
     }
   };
 
-  // getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //   console.log('### download', downloadURL);
-  //   setProfileImage(downloadURL);
-  // });
-
   const onAvatarPress = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -63,13 +57,34 @@ const usePresenter = () => {
   };
 
   const onEditPress = () => {
-    console.log('### onEditPress');
     // @ts-ignore
     navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
   };
 
   const onFacebookPress = () => {
-    user?.facebookLink && Linking.openURL(user?.facebookLink);
+    // Extract the username from the URL
+    const username = user?.facebookLink?.split('/').pop();
+
+    if (username) {
+      // Construct the URL to open the Facebook app
+      const fbProfileURL = `fb://profile/${username}`;
+
+      // Attempt to open the Facebook app
+      Linking.openURL(fbProfileURL)
+        .then((supported) => {
+          if (!supported) {
+            // If the Facebook app is not installed, open the profile in a browser
+            return Linking.openURL(user?.facebookLink!);
+          }
+        })
+        .catch(() => {
+          // Handle any errors that occur during the linking attempt
+          console.warn('An error occurred while opening the Facebook app.');
+        });
+    } else {
+      // Handle cases where the URL does not contain a valid username
+      console.warn('Invalid Facebook profile URL.');
+    }
   };
 
   return {

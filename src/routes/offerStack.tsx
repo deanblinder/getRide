@@ -45,7 +45,7 @@ const OfferStack: React.FC = () => {
         component={OfferingProfilePresenter}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerShown: false }}
+        options={{ presentation: 'modal' }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         component={EditProfile}
       />

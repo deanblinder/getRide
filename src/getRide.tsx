@@ -29,6 +29,7 @@ const GetRide = () => {
 
   useEffect(() => {
     getLocationAsync();
+    // getUser();
     // Listen for authentication state changes
     // const unsubscribe = auth.onAuthStateChanged((user) => {
     //   if (user) {
