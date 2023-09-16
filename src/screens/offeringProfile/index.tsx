@@ -8,10 +8,9 @@ const OfferingProfilePresenter = (props: Props) => {
   const { user } = usePresenter(props);
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.avatar}>
-        {/*<View>*/}
+      <View flex={1} alignItems={'center'} marginBottom={'5%'}>
         <Avatar
-          style={{ marginBottom: '5%' }}
+          marginBottom={'5%'}
           size="xl"
           bg="green.500"
           source={{
@@ -25,23 +24,14 @@ const OfferingProfilePresenter = (props: Props) => {
         )}
       </View>
       <View>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
+        <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
           Email: {user?.email.toLowerCase()}
         </Text>
-        <Text
-          style={{ marginBottom: '2%' }}
-          fontSize={typography.fontSizes['2xl']}
-        >
+        <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
           Phone: {user?.phoneNumber}
         </Text>
         {user?.facebookLink && (
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['2xl']}
-          >
+          <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
             Facebook Link: {user?.facebookLink}
           </Text>
         )}
@@ -53,11 +43,6 @@ const OfferingProfilePresenter = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: '5%',
-  },
-  avatar: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '5%',
   },
 });
 
