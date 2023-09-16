@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Spinner, Text, Button, Icon } from 'native-base';
+import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Avatar, Spinner, Text, Button } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
-import usePresenter from './usePresenter';
+import usePresenter, { Props } from './usePresenter';
 import { Entypo } from '@expo/vector-icons';
 
-const Profile = () => {
+const Profile = (props: Props) => {
+  const { navigation } = props;
+
   const {
     user,
     onAvatarPress,
@@ -13,7 +15,30 @@ const Profile = () => {
     profileImageLoading,
     onEditPress,
     onFacebookPress,
+    onLogoutPress,
   } = usePresenter();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: '', // Set a custom title
+      headerStyle: {},
+      headerTintColor: 'white', // Customize the text color
+      headerTitleStyle: {
+        fontSize: 18, // Customize the text size
+      },
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={onLogoutPress}
+          style={{ flexDirection: 'row' }}
+        >
+          <Text bold marginRight={'5%'}>
+            log out
+          </Text>
+          <Entypo name="log-out" size={20} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -31,7 +56,6 @@ const Profile = () => {
             <Avatar
               style={{ marginBottom: '5%' }}
               size="xl"
-              bg="green.500"
               source={{
                 uri: profileImage,
               }}
@@ -51,7 +75,7 @@ const Profile = () => {
                 <Avatar
                   // @ts-ignore
                   style={{
-                    borderStyle: 'soled',
+                    borderStyle: 'solid',
                     borderWidth: 3,
                     borderColor: 'white',
                     marginBottom: '5%',
@@ -64,7 +88,9 @@ const Profile = () => {
                   source={{
                     uri: 'profileImage',
                   }}
-                />
+                >
+                  <Entypo name="camera" size={15} onPress={onLogoutPress} />
+                </Avatar>
               )}
             </TouchableOpacity>
           </View>

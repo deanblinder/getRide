@@ -142,6 +142,11 @@ const usePresenter = (props: Props) => {
     setSeats(value);
   };
 
+  const onDeletePress = async () => {
+    rideToEdit && (await ridesActions.deleteRide(rideToEdit.rideId));
+    navigation.goBack();
+  };
+
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -160,6 +165,7 @@ const usePresenter = (props: Props) => {
     setShowDatePicker,
     loading,
     isEdit: !!rideToEdit,
+    onDeletePress,
   };
 };
 export default usePresenter;

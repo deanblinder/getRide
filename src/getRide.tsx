@@ -52,7 +52,9 @@ const GetRide = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Text>Tremp</Text>
+        <Text bold italic fontSize={'2xl'} color={'black'}>
+          TREMP
+        </Text>
         <TouchableOpacity onPress={onPress}>
           <Avatar
             size={'sm'}

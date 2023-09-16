@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { Text, Card } from '@rneui/base';
-import { Avatar, Button, Center } from 'native-base';
+import { Card } from '@rneui/base';
+import { Avatar, Button, Center, Text } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
+import { Entypo } from '@expo/vector-icons';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -15,7 +16,6 @@ const RideCard = (props: Props) => {
     isMyRide,
     rideUser,
     onEditPress,
-    onDeletePress,
   } = usePresenter(props);
 
   const hour = new Date(parseInt(ride.hour)).getHours().toString();
@@ -33,18 +33,10 @@ const RideCard = (props: Props) => {
           <View
             style={{ justifyContent: 'space-between', flexDirection: 'row' }}
           >
-            <Text>{ride.seats} seats available</Text>
+            <Text fontSize={'sm'}>{ride.seats} seats available</Text>
             {isMyRide && (
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Button
-                  style={{ marginRight: '3%' }}
-                  onPress={onDeletePress}
-                  color={'pink.50'}
-                  colorScheme="danger"
-                >
-                  {'Delete'}
-                </Button>
-                <Button onPress={onEditPress}>{'Edit'}</Button>
+                <Entypo name="edit" size={20} onPress={onEditPress} />
               </View>
             )}
           </View>
@@ -59,19 +51,24 @@ const RideCard = (props: Props) => {
             <Avatar source={{ uri: rideUser?.profileImage }} />
           </View>
           <Center>
-            <Text>{ride.date + ' | ' + time}</Text>
+            <Text bold>{ride.date + ' | ' + time}</Text>
           </Center>
         </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            flex: 3,
           }}
         >
-          <Text style={{ flex: 1 }}>{ride.origin.formatted_address}</Text>
-          <Text style={{ flex: 1 }}>-----------{'>'}</Text>
-          <Text style={{ flex: 1 }}>{ride.destination.formatted_address}</Text>
+          <Text style={{ flex: 1 }} bold>
+            {ride.origin.formatted_address}
+          </Text>
+          <Text style={{ flex: 1 }} bold>
+            -----------{'>'}
+          </Text>
+          <Text style={{ flex: 1 }} bold>
+            {ride.destination.formatted_address}
+          </Text>
         </View>
         {disabled && !isMyRide && (
           <View

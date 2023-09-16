@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Input, Stack, Button } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
+import { StyleSheet } from 'react-native';
 
 const EditProfile = (props: Props) => {
   const {
@@ -14,14 +15,11 @@ const EditProfile = (props: Props) => {
   } = usePresenter(props);
   return (
     <View
-      style={{
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        display: 'flex',
-        marginTop: '20%',
-        flex: 1,
-        padding: '5%',
-      }}
+      justifyContent={'space-between'}
+      alignItems={'center'}
+      marginTop={'20%'}
+      padding={'5%'}
+      flex={1}
     >
       <Stack space={4} w="75%" maxW="300px" mx="auto">
         <Text>first Name</Text>
@@ -35,4 +33,5 @@ const EditProfile = (props: Props) => {
     </View>
   );
 };
+
 export default EditProfile;
