@@ -89,7 +89,7 @@ const Profile = (props: Props) => {
                     uri: 'profileImage',
                   }}
                 >
-                  <Entypo name="camera" size={15} onPress={onLogoutPress} />
+                  <Entypo name="camera" size={15} onPress={onAvatarPress} />
                 </Avatar>
               )}
             </TouchableOpacity>
