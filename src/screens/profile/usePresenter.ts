@@ -1,16 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import * as ImagePicker from 'expo-image-picker';
-import { storage } from '../../config/firebase';
+import { auth, storage } from '../../config/firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from 'react';
 import { usersActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
 import screenIds from '../../constants/screenIds';
 import { Linking } from 'react-native';
+import { setUser } from '../../redux/auth/authActions';
+
+export type Props = {
+  navigation: any;
+};
 
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const [profileImage, setProfileImage] = useState<string | undefined>(
@@ -65,6 +72,12 @@ const usePresenter = () => {
     Linking.openURL(user?.facebookLink!);
   };
 
+  const onLogoutPress = async () => {
+    await auth.signOut();
+    navigation.goBack();
+    dispatch(setUser(undefined));
+  };
+
   return {
     user,
     onAvatarPress,
@@ -72,6 +85,7 @@ const usePresenter = () => {
     profileImageLoading,
     onEditPress,
     onFacebookPress,
+    onLogoutPress,
   };
 };
 

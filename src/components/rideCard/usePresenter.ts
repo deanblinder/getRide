@@ -52,10 +52,6 @@ const usePresenter = (props: Props) => {
     });
   };
 
-  const onDeletePress = async () => {
-    await ridesActions.deleteRide(ride.rideId);
-  };
-
   const onEditPress = () => {
     // @ts-ignore
     navigation.navigate(screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN, {
@@ -72,7 +68,6 @@ const usePresenter = (props: Props) => {
     shouldCardBeDisabled: disabled,
     rideUser,
     onEditPress,
-    onDeletePress,
   };
 };
 export default usePresenter;

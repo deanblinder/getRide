@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
-import { Input, Stack, Button, Slider, Text, Spinner } from 'native-base';
+import { Input, Stack, Button, Slider, Text, Spinner, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
@@ -25,12 +25,13 @@ const OfferOrEditRides = (props: Props) => {
     setShowDatePicker,
     loading,
     isEdit,
+    onDeletePress,
   } = usePresenter(props);
 
   return (
-    <View style={styles.container}>
+    <View flex={1} justifyContent="center">
       <GoogleMap origin={origin} destination={destination} />
-      <Card containerStyle={{ margin: '10%' }}>
+      <Card containerStyle={styles.card}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
           <TouchableOpacity onPress={onOriginPressed}>
             <Input
@@ -53,11 +54,9 @@ const OfferOrEditRides = (props: Props) => {
             />
           </TouchableOpacity>
           <View
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-            }}
+            display={'flex'}
+            justifyContent={'space-between'}
+            flexDirection={'row'}
           >
             {!shouldShowDatePicker && (
               <TouchableOpacity
@@ -108,7 +107,7 @@ const OfferOrEditRides = (props: Props) => {
             <Slider.Thumb />
           </Slider>
         </Stack>
-        <View style={{ flexDirection: 'row', marginTop: '5%' }}>
+        <View flexDirection={'row'} marginTop={'5%'}>
           {shouldShowDatePicker && (
             <RNDateTimePicker
               value={date}
@@ -126,7 +125,14 @@ const OfferOrEditRides = (props: Props) => {
           )}
         </View>
       </Card>
-      <Button onPress={addRide} style={{ padding: '5%', margin: '10%' }}>
+      <Button
+        onPress={addRide}
+        // padding={'5%'}
+        marginTop={'10%'}
+        marginBottom={'5%'}
+        marginLeft={'10%'}
+        marginRight={'10%'}
+      >
         {loading ? (
           <Spinner color="emerald.500" />
         ) : isEdit ? (
@@ -135,14 +141,22 @@ const OfferOrEditRides = (props: Props) => {
           'Add Offer'
         )}
       </Button>
+      {isEdit && (
+        <Button
+          marginX={'10%'}
+          marginBottom={'5%'}
+          onPress={onDeletePress}
+          colorScheme="danger"
+        >
+          {'Delete'}
+        </Button>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  textInput: {
-    marginVertical: 5,
-  },
+  card: { margin: '10%', borderRadius: 10 },
   container: {
     flex: 1,
     justifyContent: 'space-between',
