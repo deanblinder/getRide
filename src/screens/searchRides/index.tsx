@@ -37,7 +37,12 @@ const SearchRides = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Card containerStyle={{ margin: '10%' }}>
+      <Card
+        containerStyle={{
+          margin: '10%',
+          borderRadius: 10,
+        }}
+      >
         <Stack space={2} w="90%" maxW="300px" mx="auto">
           <TouchableOpacity onPress={onOriginPressed}>
             <Input

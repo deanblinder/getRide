@@ -36,11 +36,6 @@ const SearchStack: React.FC = () => {
         component={RideScreen}
       />
       <Stack.Screen
-        options={{ presentation: 'modal' }}
-        name={screenIds.PROFILE_SCREEN}
-        component={Profile}
-      />
-      <Stack.Screen
         options={{ presentation: 'modal', headerShown: false }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         component={OfferingProfilePresenter}
@@ -54,6 +49,11 @@ const SearchStack: React.FC = () => {
         options={{ presentation: 'modal' }}
         name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
         component={OfferOrEditRides}
+      />
+      <Stack.Screen
+        options={{ presentation: 'modal' }}
+        name={screenIds.PROFILE_SCREEN}
+        component={Profile}
       />
     </Stack.Navigator>
   );
