@@ -35,11 +35,6 @@ const OfferStack: React.FC = () => {
         component={RideScreen}
       />
       <Stack.Screen
-        options={{ presentation: 'modal' }}
-        name={screenIds.PROFILE_SCREEN}
-        component={Profile}
-      />
-      <Stack.Screen
         options={{ presentation: 'modal', headerShown: false }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         component={OfferingProfilePresenter}
@@ -48,6 +43,11 @@ const OfferStack: React.FC = () => {
         options={{ presentation: 'modal' }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         component={EditProfile}
+      />
+      <Stack.Screen
+        options={{ presentation: 'modal' }}
+        name={screenIds.PROFILE_SCREEN}
+        component={Profile}
       />
     </Stack.Navigator>
   );

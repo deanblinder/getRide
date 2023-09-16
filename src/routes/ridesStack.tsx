@@ -27,11 +27,6 @@ const RidesStack = () => {
           component={RideScreen}
         />
         <Stack.Screen
-          options={{ presentation: 'modal' }}
-          name={screenIds.PROFILE_SCREEN}
-          component={Profile}
-        />
-        <Stack.Screen
           options={{ presentation: 'modal', headerShown: false }}
           name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
           component={SearchRidesDestination}
@@ -55,6 +50,11 @@ const RidesStack = () => {
           options={{ presentation: 'modal' }}
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
           component={OfferOrEditRides}
+        />
+        <Stack.Screen
+          options={{ presentation: 'modal' }}
+          name={screenIds.PROFILE_SCREEN}
+          component={Profile}
         />
       </Stack.Group>
     </Stack.Navigator>
