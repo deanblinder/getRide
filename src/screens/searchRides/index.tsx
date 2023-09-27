@@ -107,7 +107,7 @@ const SearchRides = () => {
         <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
           {loading ? <Spinner color="emerald.500" /> : 'search'}
         </Button>
-        {rides && (
+        {rides.length > 0 && (
           <Button
             style={{
               padding: '5%',
@@ -117,7 +117,7 @@ const SearchRides = () => {
             }}
             onPress={clearSearch}
           >
-            Clear Rides
+            Clear Results
           </Button>
         )}
       </Card>

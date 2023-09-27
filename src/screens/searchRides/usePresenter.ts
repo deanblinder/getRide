@@ -5,13 +5,18 @@ import { ridesActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
 import { IS_IOS } from '../offerOrEditRides/usePresenter';
 import { useToast } from 'native-base';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthState } from '../../redux/auth/authReducer';
 
 const usePresenter = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: AuthState) => state.user);
+
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
   const [destination, setDestination] = useState<Location | undefined>(
     undefined
   );
-  const [rides, setRides] = useState<Ride[] | undefined>(undefined);
+  const [rides, setRides] = useState<Ride[]>([]);
   const [radius, setRadius] = useState(7);
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
@@ -44,11 +49,10 @@ const usePresenter = () => {
   };
 
   const clearSearch = () => {
-    setRides(undefined);
+    setRides([]);
   };
 
   const onDestinationPressed = () => {
-    console.log('onDestinationPressed');
     // @ts-ignore
     navigation.navigate(screenIds.SEARCH_RIDE_DESTINATION_SCREEN, {
       getLocations: getDestination,
@@ -64,11 +68,11 @@ const usePresenter = () => {
     }
 
     setLoading(true);
-    const rides = await ridesActions.getRides({
+    const rides = await ridesActions.getFutureRides({
+      userId: user!.uid,
       origin: origin.location,
       destination: destination.location,
-      date: new Date(),
-      time: new Date(),
+      date: date.getTime(),
       radius,
     });
     setRides(rides);

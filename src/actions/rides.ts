@@ -1,4 +1,4 @@
-import { db } from '../config/firebase';
+import { db, ridesRef } from '../config/firebase';
 import {
   collection,
   doc,
@@ -9,14 +9,7 @@ import {
 } from 'firebase/firestore';
 import { Ride } from '../typing';
 import { Point } from 'react-native-google-places-autocomplete';
-
-export const getUpcomingRides = async (userId: string) => {
-  const querySnapshot = await getDocs(collection(db, 'rides'));
-  const allRides = querySnapshot.docs.map((doc) => doc.data()) as Ride[];
-  return allRides.filter(
-    (ride) => new Date(ride.date) >= new Date() && ride.userId === userId
-  );
-};
+import { ridesQueries } from '../quries';
 
 export const addRide = async (ride: Ride) => {
   const newRideRef = doc(db, 'rides', ride.rideId);
@@ -33,6 +26,47 @@ export const updateRide = async (rideId: string, props: Partial<Ride>) => {
 export const deleteRide = async (rideId: string) => {
   const rideToDeleteRef = doc(db, 'rides', rideId);
   await deleteDoc(rideToDeleteRef);
+};
+
+export const getFutureRides = async (rideData: {
+  date: number;
+  origin: Point;
+  destination: Point;
+  radius: number;
+  userId: string;
+}): Promise<Ride[]> => {
+  try {
+    const futureRides = ridesQueries.futureRides(rideData.userId);
+    const querySnapshot = await getDocs(futureRides);
+
+    let rides: Ride[] = [];
+    querySnapshot.forEach((doc) => {
+      const ride = doc.data() as Ride;
+      rides.push(ride);
+    });
+    return rides.filter((ride: Ride) => {
+      return (
+        ride.userId !== rideData.userId &&
+        isWithinRadius(
+          ride.origin.location!.lat,
+          ride.origin.location!.lng,
+          rideData.origin.lat,
+          rideData.origin.lng,
+          rideData.radius
+        ) &&
+        isWithinRadius(
+          ride.destination.location!.lat,
+          ride.destination.location!.lng,
+          rideData.destination.lat,
+          rideData.destination.lng,
+          rideData.radius
+        )
+      );
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 
 export const isWithinRadius = (
@@ -61,34 +95,4 @@ export const isWithinRadius = (
   const distance = R * c;
 
   return distance <= radius;
-};
-
-export const getRides = async (rideDate: {
-  date: Date;
-  time: Date;
-  origin: Point;
-  destination: Point;
-  radius: number;
-}): Promise<Ride[]> => {
-  const querySnapshot = await getDocs(collection(db, 'rides'));
-  const allRides = querySnapshot.docs.map((doc) => doc.data()) as Ride[];
-
-  return allRides.filter((ride: Ride) => {
-    return (
-      isWithinRadius(
-        ride.origin.location!.lat,
-        ride.origin.location!.lng,
-        rideDate.origin.lat,
-        rideDate.origin.lng,
-        rideDate.radius
-      ) &&
-      isWithinRadius(
-        ride.destination.location!.lat,
-        ride.destination.location!.lng,
-        rideDate.destination.lat,
-        rideDate.destination.lng,
-        rideDate.radius
-      )
-    );
-  });
 };
