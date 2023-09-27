@@ -2,7 +2,16 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
-import { Input, Stack, Button, Slider, Text, Spinner, View } from 'native-base';
+import {
+  Input,
+  Stack,
+  Button,
+  Slider,
+  ScrollView,
+  Text,
+  Spinner,
+  View,
+} from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
@@ -24,12 +33,12 @@ const OfferOrEditRides = (props: Props) => {
     setShowTimePicker,
     setShowDatePicker,
     loading,
-    isEdit,
+    isEditMode,
     onDeletePress,
   } = usePresenter(props);
 
   return (
-    <View flex={1} justifyContent="center">
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
       <GoogleMap origin={origin} destination={destination} />
       <Card containerStyle={styles.card}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
@@ -127,21 +136,20 @@ const OfferOrEditRides = (props: Props) => {
       </Card>
       <Button
         onPress={addRide}
-        // padding={'5%'}
         marginTop={'10%'}
-        marginBottom={'5%'}
+        marginBottom={'2%'}
         marginLeft={'10%'}
         marginRight={'10%'}
       >
         {loading ? (
           <Spinner color="emerald.500" />
-        ) : isEdit ? (
-          'Update Offer'
+        ) : isEditMode ? (
+          'Update'
         ) : (
           'Add Offer'
         )}
       </Button>
-      {isEdit && (
+      {isEditMode && (
         <Button
           marginX={'10%'}
           marginBottom={'5%'}
@@ -151,7 +159,7 @@ const OfferOrEditRides = (props: Props) => {
           {'Delete'}
         </Button>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

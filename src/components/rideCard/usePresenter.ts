@@ -68,6 +68,12 @@ const usePresenter = (props: Props) => {
     shouldCardBeDisabled: disabled,
     rideUser,
     onEditPress,
+    rideHour: new Date(ride.rideTimestamp).toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+    }),
+    rideDate: new Date(ride.rideTimestamp).toLocaleDateString(),
   };
 };
 export default usePresenter;

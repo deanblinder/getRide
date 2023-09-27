@@ -23,11 +23,11 @@ export type Ride = {
   userId: string;
   origin: Location;
   destination: Location;
-  hour: string;
-  date: string;
+  rideTimestamp: number;
   seats: number;
   price?: number;
   userImage?: string;
+  hitchhikers: string[];
 };
 
 export type Message = {

@@ -28,13 +28,12 @@ const Profile = (props: Props) => {
       },
       headerRight: () => (
         <TouchableOpacity
-          onPress={onLogoutPress}
+          onPress={onEditPress}
           style={{ flexDirection: 'row' }}
         >
           <Text bold marginRight={'5%'}>
-            log out
+            edit
           </Text>
-          <Entypo name="log-out" size={20} />
         </TouchableOpacity>
       ),
     });
@@ -115,8 +114,8 @@ const Profile = (props: Props) => {
           </Text>
         </View>
       </View>
-      <Button style={{ display: 'flex' }} onPress={onEditPress}>
-        Edit
+      <Button colorScheme="danger" onPress={onLogoutPress}>
+        log out
       </Button>
     </ScrollView>
   );

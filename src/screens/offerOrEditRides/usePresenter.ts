@@ -8,6 +8,7 @@ import Chance from 'chance';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
 import { Platform } from 'react-native';
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 export const IS_IOS = Platform.OS === 'ios';
 
@@ -29,27 +30,34 @@ const usePresenter = (props: Props) => {
     rideToEdit ? rideToEdit.destination : undefined
   );
   const [time, setTime] = useState<Date>(
-    rideToEdit ? new Date(parseInt(rideToEdit?.hour)) : new Date()
+    rideToEdit ? new Date(rideToEdit?.rideTimestamp) : new Date()
   );
   const [date, setDate] = useState<Date>(
-    rideToEdit ? new Date(rideToEdit.date) : new Date()
+    rideToEdit ? new Date(rideToEdit?.rideTimestamp) : new Date()
   );
+
   const [seats, setSeats] = useState<number>(rideToEdit ? rideToEdit.seats : 4);
   const [loading, setLoading] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(IS_IOS);
 
-  const onDateChange = (event: any, selectedDate: any) => {
+  const onDateChange = (
+    event: DateTimePickerEvent,
+    selectedDate?: Date | undefined
+  ) => {
     if (selectedDate) {
       setShowDatePicker(IS_IOS);
       setDate(selectedDate);
     }
   };
 
-  const onTimeChange = (event: any, selectedDate: any) => {
-    if (selectedDate) {
+  const onTimeChange = (
+    event: DateTimePickerEvent,
+    selectedTime?: Date | undefined
+  ) => {
+    if (selectedTime) {
       setShowTimePicker(IS_IOS); // On Android, it's better to manually control when to close the picker
-      setTime(selectedDate);
+      setTime(selectedTime);
     }
   };
 
@@ -73,6 +81,12 @@ const usePresenter = (props: Props) => {
     setSeats(4);
   };
 
+  const convertToTimestamp = (date: Date) => {
+    date.setHours(time.getHours());
+    date.setMinutes(time.getMinutes());
+    return date.getTime();
+  };
+
   const addRide = async () => {
     if (!origin || !destination) {
       toast.show({
@@ -88,8 +102,8 @@ const usePresenter = (props: Props) => {
       userId: user!.uid,
       origin: origin,
       destination: destination,
-      hour: time.getTime().toString(),
-      date: date.toDateString(),
+      rideTimestamp: convertToTimestamp(date),
+      hitchhikers: [],
       seats,
     };
 
@@ -97,8 +111,7 @@ const usePresenter = (props: Props) => {
       setLoading(true);
       if (rideToEdit) {
         const rideToUpdate = {
-          date: date.toDateString(),
-          hour: time.getTime().toString(),
+          rideTimestamp: convertToTimestamp(date),
           rideId: rideToEdit.rideId,
           origin: origin,
           destination: destination,
@@ -164,7 +177,7 @@ const usePresenter = (props: Props) => {
     setShowTimePicker,
     setShowDatePicker,
     loading,
-    isEdit: !!rideToEdit,
+    isEditMode: !!rideToEdit,
     onDeletePress,
   };
 };

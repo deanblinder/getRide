@@ -11,9 +11,8 @@ const SearchRidesOrigin = (props: Props) => {
   const { onDonePressed, onLocationSelected } = usePresenter(props);
   return (
     <View style={styles.container}>
-      <Text>Origin</Text>
       <GooglePlacesAutocomplete
-        placeholder="Search"
+        placeholder="Origin"
         fetchDetails={true}
         onPress={(data, details = null) => {
           onLocationSelected(details);

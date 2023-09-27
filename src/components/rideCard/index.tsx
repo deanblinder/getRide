@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { memo } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
-import { Avatar, Button, Center, Text } from 'native-base';
+import { Avatar, Button, Center, Text, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -15,12 +15,10 @@ const RideCard = (props: Props) => {
     shouldCardBeDisabled,
     isMyRide,
     rideUser,
+    rideDate,
+    rideHour,
     onEditPress,
   } = usePresenter(props);
-
-  const hour = new Date(parseInt(ride.hour)).getHours().toString();
-  const min = new Date(parseInt(ride.hour)).getMinutes().toString();
-  const time = hour + ':' + min;
 
   return (
     <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
@@ -33,42 +31,50 @@ const RideCard = (props: Props) => {
           <View
             style={{ justifyContent: 'space-between', flexDirection: 'row' }}
           >
-            <Text fontSize={'sm'}>{ride.seats} seats available</Text>
-            {isMyRide && (
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Entypo name="edit" size={20} onPress={onEditPress} />
+            <View style={{ marginRight: '10%' }}>
+              <Avatar source={{ uri: rideUser?.profileImage }} />
+            </View>
+            <View>
+              {isMyRide && (
+                <View
+                  style={{ display: 'flex', flexDirection: 'row' }}
+                  marginBottom={'30%'}
+                >
+                  <Entypo name="edit" size={20} onPress={onEditPress} />
+                </View>
+              )}
+              <View style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                <MaterialCommunityIcons name="seat" size={20} />
+                <Text fontSize={'sm'} bold>
+                  {ride.seats}
+                </Text>
               </View>
-            )}
+            </View>
           </View>
         </View>
+
         <View
-          style={{
-            flexDirection: 'row',
-            marginVertical: '5%',
-          }}
+          justifyContent={'center'}
+          alignItems={'center'}
+          marginBottom={'5%'}
+          flex={1}
         >
-          <View style={{ marginRight: '10%' }}>
-            <Avatar source={{ uri: rideUser?.profileImage }} />
-          </View>
-          <Center>
-            <Text bold>{ride.date + ' | ' + time}</Text>
-          </Center>
+          <Text bold>{rideHour}</Text>
+          <Text bold>{rideDate}</Text>
         </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            display: 'flex',
+            flex: 1,
           }}
         >
-          <Text style={{ flex: 1 }} bold>
-            {ride.origin.formatted_address}
-          </Text>
-          <Text style={{ flex: 1 }} bold>
-            -----------{'>'}
-          </Text>
-          <Text style={{ flex: 1 }} bold>
-            {ride.destination.formatted_address}
-          </Text>
+          <Text bold>{ride.destination.formatted_address}</Text>
+          <View>
+            <Entypo name="arrow-long-left" size={20} />
+          </View>
+          <Text bold>{ride.origin.formatted_address}</Text>
         </View>
         {disabled && !isMyRide && (
           <View
@@ -90,4 +96,4 @@ const RideCard = (props: Props) => {
     </TouchableOpacity>
   );
 };
-export default RideCard;
+export default memo(RideCard);
