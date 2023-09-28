@@ -73,7 +73,7 @@ const usePresenter = (props: Props) => {
       hour: '2-digit',
       minute: '2-digit',
     }),
-    rideDate: new Date(ride.rideTimestamp).toLocaleDateString(),
+    rideDate: new Date(ride.rideTimestamp).toLocaleDateString('he'),
   };
 };
 export default usePresenter;

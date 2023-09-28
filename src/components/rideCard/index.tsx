@@ -4,6 +4,8 @@ import { Card } from '@rneui/base';
 import { Avatar, Button, Center, Text, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthState } from '../../redux/auth/authReducer';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -19,6 +21,7 @@ const RideCard = (props: Props) => {
     rideHour,
     onEditPress,
   } = usePresenter(props);
+  const user = useSelector((state: AuthState) => state.user);
 
   return (
     <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
@@ -32,14 +35,18 @@ const RideCard = (props: Props) => {
             style={{ justifyContent: 'space-between', flexDirection: 'row' }}
           >
             <View style={{ marginRight: '10%' }}>
-              <Avatar source={{ uri: rideUser?.profileImage }} />
+              <Avatar
+                source={{
+                  uri: rideUser?.profileImage,
+                }}
+              >
+                {!rideUser?.profileImage &&
+                  user?.email.slice(0, 2).toUpperCase()}
+              </Avatar>
             </View>
             <View>
               {isMyRide && (
-                <View
-                  style={{ display: 'flex', flexDirection: 'row' }}
-                  marginBottom={'30%'}
-                >
+                <View marginBottom={'30%'}>
                   <Entypo name="edit" size={20} onPress={onEditPress} />
                 </View>
               )}
@@ -59,22 +66,26 @@ const RideCard = (props: Props) => {
           marginBottom={'5%'}
           flex={1}
         >
-          <Text bold>{rideHour}</Text>
-          <Text bold>{rideDate}</Text>
+          <Text bold>
+            {rideDate} | {rideHour}
+          </Text>
         </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            display: 'flex',
             flex: 1,
           }}
         >
-          <Text bold>{ride.destination.formatted_address}</Text>
+          <Text bold style={{ width: '40%' }}>
+            {ride.destination.formatted_address}
+          </Text>
           <View>
             <Entypo name="arrow-long-left" size={20} />
           </View>
-          <Text bold>{ride.origin.formatted_address}</Text>
+          <Text bold style={{ width: '40%' }}>
+            {ride.origin.formatted_address}
+          </Text>
         </View>
         {disabled && !isMyRide && (
           <View
@@ -96,4 +107,4 @@ const RideCard = (props: Props) => {
     </TouchableOpacity>
   );
 };
-export default memo(RideCard);
+export default RideCard;
