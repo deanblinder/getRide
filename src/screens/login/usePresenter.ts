@@ -28,8 +28,6 @@ const usePresenter = () => {
         const uid = userCredentials.user.uid;
         const user = await usersActions.getUserById(uid);
         dispatch(setUser(user));
-        const currentUser = auth.currentUser;
-        console.log('###currentUser', currentUser);
       } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
           alert('User not found');

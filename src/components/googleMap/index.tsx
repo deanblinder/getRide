@@ -29,14 +29,10 @@ const MapViewScreen = (props: Props) => {
   useEffect(() => {
     if (!origin || !destination) {
       setRouteCoordinates([]);
-      getRouteCoordinates({
-        origin: { lat: 0, lng: 0 },
-        destination: { lat: 0, lng: 0 },
-      });
     }
+
     if (origin?.location && destination?.location) {
       setInitialRegion(origin?.location);
-
       getRouteCoordinates({
         origin: origin?.location,
         destination: destination?.location,

@@ -1,6 +1,7 @@
 import { Ride, User } from '../../typing';
 import { useEffect, useState } from 'react';
 import { usersActions } from '../../actions';
+import { Linking } from 'react-native';
 
 export type Props = {
   route: {
@@ -23,6 +24,21 @@ const usePresenter = (props: Props) => {
     const user = await usersActions.getUserById(userId);
     setUser(user);
   };
-  return { user };
+
+  const onPhonePress = () => {
+    const url = `tel:${user?.phoneNumber}`;
+    console.log('url', url);
+    try {
+      Linking.openURL(url);
+    } catch (error) {
+      console.error('Error opening phone app:', error);
+    }
+  };
+
+  const onFacebookPress = () => {
+    Linking.openURL(user?.facebookLink!);
+  };
+
+  return { user, onPhonePress, onFacebookPress };
 };
 export default usePresenter;

@@ -10,6 +10,7 @@ import {
 import { Ride } from '../typing';
 import { Point } from 'react-native-google-places-autocomplete';
 import { ridesQueries } from '../quries';
+import { QueryDocumentSnapshot } from '@firebase/firestore';
 
 export const addRide = async (ride: Ride) => {
   const newRideRef = doc(db, 'rides', ride.rideId);
@@ -34,17 +35,25 @@ export const getFutureRides = async (rideData: {
   destination: Point;
   radius: number;
   userId: string;
-}): Promise<Ride[]> => {
+  lastVisibleDoc: QueryDocumentSnapshot | null;
+}): Promise<{
+  allRides: Ride[];
+  lastVisible: QueryDocumentSnapshot | null;
+}> => {
   try {
-    const futureRides = ridesQueries.futureRides(rideData.userId);
-    const querySnapshot = await getDocs(futureRides);
+    const futureRidesQuery = ridesQueries.futureRides(
+      rideData.userId,
+      rideData.lastVisibleDoc
+    );
+
+    const querySnapshot = await getDocs(futureRidesQuery);
 
     let rides: Ride[] = [];
     querySnapshot.forEach((doc) => {
       const ride = doc.data() as Ride;
       rides.push(ride);
     });
-    return rides.filter((ride: Ride) => {
+    const allRides = rides.filter((ride: Ride) => {
       return (
         ride.userId !== rideData.userId &&
         isWithinRadius(
@@ -63,9 +72,18 @@ export const getFutureRides = async (rideData: {
         )
       );
     });
+    return {
+      allRides,
+      lastVisible:
+        querySnapshot.docs[querySnapshot.docs.length - 1] ??
+        rideData.lastVisibleDoc,
+    };
   } catch (error) {
     console.error(error);
-    return [];
+    return {
+      allRides: [],
+      lastVisible: null,
+    };
   }
 };
 

@@ -3,38 +3,49 @@ import { View, Text, Avatar, Spinner } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import typography from 'native-base/src/theme/base/typography';
+import { Entypo } from '@expo/vector-icons';
 
 const OfferingProfilePresenter = (props: Props) => {
-  const { user } = usePresenter(props);
+  const { user, onPhonePress, onFacebookPress } = usePresenter(props);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View flex={1} alignItems={'center'} marginBottom={'5%'}>
         <Avatar
           marginBottom={'5%'}
           size="xl"
-          bg="green.500"
           source={{
             uri: user?.profileImage,
           }}
-        />
+        >
+          {user?.profileImage
+            ? undefined
+            : user?.email.slice(0, 2).toUpperCase()}
+        </Avatar>
         {(user?.firstName || user?.lastName) && (
           <Text fontSize={typography.fontSizes['2xl']}>
             {user?.firstName + ' ' + user?.lastName}
           </Text>
         )}
       </View>
-      <View>
-        <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
-          Email: {user?.email.toLowerCase()}
-        </Text>
-        <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
-          Phone: {user?.phoneNumber}
-        </Text>
+      <View marginBottom={'5%'}>
         {user?.facebookLink && (
-          <Text marginBottom={'2%'} fontSize={typography.fontSizes['2xl']}>
-            Facebook Link: {user?.facebookLink}
-          </Text>
+          <Entypo
+            name="facebook"
+            size={44}
+            color="blue"
+            onPress={onFacebookPress}
+          />
         )}
+      </View>
+      <View>
+        <View flexDirection={'row'}>
+          <Text fontSize={typography.fontSizes['2xl']}>Phone: </Text>
+          <TouchableOpacity onPress={onPhonePress}>
+            <Text fontSize={typography.fontSizes['2xl']}>
+              {user?.phoneNumber}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );

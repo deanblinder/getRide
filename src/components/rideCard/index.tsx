@@ -25,7 +25,7 @@ const RideCard = (props: Props) => {
 
   return (
     <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
-      <Card>
+      <Card containerStyle={{ borderRadius: 10 }}>
         <View
           style={{
             alignContent: 'flex-end',

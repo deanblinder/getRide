@@ -4,13 +4,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OfferStack from './routes/offerStack';
 import SearchStack from './routes/searchStack';
 import RidesStack from './routes/ridesStack';
-import { View, Avatar, Text } from 'native-base';
+import { View, Avatar, Text, StatusBar } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { screenIds } from './constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from './redux/auth/authReducer';
 import WelcomeStack from './routes/welcomeStack';
-import { setUser } from './redux/auth/authActions';
+import { setUser, setUserLocation } from './redux/auth/authActions';
 import { auth } from './config/firebase';
 import { getUserById } from './actions/users';
 import { getUserLocationAsync } from './actions/common';
@@ -25,7 +25,14 @@ const GetRide = () => {
       if (user) {
         const loggedUser = await getUserById(user.uid);
         dispatch(setUser(loggedUser));
-        getUserLocationAsync();
+        const userLocation = await getUserLocationAsync();
+        userLocation &&
+          dispatch(
+            setUserLocation({
+              lat: userLocation.coords.latitude,
+              lng: userLocation.coords.longitude,
+            })
+          );
       } else {
         console.log('### logged out');
       }
@@ -52,8 +59,8 @@ const GetRide = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Text bold italic fontSize={'2xl'} color={'black'}>
-          TREMP
+        <Text bold italic fontSize={'2xl'} color={'blue.700'}>
+          GET TREMP
         </Text>
         <TouchableOpacity onPress={onPress}>
           <Avatar
@@ -69,6 +76,8 @@ const GetRide = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
+
       {user ? (
         <Tab.Navigator
           screenOptions={({ route }) => ({

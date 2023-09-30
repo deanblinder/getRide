@@ -1,7 +1,4 @@
-import React from 'react';
-import { navigationService } from '../../services';
 import { useNavigation } from '@react-navigation/native';
-import { screenIds } from '../../constants';
 import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
 import { Props } from '../searchOrigin/usePresenter';
 
@@ -17,9 +14,6 @@ const usePresenter = (props: Props) => {
   };
 
   const onDonePressed = () => {
-    props.navigation.reset({
-      routes: [{ name: screenIds.HOME_SCREEN }],
-    });
     navigation.goBack();
   };
   return {

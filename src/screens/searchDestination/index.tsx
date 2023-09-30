@@ -18,7 +18,6 @@ const SearchRidesDestination = (props: Props) => {
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           onLocationSelected(details);
-          console.log(data, details);
         }}
         styles={{
           textInput: styles.textInput,
@@ -30,6 +29,9 @@ const SearchRidesDestination = (props: Props) => {
           key: API_KEY,
           language: 'iw',
           components: 'country:il',
+        }}
+        textInputProps={{
+          placeholderTextColor: 'grey',
         }}
       />
       <Button style={{ borderRadius: 20 }} onPress={onDonePressed}>

@@ -19,7 +19,6 @@ const usePresenter = (props: Props) => {
 
   const getConversation = async () => {
     const conv = await chatActions.getConversation(conversationId);
-    console.log(conv);
   };
 
   return {};

@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
 import { Input, Button, Stack, Spinner, Slider, Text } from 'native-base';
 import RideCard from '../../components/rideCard';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { Ride } from '../../typing';
 
 const SearchRides = () => {
   const {
@@ -23,20 +24,15 @@ const SearchRides = () => {
     onDateChange,
     clearSearch,
     date,
+    onSearchMore,
   } = usePresenter();
 
-  const renderRides = () => {
-    if (!rides) {
-      return null;
-    }
-
-    return rides.map((ride, index) => {
-      return <RideCard key={index} ride={ride} />;
-    });
+  const renderItem = ({ item }: { item: Ride }) => {
+    return <RideCard ride={item} />;
   };
 
-  return (
-    <ScrollView style={styles.container}>
+  const renderSearchCard = () => {
+    return (
       <Card
         containerStyle={{
           margin: '10%',
@@ -121,9 +117,22 @@ const SearchRides = () => {
           </Button>
         )}
       </Card>
-      {renderRides()}
-    </ScrollView>
-  );
+    );
+  };
+
+  const renderRides = () => {
+    return (
+      <FlatList
+        data={rides}
+        renderItem={renderItem}
+        ListHeaderComponent={renderSearchCard}
+        onEndReached={onSearchMore}
+        onEndReachedThreshold={0.3}
+      />
+    );
+  };
+
+  return <View style={styles.container}>{renderRides()}</View>;
 };
 
 const styles = StyleSheet.create({

@@ -124,7 +124,7 @@ const usePresenter = (props: Props) => {
       clearState();
       setLoading(false);
       // @ts-ignore
-      await navigation.navigate(screenIds.RIDES_SCREEN);
+      navigation.navigate(screenIds.RIDES_SCREEN);
       toast.show({
         description: 'Ride added successfully',
         color: 'green',

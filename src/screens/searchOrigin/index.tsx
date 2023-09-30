@@ -25,6 +25,9 @@ const SearchRidesOrigin = (props: Props) => {
           backgroundColor: 'white',
           marginTop: 20,
         }}
+        textInputProps={{
+          placeholderTextColor: 'grey',
+        }}
         query={{
           key: API_KEY,
           language: 'iw',

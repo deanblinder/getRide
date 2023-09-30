@@ -1,21 +1,14 @@
 import * as Location from 'expo-location';
-import { setUserLocation } from '../redux/auth/authActions';
-import { useDispatch } from 'react-redux';
+import { LocationObject } from 'expo-location/src/Location.types';
 
-export const getUserLocationAsync = async () => {
-  const dispatch = useDispatch();
-
+export const getUserLocationAsync = async (): Promise<
+  LocationObject | undefined
+> => {
   let { status } = await Location.requestForegroundPermissionsAsync();
   if (status !== 'granted') {
     console.log('Permission to access location was denied');
     return;
   }
 
-  const location = await Location.getCurrentPositionAsync({});
-  dispatch(
-    setUserLocation({
-      lat: location.coords.latitude,
-      lng: location.coords.longitude,
-    })
-  );
+  return await Location.getCurrentPositionAsync({});
 };

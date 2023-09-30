@@ -7,9 +7,9 @@ import { IS_IOS } from '../offerOrEditRides/usePresenter';
 import { useToast } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
+import { QueryDocumentSnapshot } from '@firebase/firestore';
 
 const usePresenter = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state: AuthState) => state.user);
 
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
@@ -21,6 +21,9 @@ const usePresenter = () => {
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
+  const [shouldFetchMore, setShouldFetchMore] = useState<boolean>(false);
+  const [lastVisibleDoc, setLastVisibleDoc] =
+    useState<QueryDocumentSnapshot | null>(null);
   const toast = useToast();
 
   const onDateChange = (event: any, selectedDate: any) => {
@@ -41,7 +44,6 @@ const usePresenter = () => {
   };
 
   const onOriginPressed = () => {
-    console.log('onOriginPressed');
     // @ts-ignore
     navigation.navigate(screenIds.SEARCH_RIDE_ORIGIN_SCREEN, {
       getLocations: getOrigin,
@@ -50,6 +52,8 @@ const usePresenter = () => {
 
   const clearSearch = () => {
     setRides([]);
+    setLastVisibleDoc(null);
+    setShouldFetchMore(false);
   };
 
   const onDestinationPressed = () => {
@@ -68,15 +72,34 @@ const usePresenter = () => {
     }
 
     setLoading(true);
-    const rides = await ridesActions.getFutureRides({
+    const { allRides, lastVisible } = await ridesActions.getFutureRides({
       userId: user!.uid,
       origin: origin.location,
       destination: destination.location,
       date: date.getTime(),
       radius,
+      lastVisibleDoc,
     });
-    setRides(rides);
+    setRides(allRides);
+    setLastVisibleDoc(lastVisible);
+    setShouldFetchMore(allRides.length > 0);
     setLoading(false);
+  };
+
+  const onSearchMore = async () => {
+    if (!shouldFetchMore) return;
+
+    const { allRides, lastVisible } = await ridesActions.getFutureRides({
+      userId: user!.uid,
+      origin: origin!.location!,
+      destination: destination!.location!,
+      date: date.getTime(),
+      radius,
+      lastVisibleDoc,
+    });
+    setRides([...rides, ...allRides]);
+    setLastVisibleDoc(lastVisible);
+    setShouldFetchMore(allRides.length > 0);
   };
 
   const setRideRadius = (radius: number) => {
@@ -98,6 +121,7 @@ const usePresenter = () => {
     onDateChange,
     clearSearch,
     date,
+    onSearchMore,
   };
 };
 export default usePresenter;
