@@ -106,6 +106,14 @@ const usePresenter = () => {
     setRadius(radius);
   };
 
+  const onSwitchPress = () => {
+    const temp = origin;
+    setOrigin(destination);
+    setDestination(temp);
+    setLastVisibleDoc(null);
+    setShouldFetchMore(false);
+  };
+
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -122,6 +130,7 @@ const usePresenter = () => {
     clearSearch,
     date,
     onSearchMore,
+    onSwitchPress,
   };
 };
 export default usePresenter;

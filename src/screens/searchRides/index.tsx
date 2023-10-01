@@ -1,12 +1,22 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
-import { Input, Button, Stack, Spinner, Slider, Text } from 'native-base';
+import {
+  Input,
+  Button,
+  Stack,
+  Spinner,
+  Slider,
+  Text,
+  View,
+  Center,
+} from 'native-base';
 import RideCard from '../../components/rideCard';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Ride } from '../../typing';
+import { FontAwesome } from '@expo/vector-icons';
 
 const SearchRides = () => {
   const {
@@ -25,6 +35,7 @@ const SearchRides = () => {
     clearSearch,
     date,
     onSearchMore,
+    onSwitchPress,
   } = usePresenter();
 
   const renderItem = ({ item }: { item: Ride }) => {
@@ -39,27 +50,43 @@ const SearchRides = () => {
           borderRadius: 10,
         }}
       >
+        <View flexDirection={'row'} backgroundColor={'red'}>
+          <Center>
+            <TouchableOpacity
+              style={{ flexDirection: 'row' }}
+              onPress={onSwitchPress}
+            >
+              <FontAwesome name="long-arrow-up" />
+              <FontAwesome name="long-arrow-down" />
+            </TouchableOpacity>
+          </Center>
+          <View w="90%" maxW="300px" mx="auto">
+            <TouchableOpacity
+              onPress={onOriginPressed}
+              style={{ marginBottom: '5%' }}
+            >
+              <Input
+                onPressIn={onOriginPressed}
+                editable={false}
+                selectTextOnFocus={false}
+                value={origin?.formatted_address}
+                placeholder="Enter Origin"
+                w="100%"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onDestinationPressed}>
+              <Input
+                onPressIn={onDestinationPressed}
+                editable={false}
+                selectTextOnFocus={false}
+                value={destination?.formatted_address}
+                placeholder="Enter Destination"
+                w="100%"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          <TouchableOpacity onPress={onOriginPressed}>
-            <Input
-              onPressIn={onOriginPressed}
-              editable={false}
-              selectTextOnFocus={false}
-              value={origin?.formatted_address}
-              placeholder="Enter Origin"
-              w="100%"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onDestinationPressed}>
-            <Input
-              onPressIn={onDestinationPressed}
-              editable={false}
-              selectTextOnFocus={false}
-              value={destination?.formatted_address}
-              placeholder="Enter Destination"
-              w="100%"
-            />
-          </TouchableOpacity>
           {!shouldShowDatePicker && (
             <TouchableOpacity onPress={() => setShowDatePicker(true)}>
               <Input
