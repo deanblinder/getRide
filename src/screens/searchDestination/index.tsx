@@ -9,10 +9,11 @@ import { Button } from 'native-base';
 import { Props } from '../searchOrigin/usePresenter';
 
 const SearchRidesDestination = (props: Props) => {
-  const { onDonePressed, onLocationSelected } = usePresenter(props);
+  const { onDonePressed, onLocationSelected, inputRef } = usePresenter(props);
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
+        ref={inputRef}
         placeholder="Destination"
         fetchDetails={true}
         onPress={(data, details = null) => {

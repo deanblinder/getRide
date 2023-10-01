@@ -1,6 +1,10 @@
 import { Location } from '../../typing';
-import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
+import {
+  GooglePlaceDetail,
+  GooglePlacesAutocompleteRef,
+} from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef } from 'react';
 
 export type Props = {
   route: {
@@ -15,9 +19,19 @@ export type Props = {
 
 const usePresenter = (props: Props) => {
   const navigation = useNavigation();
+
+  const inputRef = useRef<GooglePlacesAutocompleteRef | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const onDonePressed = () => {
     navigation.goBack();
   };
+
   const onLocationSelected = (origin: GooglePlaceDetail | null) => {
     const location = {
       location: origin?.geometry.location,
@@ -25,7 +39,9 @@ const usePresenter = (props: Props) => {
     };
     props?.route.params.getLocations(location);
   };
+
   return {
+    inputRef,
     onDonePressed,
     onLocationSelected,
   };

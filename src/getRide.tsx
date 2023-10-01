@@ -86,6 +86,11 @@ const GetRide = () => {
             headerTitle: () => <CustomHeaderComponent />,
             headerShown: true,
           })}
+          // tabBarOptions={{
+          //   labelStyle: {
+          //     display: 'none',
+          //   },
+          // }}
         >
           <Tab.Screen
             name="Search"
@@ -109,7 +114,7 @@ const GetRide = () => {
             name="Rides"
             component={RidesStack}
             options={{
-              tabBarIcon: ({ focused, color, size }) => (
+              tabBarIcon: ({ color, size }) => (
                 <AntDesign name={'car'} size={size} color={color} />
               ),
             }}
