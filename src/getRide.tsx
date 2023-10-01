@@ -14,6 +14,8 @@ import { setUser, setUserLocation } from './redux/auth/authActions';
 import { auth } from './config/firebase';
 import { getUserById } from './actions/users';
 import { getUserLocationAsync } from './actions/common';
+import { Feather, Ionicons, AntDesign } from '@expo/vector-icons';
+
 const GetRide = () => {
   const dispatch = useDispatch();
 
@@ -85,9 +87,33 @@ const GetRide = () => {
             headerShown: true,
           })}
         >
-          <Tab.Screen name="Search" component={SearchStack} />
-          <Tab.Screen name="Offer" component={OfferStack} />
-          <Tab.Screen name="Rides" component={RidesStack} />
+          <Tab.Screen
+            name="Search"
+            component={SearchStack}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Feather name={'search'} size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Offer"
+            component={OfferStack}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <Ionicons name={'add'} size={35} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Rides"
+            component={RidesStack}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <AntDesign name={'car'} size={size} color={color} />
+              ),
+            }}
+          />
         </Tab.Navigator>
       ) : (
         <WelcomeStack />
