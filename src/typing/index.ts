@@ -15,7 +15,9 @@ export type User = {
   phoneNumber?: string;
   address?: Location;
   facebookLink?: string;
-  birthDate?: string;
+  instagramLink?: string;
+  birthDate?: number;
+  gender?: Gender;
 };
 
 export type Ride = {
@@ -23,6 +25,7 @@ export type Ride = {
   userId: string;
   origin: Location;
   destination: Location;
+  routeNumber: number;
   rideTimestamp: number;
   seats: number;
   price?: number;
@@ -36,3 +39,5 @@ export type Message = {
   createdAt: Date;
   userId: string;
 };
+
+export type Gender = 'Male' | 'Female';

@@ -9,6 +9,7 @@ export const HOUR = 1000 * 60 * 60;
 
 const usePresenter = () => {
   const [upcomingRides, setUpcomingRides] = useState<Ride[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const user = useSelector((state: AuthState) => state.user);
 
@@ -22,6 +23,7 @@ const usePresenter = () => {
           rides.push(ride);
         });
         setUpcomingRides(rides);
+        setLoading(false);
         return () => unsubscribe();
       }
     );
@@ -33,6 +35,7 @@ const usePresenter = () => {
 
   return {
     upcomingRides,
+    loading,
   };
 };
 export default usePresenter;

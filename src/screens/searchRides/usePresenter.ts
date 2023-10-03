@@ -19,6 +19,7 @@ const usePresenter = () => {
   const [rides, setRides] = useState<Ride[]>([]);
   const [radius, setRadius] = useState(7);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
   const [shouldFetchMore, setShouldFetchMore] = useState<boolean>(false);
@@ -64,6 +65,7 @@ const usePresenter = () => {
   };
 
   const onSearchPress = async () => {
+    setRides([]);
     if (!destination?.location || !origin?.location) {
       toast.show({
         title: 'Please select origin and destination',
@@ -78,7 +80,7 @@ const usePresenter = () => {
       destination: destination.location,
       date: date.getTime(),
       radius,
-      lastVisibleDoc,
+      lastVisibleDoc: null,
     });
     setRides(allRides);
     setLastVisibleDoc(lastVisible);
@@ -89,6 +91,7 @@ const usePresenter = () => {
   const onSearchMore = async () => {
     if (!shouldFetchMore) return;
 
+    setLoadingMore(true);
     const { allRides, lastVisible } = await ridesActions.getFutureRides({
       userId: user!.uid,
       origin: origin!.location!,
@@ -100,6 +103,7 @@ const usePresenter = () => {
     setRides([...rides, ...allRides]);
     setLastVisibleDoc(lastVisible);
     setShouldFetchMore(allRides.length > 0);
+    setLoadingMore(false);
   };
 
   const setRideRadius = (radius: number) => {
@@ -121,6 +125,7 @@ const usePresenter = () => {
     destination,
     rides,
     loading,
+    loadingMore,
     onSearchPress,
     setRideRadius,
     radius,

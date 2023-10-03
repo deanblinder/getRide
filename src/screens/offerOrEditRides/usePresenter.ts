@@ -40,6 +40,10 @@ const usePresenter = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(IS_IOS);
   const [showTimePicker, setShowTimePicker] = useState<boolean>(IS_IOS);
+  const [routeNumber, setRoutNumber] = useState<number>(
+    rideToEdit ? rideToEdit.routeNumber : 0
+  );
+  const [numberOfRoutes, setNumberOfRoutes] = useState<number>(0);
 
   const onDateChange = (
     event: DateTimePickerEvent,
@@ -71,6 +75,10 @@ const usePresenter = (props: Props) => {
 
   const getDestination = (destination: Location) => {
     setDestination(destination);
+  };
+
+  const onChangeRoot = () => {
+    setRoutNumber(routeNumber + 1 === numberOfRoutes ? 0 : routeNumber + 1);
   };
 
   const clearState = () => {
@@ -105,6 +113,7 @@ const usePresenter = (props: Props) => {
       rideTimestamp: convertToTimestamp(date),
       hitchhikers: [],
       seats,
+      routeNumber,
     };
 
     try {
@@ -116,6 +125,7 @@ const usePresenter = (props: Props) => {
           origin: origin,
           destination: destination,
           seats,
+          routeNumber: routeNumber,
         };
         await ridesActions.updateRide(rideToEdit.rideId, rideToUpdate);
       } else {
@@ -160,6 +170,10 @@ const usePresenter = (props: Props) => {
     navigation.goBack();
   };
 
+  const getNumberOfRoutes = (routeNumber: number) => {
+    setNumberOfRoutes(routeNumber);
+  };
+
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -179,6 +193,10 @@ const usePresenter = (props: Props) => {
     loading,
     isEditMode: !!rideToEdit,
     onDeletePress,
+    onChangeRoot,
+    routeNumber,
+    getNumberOfRoutes,
+    numberOfRoutes,
   };
 };
 export default usePresenter;

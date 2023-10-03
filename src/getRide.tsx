@@ -102,7 +102,7 @@ const GetRide = () => {
             }}
           />
           <Tab.Screen
-            name="Offer"
+            name="Add"
             component={OfferStack}
             options={{
               tabBarIcon: ({ color }) => (

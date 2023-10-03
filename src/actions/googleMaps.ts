@@ -10,8 +10,7 @@ export const getRouteCoordinates = async (route: {
 }) => {
   try {
     const response = await axios.get(endpoints.googleMapsDirections(route));
-    const points = response.data.routes[0].overview_polyline.points;
-    return points;
+    return response.data.routes;
   } catch (e) {
     console.log('getRouteCoordinates error', e);
   }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { setUser } from '../../redux/auth/authActions';
 import { useNavigation } from '@react-navigation/native';
+import { Gender } from '../../typing';
 
 export type Props = {
   route: {
@@ -20,6 +21,13 @@ const usePresenter = (props: Props) => {
   const [lastName, setLastName] = useState<string>(user?.lastName || '');
   const [facebookLink, setFacebookLink] = useState<string>(
     user?.facebookLink || ''
+  );
+  const [instagramLink, setInstagramLink] = useState<string>(
+    user?.instagramLink || ''
+  );
+  const [age, setAge] = useState<number>(user?.birthDate || Date.now());
+  const [gender, setGender] = useState<Gender | undefined>(
+    user?.gender || undefined
   );
 
   const updateUser = async () => {
@@ -44,6 +52,18 @@ const usePresenter = (props: Props) => {
     setLastName(text);
   };
 
+  const onInstagramLinkChange = (text: string) => {
+    setInstagramLink(text);
+  };
+
+  const onAgeChange = (number: number) => {
+    setAge(number);
+  };
+
+  const onGenderChange = (text: Gender) => {
+    setGender(text);
+  };
+
   return {
     user,
     onFacebookLinkChange,
@@ -53,6 +73,12 @@ const usePresenter = (props: Props) => {
     firstName,
     lastName,
     facebookLink,
+    instagramLink,
+    age,
+    gender,
+    onInstagramLinkChange,
+    onAgeChange,
+    onGenderChange,
   };
 };
 export default usePresenter;

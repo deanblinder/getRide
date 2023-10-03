@@ -17,6 +17,7 @@ import RideCard from '../../components/rideCard';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Ride } from '../../typing';
 import { FontAwesome } from '@expo/vector-icons';
+import RideCardSkeleton from '../../components/rideCardSkeleton';
 
 const SearchRides = () => {
   const {
@@ -36,6 +37,7 @@ const SearchRides = () => {
     date,
     onSearchMore,
     onSwitchPress,
+    loadingMore,
   } = usePresenter();
 
   const renderItem = ({ item }: { item: Ride }) => {
@@ -51,15 +53,22 @@ const SearchRides = () => {
         }}
       >
         <View flexDirection={'row'} backgroundColor={'red'}>
-          <Center>
+          <View justifyContent={'center'}>
             <TouchableOpacity
-              style={{ flexDirection: 'row' }}
+              style={{
+                flexDirection: 'row',
+                width: 20,
+                height: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginHorizontal: -10,
+              }}
               onPress={onSwitchPress}
             >
               <FontAwesome name="long-arrow-up" />
               <FontAwesome name="long-arrow-down" />
             </TouchableOpacity>
-          </Center>
+          </View>
           <View w="90%" maxW="300px" mx="auto">
             <TouchableOpacity
               onPress={onOriginPressed}
@@ -147,12 +156,21 @@ const SearchRides = () => {
     );
   };
 
+  const renderSkeletons = () => {
+    if (loading || loadingMore) {
+      return <RideCardSkeleton />;
+    }
+
+    return null;
+  };
+
   const renderRides = () => {
     return (
       <FlatList
         data={rides}
         renderItem={renderItem}
         ListHeaderComponent={renderSearchCard}
+        ListFooterComponent={renderSkeletons}
         onEndReached={onSearchMore}
         onEndReachedThreshold={0.3}
       />

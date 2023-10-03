@@ -35,11 +35,23 @@ const OfferOrEditRides = (props: Props) => {
     loading,
     isEditMode,
     onDeletePress,
+    onChangeRoot,
+    routeNumber,
+    getNumberOfRoutes,
+    numberOfRoutes,
   } = usePresenter(props);
 
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }}>
-      <GoogleMap origin={origin} destination={destination} />
+      <GoogleMap
+        origin={origin}
+        destination={destination}
+        routeNumber={routeNumber}
+        numbersOfRoutes={getNumberOfRoutes}
+      />
+      {numberOfRoutes > 1 && (
+        <Button onPress={onChangeRoot}>change route</Button>
+      )}
       <Card containerStyle={styles.card}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
           <TouchableOpacity onPress={onOriginPressed}>

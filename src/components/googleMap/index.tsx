@@ -10,6 +10,8 @@ import { AuthState } from '../../redux/auth/authReducer';
 export type Props = {
   origin?: LocationData;
   destination?: LocationData;
+  routeNumber?: number;
+  numbersOfRoutes?: (numberOfRoutes: number) => void;
 };
 
 const ROUTE = {
@@ -18,19 +20,14 @@ const ROUTE = {
 };
 
 const MapViewScreen = (props: Props) => {
-  const { origin, destination } = props;
+  const { origin, destination, numbersOfRoutes, routeNumber } = props;
   const userLocation = useSelector((state: AuthState) => state.userLocation);
   const [initialRegion, setInitialRegion] = useState<Point | undefined>({
     lat: userLocation?.lat || 32.78376,
     lng: userLocation?.lng || 34.98557,
   });
-  const [routeCoordinates, setRouteCoordinates] = useState([]);
-
+  const [routes, setRoutes] = useState<any[]>([]);
   useEffect(() => {
-    if (!origin || !destination) {
-      setRouteCoordinates([]);
-    }
-
     if (origin?.location && destination?.location) {
       setInitialRegion(origin?.location);
       getRouteCoordinates({
@@ -44,12 +41,21 @@ const MapViewScreen = (props: Props) => {
     origin: Point;
     destination: Point;
   }) => {
-    const points = await googleMapsActions.getRouteCoordinates({
+    const routes = await googleMapsActions.getRouteCoordinates({
       origin: props?.origin,
       destination: props?.destination,
     });
-    const decodedPoints = googleMapsActions.decodePolyline(points);
-    setRouteCoordinates(decodedPoints);
+
+    const polyLines = routes.map((route: any) => {
+      return route.overview_polyline;
+    });
+
+    const points = polyLines.map((polyline: any) => {
+      return googleMapsActions.decodePolyline(polyline.points);
+    });
+
+    numbersOfRoutes?.(points.length);
+    setRoutes(points);
   };
 
   return (
@@ -105,9 +111,9 @@ const MapViewScreen = (props: Props) => {
             title="My location"
           />
         )}
-        {destination && origin && (
+        {origin && destination && (
           <Polyline
-            coordinates={routeCoordinates}
+            coordinates={routes[routeNumber || 0]}
             strokeWidth={3}
             strokeColor="red"
           />

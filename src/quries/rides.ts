@@ -34,6 +34,6 @@ export const futureRides = (
     where('rideTimestamp', '>=', startTime),
     orderBy('rideTimestamp'),
     // where('userId', '!=', userId),
-    limit(4),
+    limit(10),
     startAfter(lastVisibleDoc ?? null)
   );

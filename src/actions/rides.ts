@@ -18,15 +18,23 @@ export const addRide = async (ride: Ride) => {
 };
 
 export const updateRide = async (rideId: string, props: Partial<Ride>) => {
-  const rideToUpdateRef = doc(db, 'rides', rideId);
-  await updateDoc(rideToUpdateRef, {
-    ...props,
-  });
+  try {
+    const rideToUpdateRef = doc(db, 'rides', rideId);
+    await updateDoc(rideToUpdateRef, {
+      ...props,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deleteRide = async (rideId: string) => {
-  const rideToDeleteRef = doc(db, 'rides', rideId);
-  await deleteDoc(rideToDeleteRef);
+  try {
+    const rideToDeleteRef = doc(db, 'rides', rideId);
+    await deleteDoc(rideToDeleteRef);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getFutureRides = async (rideData: {

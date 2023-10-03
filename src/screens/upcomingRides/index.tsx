@@ -5,9 +5,14 @@ import { View } from 'react-native';
 import usePresenter from './usePresenter';
 import RideCard from '../../components/rideCard';
 import typography, { IFontSize } from 'native-base/src/theme/base/typography';
+import RideCardSkeleton from '../../components/rideCardSkeleton';
 
 const Rides = () => {
-  const { upcomingRides } = usePresenter();
+  const { upcomingRides, loading } = usePresenter();
+
+  if (loading) {
+    return <RideCardSkeleton />;
+  }
 
   if (upcomingRides.length === 0)
     return (
@@ -27,7 +32,5 @@ const Rides = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Rides;
