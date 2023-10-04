@@ -20,6 +20,7 @@ const RideScreen = (props: Props) => {
             formatted_address: ride.origin.formatted_address,
             location: ride.origin.location,
           }}
+          routeNumber={ride.routeNumber}
         />
       </View>
     </ScrollView>
