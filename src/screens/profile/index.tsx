@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { View, Avatar, Spinner, Text, Button } from 'native-base';
+import { View, Avatar, Spinner, Text, Button, Divider } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter, { Props } from './usePresenter';
 import { Entypo } from '@expo/vector-icons';
@@ -15,109 +15,140 @@ const Profile = (props: Props) => {
     profileImageLoading,
     onEditPress,
     onFacebookPress,
-    onLogoutPress,
+    onInstagramPress,
   } = usePresenter();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: '', // Set a custom title
+      title: 'Profile', // Set a custom title
       headerStyle: {},
       headerTintColor: 'white', // Customize the text color
       headerTitleStyle: {
         fontSize: 18, // Customize the text size
       },
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={onEditPress}
-          style={{ flexDirection: 'row' }}
-        >
-          <Text bold marginRight={'5%'}>
-            edit
-          </Text>
-        </TouchableOpacity>
-      ),
     });
   }, [navigation]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View>
-        {user?.facebookLink && (
-          <Entypo
-            name="facebook"
-            size={44}
-            color="blue"
-            onPress={onFacebookPress}
-          />
-        )}
-        <View style={styles.avatar}>
-          <View>
-            <Avatar
-              style={{ marginBottom: '5%' }}
-              size="xl"
-              source={{
-                uri: profileImage,
-              }}
-            />
-            <TouchableOpacity onPress={onAvatarPress}>
-              {profileImageLoading ? (
-                <Spinner
-                  style={{
-                    marginBottom: '5%',
-                    position: 'absolute',
-                    right: 5,
-                    bottom: 5,
-                  }}
-                  color="emerald.500"
-                />
-              ) : (
-                <Avatar
-                  // @ts-ignore
-                  style={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    borderColor: 'white',
-                    marginBottom: '5%',
-                    position: 'absolute',
-                    right: 5,
-                    bottom: 5,
-                  }}
-                  size="sm"
-                  bg="blue.500"
-                  source={{
-                    uri: 'profileImage',
-                  }}
-                >
-                  <Entypo name="camera" size={15} onPress={onAvatarPress} />
-                </Avatar>
-              )}
-            </TouchableOpacity>
-          </View>
-          {(user?.firstName || user?.lastName) && (
-            <Text fontSize={typography.fontSizes['2xl']}>
-              {user?.firstName + ' ' + user?.lastName}
-            </Text>
-          )}
+    <View style={styles.container}>
+      <View style={styles.topScreen}>
+        <View backgroundColor={'red.50'} justifyContent={'space-evenly'}>
+          <Text bold fontSize={typography.fontSizes['2xl']}>
+            {user?.firstName + ' ' + user?.lastName || user?.email}
+          </Text>
+          <Button borderRadius={100} onPress={onEditPress} size={'sm'}>
+            Edit profile
+          </Button>
         </View>
-        <View>
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['2xl']}
-          >
-            Email: {user?.email.toLowerCase()}
-          </Text>
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['2xl']}
-          >
-            Phone: {user?.phoneNumber}
-          </Text>
+        <View flexDirection={'row'}>
+          <Avatar
+            style={{ marginBottom: '5%' }}
+            size="xl"
+            source={{
+              uri: profileImage,
+            }}
+          />
+          <TouchableOpacity onPress={onAvatarPress}>
+            {profileImageLoading ? (
+              <Spinner
+                style={{
+                  marginBottom: '5%',
+                  position: 'absolute',
+                  right: 5,
+                  bottom: 5,
+                }}
+                color="emerald.500"
+              />
+            ) : (
+              <Avatar
+                // @ts-ignore
+                style={{
+                  borderStyle: 'solid',
+                  borderWidth: 3,
+                  borderColor: 'white',
+                  marginBottom: '5%',
+                  position: 'absolute',
+                  right: 5,
+                  bottom: 5,
+                }}
+                size="sm"
+                bg="blue.500"
+                source={{
+                  uri: 'profileImage',
+                }}
+              >
+                <Entypo name="camera" size={15} onPress={onAvatarPress} />
+              </Avatar>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
-      <Button colorScheme="danger" onPress={onLogoutPress}>
-        log out
-      </Button>
-    </ScrollView>
+      <Divider marginBottom={'10%'} />
+      <ScrollView>
+        <View>
+          <View>
+            <Text fontSize={typography.fontSizes['md']}>First Name</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.firstName || 'not published'}
+            </Text>
+            <Text fontSize={typography.fontSizes['md']}>Last Name</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.lastName || 'not published'}
+            </Text>
+            <Text fontSize={typography.fontSizes['md']}>Email</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.email.toLowerCase() || 'not published'}
+            </Text>
+            <Text fontSize={typography.fontSizes['md']}>Phone</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.phoneNumber || 'not published'}
+            </Text>
+            <Text fontSize={typography.fontSizes['md']}>Age</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.birthDate || 'not published'}
+            </Text>
+            <Text fontSize={typography.fontSizes['md']}>Gender</Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.gender || 'not published'}
+            </Text>
+          </View>
+          <Text fontSize={typography.fontSizes['md']}>Facebook</Text>
+          <Text
+            style={{ marginBottom: '2%' }}
+            fontSize={typography.fontSizes['md']}
+            onPress={onFacebookPress}
+          >
+            {user?.facebookLink || 'not published'}
+          </Text>
+          <Text fontSize={typography.fontSizes['md']}>Instagram</Text>
+          <Text
+            style={{ marginBottom: '2%' }}
+            fontSize={typography.fontSizes['md']}
+            onPress={onInstagramPress}
+          >
+            {user?.instagramLink || 'not published'}
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -125,12 +156,12 @@ const styles = StyleSheet.create({
   container: {
     padding: '5%',
     flex: 1,
-    justifyContent: 'space-between',
   },
-  avatar: {
+  topScreen: {
     display: 'flex',
-    alignItems: 'center',
-    marginBottom: '5%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: '5%',
   },
 });
 

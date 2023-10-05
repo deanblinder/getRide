@@ -8,7 +8,6 @@ import RideScreen from '../screens/ride';
 import Profile from '../screens/profile';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
-import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,10 +51,9 @@ const SearchStack: React.FC = () => {
       />
       <Stack.Screen
         options={{ presentation: 'modal' }}
-        name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
-        component={OfferOrEditRides}
+        name={screenIds.PROFILE_SCREEN}
+        component={Profile}
       />
-      <Stack.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
     </Stack.Navigator>
   );
 };

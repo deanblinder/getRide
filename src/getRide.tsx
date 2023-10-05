@@ -86,20 +86,15 @@ const GetRide = () => {
             headerTitle: () => <CustomHeaderComponent />,
             headerShown: true,
           })}
-          // tabBarOptions={{
-          //   labelStyle: {
-          //     display: 'none',
-          //   },
-          // }}
         >
           <Tab.Screen
             name="Search"
             component={SearchStack}
-            options={{
+            options={({ route }) => ({
               tabBarIcon: ({ color, size }) => (
                 <Feather name={'search'} size={size} color={color} />
               ),
-            }}
+            })}
           />
           <Tab.Screen
             name="Add"

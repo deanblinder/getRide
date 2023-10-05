@@ -72,6 +72,10 @@ const usePresenter = () => {
     Linking.openURL(user?.facebookLink!);
   };
 
+  const onInstagramPress = () => {
+    Linking.openURL(user?.instagramLink!);
+  };
+
   const onLogoutPress = async () => {
     await auth.signOut();
     navigation.goBack();
@@ -85,7 +89,9 @@ const usePresenter = () => {
     profileImageLoading,
     onEditPress,
     onFacebookPress,
+    onInstagramPress,
     onLogoutPress,
+    birthDate: user?.birthDate!,
   };
 };
 

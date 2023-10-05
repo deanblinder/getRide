@@ -25,7 +25,9 @@ const usePresenter = (props: Props) => {
   const [instagramLink, setInstagramLink] = useState<string>(
     user?.instagramLink || ''
   );
-  const [age, setAge] = useState<number>(user?.birthDate || Date.now());
+  const [age, setAge] = useState<number | undefined>(
+    user?.birthDate || undefined
+  );
   const [gender, setGender] = useState<Gender | undefined>(
     user?.gender || undefined
   );
@@ -35,6 +37,9 @@ const usePresenter = (props: Props) => {
       firstName,
       lastName,
       facebookLink,
+      instagramLink,
+      birthDate: age,
+      gender,
     });
     dispatch(setUser(updatedUser));
     navigation.goBack();

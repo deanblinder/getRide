@@ -87,6 +87,7 @@ const usePresenter = (props: Props) => {
     setTime(new Date());
     setDate(new Date());
     setSeats(4);
+    setNumberOfRoutes(0);
   };
 
   const convertToTimestamp = (date: Date) => {
