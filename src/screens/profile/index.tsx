@@ -7,6 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { screenIds } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
+import UserDetails from '../../components/userDetails';
 
 const Profile = (props: Props) => {
   const { navigation } = props;
@@ -116,68 +117,7 @@ const Profile = (props: Props) => {
       </View>
       <Divider marginBottom={'10%'} />
       <ScrollView>
-        <View>
-          <View>
-            <Text fontSize={typography.fontSizes['md']}>First Name</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.firstName || 'not published'}
-            </Text>
-            <Text fontSize={typography.fontSizes['md']}>Last Name</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.lastName || 'not published'}
-            </Text>
-            <Text fontSize={typography.fontSizes['md']}>Email</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.email.toLowerCase() || 'not published'}
-            </Text>
-            <Text fontSize={typography.fontSizes['md']}>Phone</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.phoneNumber || 'not published'}
-            </Text>
-            <Text fontSize={typography.fontSizes['md']}>Age</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.birthDate || 'not published'}
-            </Text>
-            <Text fontSize={typography.fontSizes['md']}>Gender</Text>
-            <Text
-              style={{ marginBottom: '2%' }}
-              fontSize={typography.fontSizes['md']}
-            >
-              {user?.gender || 'not published'}
-            </Text>
-          </View>
-          <Text fontSize={typography.fontSizes['md']}>Facebook</Text>
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['md']}
-            onPress={onFacebookPress}
-          >
-            {user?.facebookLink || 'not published'}
-          </Text>
-          <Text fontSize={typography.fontSizes['md']}>Instagram</Text>
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['md']}
-            onPress={onInstagramPress}
-          >
-            {user?.instagramLink || 'not published'}
-          </Text>
-        </View>
+        <UserDetails user={user!} />
       </ScrollView>
       <Button colorScheme={'danger'} variant="outline" onPress={onLogoutPress}>
         log out

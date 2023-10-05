@@ -1,7 +1,16 @@
 import React from 'react';
-import { View, Text, Input, Stack, Button, FormControl } from 'native-base';
+import {
+  View,
+  Text,
+  Input,
+  Stack,
+  Button,
+  FormControl,
+  ScrollView,
+} from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import typography from 'native-base/src/theme/base/typography';
+import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = (props: Props) => {
   const {
@@ -19,8 +28,31 @@ const EditProfile = (props: Props) => {
     onAgeChange,
     onGenderChange,
   } = usePresenter(props);
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Profile', // Set a custom title
+      headerStyle: {},
+      headerTintColor: 'white', // Customize the text color
+      headerTitleStyle: {
+        fontSize: 18, // Customize the text size
+      },
+      headerRight: () => (
+        <Button variant="ghost" onPress={updateUser}>
+          update
+        </Button>
+      ),
+    });
+  }, [navigation]);
+
   return (
-    <View padding={'5%'} justifyContent={'space-between'} flex={1}>
+    <ScrollView
+      contentContainerStyle={{ padding: '5%', justifyContent: 'space-between' }}
+      // padding={'5%'}
+      // justifyContent={'space-between'}
+      // flex={1}
+    >
       <Stack space={4} w="90%" maxW="300px" mx="auto">
         <Text fontSize={typography.fontSizes['lg']} bold>
           Edit Your Personal Info
@@ -80,8 +112,7 @@ const EditProfile = (props: Props) => {
           />
         </FormControl>
       </Stack>
-      <Button onPress={updateUser}>Update User</Button>
-    </View>
+    </ScrollView>
   );
 };
 

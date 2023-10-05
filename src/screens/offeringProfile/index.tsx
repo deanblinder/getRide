@@ -4,6 +4,7 @@ import usePresenter, { Props } from './usePresenter';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import typography from 'native-base/src/theme/base/typography';
 import { Entypo } from '@expo/vector-icons';
+import UserDetails from '../../components/userDetails';
 
 const OfferingProfilePresenter = (props: Props) => {
   const { user, onPhonePress, onFacebookPress } = usePresenter(props);
@@ -38,14 +39,7 @@ const OfferingProfilePresenter = (props: Props) => {
         )}
       </View>
       <View>
-        <View flexDirection={'row'}>
-          <Text fontSize={typography.fontSizes['2xl']}>Phone: </Text>
-          <TouchableOpacity onPress={onPhonePress}>
-            <Text fontSize={typography.fontSizes['2xl']}>
-              {user?.phoneNumber}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <UserDetails user={user!} />
       </View>
     </ScrollView>
   );

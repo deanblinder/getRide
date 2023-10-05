@@ -34,12 +34,12 @@ const usePresenter = (props: Props) => {
 
   const updateUser = async () => {
     const updatedUser = await usersActions.updateUser(user?.uid!, {
-      firstName,
-      lastName,
-      facebookLink,
-      instagramLink,
-      birthDate: age,
-      gender,
+      firstName: firstName || '',
+      lastName: lastName || '',
+      facebookLink: facebookLink || '',
+      instagramLink: instagramLink || '',
+      birthDate: Date.now(),
+      gender: gender,
     });
     dispatch(setUser(updatedUser));
     navigation.goBack();
