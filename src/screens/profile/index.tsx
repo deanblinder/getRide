@@ -4,6 +4,9 @@ import { View, Avatar, Spinner, Text, Button, Divider } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter, { Props } from './usePresenter';
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { screenIds } from '../../constants';
+import { Ionicons } from '@expo/vector-icons';
 
 const Profile = (props: Props) => {
   const { navigation } = props;
@@ -16,7 +19,27 @@ const Profile = (props: Props) => {
     onEditPress,
     onFacebookPress,
     onInstagramPress,
+    onLogoutPress,
   } = usePresenter();
+  const CustomHeaderComponent = () => {
+    const navigation = useNavigation();
+
+    const onPress = () => {
+      // @ts-ignore
+      navigation.navigate(screenIds.PROFILE_SCREEN);
+    };
+
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          flexDirection: 'row-reverse',
+        }}
+      >
+        <Ionicons name="ios-settings-outline" size={24} color="black" />
+      </TouchableOpacity>
+    );
+  };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,17 +49,25 @@ const Profile = (props: Props) => {
       headerTitleStyle: {
         fontSize: 18, // Customize the text size
       },
+      headerRight: () => <CustomHeaderComponent />,
     });
   }, [navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.topScreen}>
-        <View backgroundColor={'red.50'} justifyContent={'space-evenly'}>
+        <View justifyContent={'space-between'}>
           <Text bold fontSize={typography.fontSizes['2xl']}>
-            {user?.firstName + ' ' + user?.lastName || user?.email}
+            {user?.firstName && user.lastName
+              ? user?.firstName + ' ' + user?.lastName
+              : user?.email}
           </Text>
-          <Button borderRadius={100} onPress={onEditPress} size={'sm'}>
+          <Button
+            width={'70%'}
+            borderRadius={100}
+            onPress={onEditPress}
+            size={'xs'}
+          >
             Edit profile
           </Button>
         </View>
@@ -148,6 +179,9 @@ const Profile = (props: Props) => {
           </Text>
         </View>
       </ScrollView>
+      <Button colorScheme={'danger'} variant="outline" onPress={onLogoutPress}>
+        log out
+      </Button>
     </View>
   );
 };
