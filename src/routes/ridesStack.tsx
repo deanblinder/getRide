@@ -22,7 +22,7 @@ const RidesStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          options={{ presentation: 'modal' }}
+          options={{headerTitle: '', presentation: 'modal' }}
           name={screenIds.RIDE_SCREEN}
           component={RideScreen}
         />
@@ -42,17 +42,17 @@ const RidesStack = () => {
           component={OfferingProfilePresenter}
         />
         <Stack.Screen
-          options={{ presentation: 'modal' }}
+          options={{headerTitle: '', presentation: 'modal' }}
           name={screenIds.EDIT_PROFILE_SCREEN}
           component={EditProfile}
         />
         <Stack.Screen
-          options={{ presentation: 'modal' }}
+          options={{headerTitle: '', presentation: 'modal' }}
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
           component={OfferOrEditRides}
         />
         <Stack.Screen
-          options={{ presentation: 'modal' }}
+          options={{headerTitle: '', presentation: 'modal' }}
           name={screenIds.PROFILE_SCREEN}
           component={Profile}
         />

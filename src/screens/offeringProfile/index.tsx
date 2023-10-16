@@ -7,7 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import UserDetails from '../../components/userDetails';
 
 const OfferingProfilePresenter = (props: Props) => {
-  const { user, onPhonePress, onFacebookPress } = usePresenter(props);
+  const { user, onFacebookPress } = usePresenter(props);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View flex={1} alignItems={'center'} marginBottom={'5%'}>

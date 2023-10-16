@@ -15,7 +15,7 @@ const OfferStack: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{ presentation: 'modal', headerShown: false }}
+        options={{headerTitle:'', presentation: 'modal', headerShown: false }}
         name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
         component={OfferOrEditRides}
       />
@@ -25,12 +25,12 @@ const OfferStack: React.FC = () => {
         component={SearchRidesDestination}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerShown: false }}
+        options={{ headerTitle:'',presentation: 'modal', headerShown: false }}
         name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
         component={SearchRidesOrigin}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerShown: false }}
+        options={{headerTitle:'', presentation: 'modal', headerShown: false }}
         name={screenIds.RIDE_SCREEN}
         component={RideScreen}
       />

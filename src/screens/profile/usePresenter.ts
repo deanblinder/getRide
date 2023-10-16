@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { usersActions } from '../../actions';
 import { useNavigation } from '@react-navigation/native';
 import screenIds from '../../constants/screenIds';
-import { Linking } from 'react-native';
+import { Linking ,Alert} from 'react-native';
 import { setUser } from '../../redux/auth/authActions';
 
 export type Props = {
@@ -65,7 +65,7 @@ const usePresenter = () => {
 
   const onEditPress = () => {
     // @ts-ignore
-    navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
+    navigation.navigate(screenIds.EDIT_PROFILE_SCREEN, {user});
   };
 
   const onFacebookPress = () => {
@@ -77,9 +77,16 @@ const usePresenter = () => {
   };
 
   const onLogoutPress = async () => {
-    await auth.signOut();
-    navigation.goBack();
-    dispatch(setUser(undefined));
+        Alert.alert('Warning', 'Are You Sure You Want To Log Out?', [
+          {
+            text: 'No',
+          },
+          {text: 'Yes', onPress: async () => {
+              await auth.signOut();
+              dispatch(setUser(undefined));
+            }},
+        ]);
+
   };
 
   return {

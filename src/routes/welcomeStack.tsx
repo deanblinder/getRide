@@ -10,9 +10,8 @@ const Stack = createNativeStackNavigator();
 const WelcomeStack: React.FC = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={screenIds.WELCOME_SCREEN} component={Welcome} />
-      <Stack.Screen name={screenIds.REGISTER_SCREEN} component={Register} />
-      <Stack.Screen name={screenIds.LOGIN_SCREEN} component={Login} />
+      <Stack.Screen options={{headerTitle:'REGISTER'}} name={screenIds.REGISTER_SCREEN} component={Register} />
+      <Stack.Screen options={{headerTitle:'LOGIN'}} name={screenIds.LOGIN_SCREEN} component={Login} />
     </Stack.Navigator>
   );
 };

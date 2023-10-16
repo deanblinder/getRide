@@ -15,6 +15,7 @@ import { auth } from './config/firebase';
 import { getUserById } from './actions/users';
 import { getUserLocationAsync } from './actions/common';
 import { Feather, Ionicons, AntDesign } from '@expo/vector-icons';
+import SplashScreen from "./screens/splashScreen";
 
 const GetRide = () => {
   const dispatch = useDispatch();
@@ -70,11 +71,19 @@ const GetRide = () => {
             source={{
               uri: user?.profileImage,
             }}
-          />
+          >
+              {user?.email.slice(0, 2).toUpperCase()}
+          </Avatar>
         </TouchableOpacity>
       </View>
     );
   };
+
+  if(user === undefined){
+    return (
+        <SplashScreen/>
+    )
+  }
 
   return (
     <NavigationContainer>

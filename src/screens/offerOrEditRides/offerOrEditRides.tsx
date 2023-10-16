@@ -14,6 +14,7 @@ import {
 } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import {FontAwesome} from "@expo/vector-icons";
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -39,6 +40,7 @@ const OfferOrEditRides = (props: Props) => {
     routeNumber,
     getNumberOfRoutes,
     numberOfRoutes,
+    onSwitchPress
   } = usePresenter(props);
 
   return (
@@ -54,26 +56,50 @@ const OfferOrEditRides = (props: Props) => {
       )}
       <Card containerStyle={styles.card}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          <TouchableOpacity onPress={onOriginPressed}>
-            <Input
-              onPressIn={onOriginPressed}
-              value={origin?.formatted_address}
-              placeholder="Enter Origin"
-              w="100%"
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onDestinationPressed}>
-            <Input
-              onPressIn={onDestinationPressed}
-              value={destination?.formatted_address}
-              placeholder="Enter Destination"
-              w="100%"
-              editable={false}
-              selectTextOnFocus={false}
-            />
-          </TouchableOpacity>
+          <View flexDirection={'row'} backgroundColor={'red'}>
+            <View justifyContent={'center'}>
+              <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    width: 20,
+                    height: 40,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginHorizontal: -10,
+                  }}
+                  onPress={onSwitchPress}
+              >
+                <FontAwesome name="long-arrow-up" />
+                <FontAwesome name="long-arrow-down" />
+              </TouchableOpacity>
+            </View>
+            <View w="90%" maxW="300px" mx="auto">
+              <TouchableOpacity
+                  onPress={onOriginPressed}
+                  style={{ marginBottom: '5%' }}
+              >
+                <Input
+                    onPressIn={onOriginPressed}
+                    editable={false}
+                    selectTextOnFocus={false}
+                    value={origin?.formatted_address}
+                    placeholder="Enter Origin"
+                    w="100%"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onDestinationPressed}>
+                <Input
+                    onPressIn={onDestinationPressed}
+                    editable={false}
+                    selectTextOnFocus={false}
+                    value={destination?.formatted_address}
+                    placeholder="Enter Destination"
+                    w="100%"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
           <View
             display={'flex'}
             justifyContent={'space-between'}

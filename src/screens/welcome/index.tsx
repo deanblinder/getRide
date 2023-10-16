@@ -1,8 +1,7 @@
-import { Text } from '@rneui/base';
 import React from 'react';
-import { View, StyleSheet, ScrollView, Linking } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import usePresenter from './usePresenter';
-import { Button } from 'native-base';
+import { Button, Text ,View} from 'native-base';
 
 const Welcome = () => {
   const { onHaveAccountPressed, onSignupPressed } = usePresenter();
@@ -12,9 +11,9 @@ const Welcome = () => {
       contentContainerStyle={styles.container}
       style={{ backgroundColor: 'white' }}
     >
-      <Text h1>Welcome</Text>
-      <View>
-        <Button style={{ marginBottom: '5%' }} onPress={onSignupPressed}>
+      <Text fontSize={'3xl'}>Welcome</Text>
+      <View flexDirection={'row'}>
+        <Button onPress={onSignupPressed}>
           Sign Up
         </Button>
         <Button onPress={onHaveAccountPressed}>Already have account</Button>
@@ -25,11 +24,10 @@ const Welcome = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // display:"flex",
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     padding: '5%',
   },
 });

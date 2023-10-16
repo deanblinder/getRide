@@ -25,20 +25,11 @@ const usePresenter = (props: Props) => {
     setUser(user);
   };
 
-  const onPhonePress = () => {
-    const url = `tel:${user?.phoneNumber}`;
-    console.log('url', url);
-    try {
-      Linking.openURL(url);
-    } catch (error) {
-      console.error('Error opening phone app:', error);
-    }
-  };
 
   const onFacebookPress = () => {
     Linking.openURL(user?.facebookLink!);
   };
 
-  return { user, onPhonePress, onFacebookPress };
+  return { user, onFacebookPress };
 };
 export default usePresenter;

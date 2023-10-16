@@ -21,7 +21,6 @@ const RideCard = (props: Props) => {
     rideHour,
     onEditPress,
   } = usePresenter(props);
-  const user = useSelector((state: AuthState) => state.user);
 
   return (
     <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
@@ -41,7 +40,7 @@ const RideCard = (props: Props) => {
                 }}
               >
                 {!rideUser?.profileImage &&
-                  user?.email.slice(0, 2).toUpperCase()}
+                    rideUser?.email.slice(0, 2).toUpperCase()}
               </Avatar>
             </View>
             <View>

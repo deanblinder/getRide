@@ -7,7 +7,7 @@ import { AuthState } from '../../redux/auth/authReducer';
 import Chance from 'chance';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
-import { Platform } from 'react-native';
+import { Platform , Alert} from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 export const IS_IOS = Platform.OS === 'ios';
@@ -30,10 +30,10 @@ const usePresenter = (props: Props) => {
     rideToEdit ? rideToEdit.destination : undefined
   );
   const [time, setTime] = useState<Date>(
-    rideToEdit ? new Date(rideToEdit?.rideTimestamp) : new Date()
+    rideToEdit ? new Date(rideToEdit?.rideTimestamp!) : new Date()
   );
   const [date, setDate] = useState<Date>(
-    rideToEdit ? new Date(rideToEdit?.rideTimestamp) : new Date()
+    rideToEdit ? new Date(rideToEdit?.rideTimestamp!) : new Date()
   );
 
   const [seats, setSeats] = useState<number>(rideToEdit ? rideToEdit.seats : 4);
@@ -167,12 +167,24 @@ const usePresenter = (props: Props) => {
   };
 
   const onDeletePress = async () => {
-    rideToEdit && (await ridesActions.deleteRide(rideToEdit.rideId));
-    navigation.goBack();
+    Alert.alert('Warning', 'Are You Sure You Want To Delete Ride?', [
+      {text: 'No'},
+      {text: 'Yes', onPress: async () => {
+          rideToEdit && (await ridesActions.deleteRide(rideToEdit.rideId));
+          navigation.goBack();
+        }},
+    ]);
+
   };
 
   const getNumberOfRoutes = (routeNumber: number) => {
     setNumberOfRoutes(routeNumber);
+  };
+
+  const onSwitchPress = () => {
+    const temp = origin;
+    setOrigin(destination);
+    setDestination(temp);
   };
 
   return {
@@ -198,6 +210,7 @@ const usePresenter = (props: Props) => {
     routeNumber,
     getNumberOfRoutes,
     numberOfRoutes,
+    onSwitchPress
   };
 };
 export default usePresenter;

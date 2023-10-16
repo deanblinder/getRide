@@ -79,7 +79,9 @@ const Profile = (props: Props) => {
             source={{
               uri: profileImage,
             }}
-          />
+          >
+            {user?.email.slice(0, 2).toUpperCase()}
+          </Avatar>
           <TouchableOpacity onPress={onAvatarPress}>
             {profileImageLoading ? (
               <Spinner
@@ -119,7 +121,7 @@ const Profile = (props: Props) => {
       <ScrollView>
         <UserDetails user={user!} />
       </ScrollView>
-      <Button colorScheme={'danger'} variant="outline" onPress={onLogoutPress}>
+      <Button size={'lg'} colorScheme={'danger'} variant="link" onPress={onLogoutPress}>
         log out
       </Button>
     </View>
