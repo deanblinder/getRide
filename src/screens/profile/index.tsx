@@ -119,7 +119,7 @@ const Profile = (props: Props) => {
       </View>
       <Divider marginBottom={'10%'} />
       <ScrollView>
-        <UserDetails user={user!} />
+        <UserDetails user={user!} showDataUserData/>
       </ScrollView>
       <Button size={'lg'} colorScheme={'danger'} variant="link" onPress={onLogoutPress}>
         log out

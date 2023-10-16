@@ -7,10 +7,11 @@ import {Entypo} from "@expo/vector-icons";
 
 type Props = {
   user: User;
+  showDataUserData: boolean;
 };
 
 const UserDetails = (props: Props) => {
-  const { user } = props;
+  const { user, showDataUserData = false } = props;
 
   const onFacebookPress = () => {
     Linking.openURL(user?.facebookLink!);
@@ -66,6 +67,15 @@ const UserDetails = (props: Props) => {
         >
           {user?.lastName || 'not published'}
         </Text>
+        {showDataUserData &&
+          <>
+          <Text fontSize={typography.fontSizes['md']} color={'grey'}>Email Name</Text>
+          <Text
+            style={{ marginBottom: '2%' }}
+            fontSize={typography.fontSizes['md']}
+          >
+          {user?.email || 'not published'}
+        </Text></>}
         <Text fontSize={typography.fontSizes['md']} color={'grey'} >Phone</Text>
         <Text
           style={{ marginBottom: '2%' }}

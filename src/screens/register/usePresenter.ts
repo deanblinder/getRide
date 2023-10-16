@@ -22,7 +22,8 @@ const usePresenter = () => {
   }
 
   const handleSignup = async () => {
-    if (email && password && phoneNumber && isFacebookLink(facebookLink)) {
+    // if (email && password && phoneNumber && isFacebookLink(facebookLink)) {
+    if (email && password && phoneNumber) {
       try {
         setLoading(true);
         const userCredentials = await createUserWithEmailAndPassword(
@@ -59,11 +60,12 @@ const usePresenter = () => {
         toast.show({
           title: 'Please Fill all details',
         });
-      }else if(!isFacebookLink(facebookLink)){
-        toast.show({
-          title: 'Please fill a real facebook link',
-        });
       }
+      // else if(!isFacebookLink(facebookLink)){
+      //   toast.show({
+      //     title: 'Please fill a real facebook link',
+      //   });
+      // }
 
     }
   };

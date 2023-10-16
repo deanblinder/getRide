@@ -13,6 +13,8 @@ const Register = () => {
     handleSignup,
     onChangeEmail,
     onChangePassword,
+    onChangePhoneNumber,
+    onChangeFacebookLink,
     loading,
   } = usePresenter();
   const navigation = useNavigation();
@@ -36,7 +38,6 @@ const Register = () => {
         <Text fontSize={'3xl'} marginBottom={'10%'}>Enter Your Details</Text>
         <Stack space={5} w="100%" maxW="300px" mx="auto">
           <FormControl maxW="300px">
-            {/*<FormControl.Label>First Name</FormControl.Label>*/}
             <Input
                 size={'xl'}
                 placeholder={'Email'}
@@ -48,6 +49,7 @@ const Register = () => {
             <Input
                 size={'xl'}
                 placeholder={'Enter Password'}
+                type={'password'}
                 onChangeText={onChangePassword}
                 variant={'underlined'}
             />
@@ -56,7 +58,7 @@ const Register = () => {
             <Input
                 size={'xl'}
                 placeholder={'Phone Number'}
-                onChangeText={onChangePassword}
+                onChangeText={onChangePhoneNumber}
                 variant={'underlined'}
             />
           </FormControl>
@@ -64,7 +66,7 @@ const Register = () => {
             <Input
                 size={'xl'}
                 placeholder={'Facebook Link'}
-                onChangeText={onChangePassword}
+                onChangeText={onChangeFacebookLink}
                 variant={'underlined'}
             />
             <FormControl.HelperText>Enter link so people see who you are.</FormControl.HelperText>
