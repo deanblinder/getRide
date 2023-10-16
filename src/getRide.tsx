@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OfferStack from './routes/offerStack';
@@ -22,8 +22,10 @@ const GetRide = () => {
 
   const Tab = createBottomTabNavigator();
   const user = useSelector((state: AuthState) => state.user);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setIsLoading(true)
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const loggedUser = await getUserById(user.uid);
@@ -39,6 +41,7 @@ const GetRide = () => {
       } else {
         console.log('### logged out');
       }
+      setIsLoading(false)
     });
 
     return () => unsubscribe();
@@ -79,11 +82,7 @@ const GetRide = () => {
     );
   };
 
-  if(user === undefined){
-    return (
-        <SplashScreen/>
-    )
-  }
+  if (isLoading) return <SplashScreen/>
 
   return (
     <NavigationContainer>
