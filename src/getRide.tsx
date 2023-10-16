@@ -22,10 +22,9 @@ const GetRide = () => {
 
   const Tab = createBottomTabNavigator();
   const user = useSelector((state: AuthState) => state.user);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setIsLoading(true)
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const loggedUser = await getUserById(user.uid);
