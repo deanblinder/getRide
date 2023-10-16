@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import {StyleSheet, ScrollView, TouchableOpacity, Platform, KeyboardAvoidingView} from 'react-native';
 import { View, Avatar, Spinner, Text, Button, Divider } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter, { Props } from './usePresenter';
@@ -55,7 +55,10 @@ const Profile = (props: Props) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+      <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
+      >
       <View style={styles.topScreen}>
         <View justifyContent={'space-between'}>
           <Text bold fontSize={typography.fontSizes['2xl']}>
@@ -118,13 +121,13 @@ const Profile = (props: Props) => {
         </View>
       </View>
       <Divider marginBottom={'10%'} />
-      <ScrollView>
+      <ScrollView keyboardDismissMode={'interactive'}>
         <UserDetails user={user!} showDataUserData/>
       </ScrollView>
       <Button size={'lg'} colorScheme={'danger'} variant="link" onPress={onLogoutPress}>
         log out
       </Button>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

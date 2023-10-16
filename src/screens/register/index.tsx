@@ -32,7 +32,6 @@ const Register = () => {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardDismissMode="interactive"
-        keyboardShouldPersistTaps
       >
         <View>
         <Text fontSize={'3xl'} marginBottom={'10%'}>Enter Your Details</Text>
@@ -60,6 +59,7 @@ const Register = () => {
                 placeholder={'Phone Number'}
                 onChangeText={onChangePhoneNumber}
                 variant={'underlined'}
+                keyboardType={'numeric'}
             />
           </FormControl>
           <FormControl maxW="300px">

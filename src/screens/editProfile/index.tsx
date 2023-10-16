@@ -11,6 +11,7 @@ import {
 import usePresenter, { Props } from './usePresenter';
 import typography from 'native-base/src/theme/base/typography';
 import { useNavigation } from '@react-navigation/native';
+import {KeyboardAvoidingView, Platform} from "react-native";
 
 const EditProfile = (props: Props) => {
   const {
@@ -19,6 +20,7 @@ const EditProfile = (props: Props) => {
     onFirstNameChange,
     updateUser,
     updatedUser,
+    onPhoneChange,
     onInstagramLinkChange,
   } = usePresenter(props);
   const navigation = useNavigation();
@@ -35,8 +37,12 @@ const EditProfile = (props: Props) => {
   }, [navigation, updatedUser]);
 
   return (
+      <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
     <ScrollView
-      contentContainerStyle={{ padding: '5%', justifyContent: 'space-between' }}
+        keyboardDismissMode={'interactive'}
+        contentContainerStyle={{ padding: '5%', justifyContent: 'space-between' }}
     >
       <Stack space={5} w="100%" maxW="300px" mx="auto">
         <Text fontSize={'3xl'} marginBottom={'10%'}>
@@ -63,6 +69,16 @@ const EditProfile = (props: Props) => {
           />
         </FormControl>
         <FormControl maxW="300px">
+          <FormControl.Label>Last Name</FormControl.Label>
+          <Input
+            size={'xl'}
+            placeholder={'Phone'}
+            onChangeText={onPhoneChange}
+            value={updatedUser.phoneNumber}
+            variant={'underlined'}
+          />
+        </FormControl>
+        <FormControl maxW="300px">
           <FormControl.Label>Facebook link</FormControl.Label>
           <Input
               size={'xl'}
@@ -84,6 +100,7 @@ const EditProfile = (props: Props) => {
         </FormControl>
       </Stack>
     </ScrollView>
+      </KeyboardAvoidingView>
   );
 };
 

@@ -28,19 +28,7 @@ const OfferingProfilePresenter = (props: Props) => {
           </Text>
         )}
       </View>
-      <View marginBottom={'5%'}>
-        {user?.facebookLink && (
-          <Entypo
-            name="facebook"
-            size={44}
-            color="blue"
-            onPress={onFacebookPress}
-          />
-        )}
-      </View>
-      <View>
-        <UserDetails user={user!} />
-      </View>
+      <UserDetails user={user!} />
     </ScrollView>
   );
 };

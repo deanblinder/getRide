@@ -62,6 +62,14 @@ const usePresenter = (props: Props) => {
     );
   }
 
+  const onPhoneChange = (text: string) => {
+    setUpdatedUser({
+          ...updatedUser,
+          phoneNumber: text
+        }
+    );
+  }
+
   return {
     user,
     onFacebookLinkChange,
@@ -70,6 +78,7 @@ const usePresenter = (props: Props) => {
     updateUser,
     updatedUser,
     onInstagramLinkChange,
+    onPhoneChange
   };
 };
 export default usePresenter;

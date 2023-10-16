@@ -11,7 +11,7 @@ const Login = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView keyboardDismissMode="interactive" contentContainerStyle={styles.container}>
         <View>
         <Text fontSize={'3xl'} marginBottom={'10%'}>Enter Your Details</Text>
         <Stack space={4} w="100%" maxW="300px" mx="auto">
