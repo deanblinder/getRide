@@ -25,9 +25,14 @@ const MapViewScreen = (props: Props) => {
           longitudeDelta: 0.0421,
         }}
         initialRegion={{
-          latitude: rideData?.origin?.location?.lat ?? INITIAL_REGION.latitude,
+          latitude:
+            rideData?.origin?.location?.lat ??
+            userLocation?.lat ??
+            INITIAL_REGION.latitude,
           longitude:
-            rideData?.origin?.location?.lng ?? INITIAL_REGION.longitude,
+            rideData?.origin?.location?.lng ??
+            userLocation?.lng ??
+            INITIAL_REGION.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -69,16 +74,6 @@ const MapViewScreen = (props: Props) => {
             }}
             title={rideSearchData?.origin?.formatted_address}
             pinColor={'blue'}
-          />
-        )}
-        {userLocation && (
-          <Marker
-            pinColor="purple"
-            coordinate={{
-              latitude: userLocation?.lat,
-              longitude: userLocation?.lng,
-            }}
-            title="My location"
           />
         )}
         {rideData?.origin && rideData?.destination && (

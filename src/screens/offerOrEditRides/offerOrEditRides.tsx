@@ -53,7 +53,9 @@ const OfferOrEditRides = (props: Props) => {
         numbersOfRoutes={getNumberOfRoutes}
       />
       {numberOfRoutes > 1 && (
-        <Button onPress={onChangeRoot}>change route</Button>
+        <Button size={'sm'} onPress={onChangeRoot}>
+          change route
+        </Button>
       )}
       <Card containerStyle={styles.card}>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
@@ -183,6 +185,7 @@ const OfferOrEditRides = (props: Props) => {
         marginBottom={'2%'}
         marginLeft={'10%'}
         marginRight={'10%'}
+        size={'sm'}
       >
         {loading ? (
           <Spinner color="emerald.500" />
@@ -198,6 +201,7 @@ const OfferOrEditRides = (props: Props) => {
           marginBottom={'5%'}
           onPress={onDeletePress}
           colorScheme="danger"
+          size={'sm'}
         >
           {'Delete'}
         </Button>

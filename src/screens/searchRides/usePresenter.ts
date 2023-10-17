@@ -16,7 +16,7 @@ const usePresenter = () => {
   const [destination, setDestination] = useState<Location | undefined>(
     undefined
   );
-  const [rides, setRides] = useState<Ride[]>([]);
+  const [rides, setRides] = useState<Ride[] | undefined>(undefined);
   const [radius, setRadius] = useState(7);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -52,7 +52,7 @@ const usePresenter = () => {
   };
 
   const clearSearch = () => {
-    setRides([]);
+    setRides(undefined);
     setLastVisibleDoc(null);
     setShouldFetchMore(false);
   };
@@ -65,7 +65,7 @@ const usePresenter = () => {
   };
 
   const onSearchPress = async () => {
-    setRides([]);
+    // setRides(undefined);
     if (!destination?.location || !origin?.location) {
       toast.show({
         title: 'Please select origin and destination',
@@ -100,7 +100,7 @@ const usePresenter = () => {
       radius,
       lastVisibleDoc,
     });
-    setRides([...rides, ...allRides]);
+    rides && setRides([...rides, ...allRides]);
     setLastVisibleDoc(lastVisible);
     setShouldFetchMore(allRides.length > 0);
     setLoadingMore(false);
@@ -115,12 +115,12 @@ const usePresenter = () => {
   };
 
   const onMinusPress = () => {
-    setRadius(radius - 1)
-  }
+    setRadius(radius - 1);
+  };
 
   const onPlusPress = () => {
-    setRadius(radius + 1)
-  }
+    setRadius(radius + 1);
+  };
 
   return {
     onOriginPressed,
@@ -140,7 +140,7 @@ const usePresenter = () => {
     onSearchMore,
     onSwitchPress,
     onPlusPress,
-    onMinusPress
+    onMinusPress,
   };
 };
 export default usePresenter;

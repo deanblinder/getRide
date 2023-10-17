@@ -40,7 +40,7 @@ const RideCard = (props: Props) => {
                 }}
               >
                 {!rideUser?.profileImage &&
-                    rideUser?.email.slice(0, 2).toUpperCase()}
+                  rideUser?.email.slice(0, 2).toUpperCase()}
               </Avatar>
             </View>
             <View>

@@ -35,9 +35,7 @@ const SearchRidesDestination = (props: Props) => {
           placeholderTextColor: 'grey',
         }}
       />
-      <Button style={{ borderRadius: 20 }} onPress={onDonePressed}>
-        Done
-      </Button>
+      <Button onPress={onDonePressed}>Done</Button>
     </View>
   );
 };

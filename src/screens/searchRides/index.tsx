@@ -3,16 +3,7 @@ import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
-import {
-  Input,
-  Button,
-  Stack,
-  Spinner,
-  Slider,
-  Text,
-  View,
-  Center,
-} from 'native-base';
+import { Input, Button, Stack, Spinner, Text, View, Box } from 'native-base';
 import RideCard from '../../components/rideCard';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Ride } from '../../typing';
@@ -139,10 +130,14 @@ const SearchRides = () => {
             />
           </View>
         </Stack>
-        <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
+        <Button
+          size={'sm'}
+          style={{ padding: '5%', margin: '5%' }}
+          onPress={onSearchPress}
+        >
           {loading ? <Spinner color="emerald.500" /> : 'search'}
         </Button>
-        {rides.length > 0 && (
+        {rides && rides.length > 0 && (
           <Button
             style={{
               padding: '5%',
@@ -150,6 +145,7 @@ const SearchRides = () => {
               marginRight: '5%',
               marginLeft: '5%',
             }}
+            size={'sm'}
             onPress={clearSearch}
           >
             Clear Results
@@ -160,6 +156,22 @@ const SearchRides = () => {
   };
 
   const renderSkeletons = () => {
+    if (rides === undefined) {
+      return (
+        <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
+          <Text bold>Search For Rides</Text>
+        </View>
+      );
+    }
+
+    if (rides.length === 0) {
+      return (
+        <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
+          <Text bold>No Rides Found</Text>
+        </View>
+      );
+    }
+
     if (loading || loadingMore) {
       return <RideCardSkeleton />;
     }
