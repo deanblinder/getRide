@@ -1,9 +1,13 @@
-import { Ride } from '../../typing';
+import { Ride, Location } from '../../typing';
 
 export type Props = {
   route: {
     params: {
       ride: Ride;
+      searchData?: {
+        origin?: Location;
+        destination?: Location;
+      };
     };
   };
 };

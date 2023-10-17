@@ -6,7 +6,7 @@ import RideCard from '../../components/rideCard';
 import GoogleMap from '../../components/googleMap';
 
 const RideScreen = (props: Props) => {
-  const { ride } = props.route.params;
+  const { ride, searchData } = props.route.params;
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -23,6 +23,7 @@ const RideScreen = (props: Props) => {
               location: ride.origin.location,
             },
           }}
+          rideSearchData={searchData}
           routeNumber={ride.routeNumber}
         />
       </View>

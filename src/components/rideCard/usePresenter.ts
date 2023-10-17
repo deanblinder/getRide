@@ -1,5 +1,5 @@
 import { screenIds } from '../../constants';
-import { Ride, User } from '../../typing';
+import { Ride, User, Location } from '../../typing';
 import { ridesActions, usersActions } from '../../actions';
 import { useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
@@ -9,11 +9,15 @@ import { useNavigation } from '@react-navigation/native';
 
 export type Props = {
   ride: Ride;
+  searchData?: {
+    origin?: Location;
+    destination?: Location;
+  };
   disabled?: boolean;
 };
 
 const usePresenter = (props: Props) => {
-  const { ride, disabled } = props;
+  const { ride, disabled, searchData } = props;
   const [rideUser, setRideUser] = useState<User | undefined>(undefined);
 
   const navigation = useNavigation();
@@ -22,7 +26,7 @@ const usePresenter = (props: Props) => {
 
   const pushRidePage = () => {
     // @ts-ignore
-    navigation.navigate(screenIds.RIDE_SCREEN, { ride });
+    navigation.navigate(screenIds.RIDE_SCREEN, { ride, searchData });
   };
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import usePresenter, { INITIAL_REGION, Props } from './usePresenter';
 
 const MapViewScreen = (props: Props) => {
-  const { routeNumber } = props;
+  const { routeNumber, rideSearchData } = props;
   const { routes, rideData, initialRegion, userLocation } = usePresenter(props);
 
   return (
@@ -38,7 +38,7 @@ const MapViewScreen = (props: Props) => {
               latitude: rideData?.origin?.location?.lat,
               longitude: rideData?.origin?.location?.lng,
             }}
-            title="Start point"
+            title={rideData?.origin.formatted_address}
           />
         )}
         {rideData?.destination?.location?.lng &&
@@ -48,9 +48,29 @@ const MapViewScreen = (props: Props) => {
                 latitude: rideData?.destination?.location?.lat,
                 longitude: rideData?.destination?.location?.lng,
               }}
-              title="End point"
+              title={rideData.destination.formatted_address}
             />
           )}
+        {rideSearchData && (
+          <Marker
+            coordinate={{
+              latitude: rideSearchData?.destination?.location?.lat!,
+              longitude: rideSearchData?.destination?.location?.lng!,
+            }}
+            title={rideSearchData?.destination?.formatted_address}
+            pinColor={'blue'}
+          />
+        )}
+        {rideSearchData && (
+          <Marker
+            coordinate={{
+              latitude: rideSearchData?.origin?.location?.lat!,
+              longitude: rideSearchData?.origin?.location?.lng!,
+            }}
+            title={rideSearchData?.origin?.formatted_address}
+            pinColor={'blue'}
+          />
+        )}
         {userLocation && (
           <Marker
             pinColor="purple"

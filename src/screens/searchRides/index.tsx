@@ -43,7 +43,7 @@ const SearchRides = () => {
   } = usePresenter();
 
   const renderItem = ({ item }: { item: Ride }) => {
-    return <RideCard ride={item} />;
+    return <RideCard ride={item} searchData={{ origin, destination }} />;
   };
 
   const renderSearchCard = () => {
