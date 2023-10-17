@@ -18,6 +18,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Ride } from '../../typing';
 import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
+import { AntDesign } from '@expo/vector-icons';
 
 const SearchRides = () => {
   const {
@@ -29,7 +30,6 @@ const SearchRides = () => {
     onSearchPress,
     loading,
     radius,
-    setRideRadius,
     setShowDatePicker,
     shouldShowDatePicker,
     onDateChange,
@@ -38,6 +38,8 @@ const SearchRides = () => {
     onSearchMore,
     onSwitchPress,
     loadingMore,
+    onPlusPress,
+    onMinusPress
   } = usePresenter();
 
   const renderItem = ({ item }: { item: Ride }) => {
@@ -109,7 +111,7 @@ const SearchRides = () => {
             </TouchableOpacity>
           )}
           <View
-            style={{ flexDirection: 'row', marginTop: '5%', marginLeft: '-5%' }}
+            style={{ flexDirection: 'row', marginTop: '5%' }}
           >
             {shouldShowDatePicker && (
               <RNDateTimePicker
@@ -119,22 +121,13 @@ const SearchRides = () => {
               />
             )}
           </View>
-          <Text style={{ marginVertical: '5%' }}>
-            radius from search: {radius} km
-          </Text>
-          <Slider
-            defaultValue={7}
-            minValue={0}
-            maxValue={15}
-            accessibilityLabel="hello world"
-            step={1}
-            onChange={setRideRadius}
-          >
-            <Slider.Track>
-              <Slider.FilledTrack />
-            </Slider.Track>
-            <Slider.Thumb />
-          </Slider>
+          <View marginY={'5%'} flexDirection={'row'} flex justifyContent={'space-between'}>
+            <AntDesign name="minuscircleo" size={24} color="black" onPress={onMinusPress} />
+              <Text>
+                {radius} km from search
+              </Text>
+            <AntDesign name="pluscircleo" size={24} color="black" onPress={onPlusPress} />
+          </View>
         </Stack>
         <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>
           {loading ? <Spinner color="emerald.500" /> : 'search'}

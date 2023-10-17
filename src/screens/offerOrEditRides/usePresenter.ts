@@ -129,17 +129,21 @@ const usePresenter = (props: Props) => {
           routeNumber: routeNumber,
         };
         await ridesActions.updateRide(rideToEdit.rideId, rideToUpdate);
+        toast.show({
+          description: 'Ride updated successfully',
+          color: 'green',
+        });
       } else {
         await ridesActions.addRide(ride);
+        toast.show({
+          description: 'Ride added successfully',
+          color: 'green',
+        });
       }
       clearState();
       setLoading(false);
       // @ts-ignore
       navigation.navigate(screenIds.RIDES_SCREEN);
-      toast.show({
-        description: 'Ride added successfully',
-        color: 'green',
-      });
     } catch (error) {
       toast.show({
         description: 'Ride didnt added',
@@ -187,6 +191,14 @@ const usePresenter = (props: Props) => {
     setDestination(temp);
   };
 
+  const onMinusPress = () => {
+    setSeats(seats - 1)
+  }
+
+  const onPlusPress = () => {
+    setSeats(seats + 1)
+  }
+
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -210,7 +222,9 @@ const usePresenter = (props: Props) => {
     routeNumber,
     getNumberOfRoutes,
     numberOfRoutes,
-    onSwitchPress
+    onSwitchPress,
+    onPlusPress,
+    onMinusPress
   };
 };
 export default usePresenter;

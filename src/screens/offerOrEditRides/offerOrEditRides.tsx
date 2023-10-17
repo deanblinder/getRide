@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import {FontAwesome} from "@expo/vector-icons";
+import {AntDesign, FontAwesome} from "@expo/vector-icons";
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -40,7 +40,9 @@ const OfferOrEditRides = (props: Props) => {
     routeNumber,
     getNumberOfRoutes,
     numberOfRoutes,
-    onSwitchPress
+    onSwitchPress,
+    onPlusPress,
+    onMinusPress
   } = usePresenter(props);
 
   return (
@@ -138,23 +140,15 @@ const OfferOrEditRides = (props: Props) => {
               </TouchableOpacity>
             )}
           </View>
-          <Text>seats: {seats}</Text>
-          <Slider
-            maxW="300"
-            defaultValue={4}
-            minValue={0}
-            maxValue={7}
-            accessibilityLabel="hello world"
-            step={1}
-            onChange={onSeatsChange}
-          >
-            <Slider.Track>
-              <Slider.FilledTrack />
-            </Slider.Track>
-            <Slider.Thumb />
-          </Slider>
         </Stack>
-        <View flexDirection={'row'} marginTop={'5%'}>
+        <View marginY={'5%'} flexDirection={'row'} justifyContent={'space-around'}>
+          <AntDesign name="minuscircleo" size={24} color="black" onPress={onMinusPress} />
+          <Text>
+            {seats} seats available
+          </Text>
+          <AntDesign name="pluscircleo" size={24} color="black" onPress={onPlusPress} />
+        </View>
+        <View flexDirection={'row'} marginTop={'5%'} marginX={'5%'}>
           {shouldShowDatePicker && (
             <RNDateTimePicker
               value={date}

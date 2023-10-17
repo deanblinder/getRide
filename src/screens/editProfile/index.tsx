@@ -51,7 +51,7 @@ const EditProfile = (props: Props) => {
         <FormControl maxW="300px">
           <FormControl.Label>First Name</FormControl.Label>
           <Input
-            size={'xl'}
+            size={'lg'}
             placeholder={'First Name'}
             onChangeText={onFirstNameChange}
             value={updatedUser.firstName}
@@ -61,7 +61,7 @@ const EditProfile = (props: Props) => {
         <FormControl maxW="300px">
           <FormControl.Label>Last Name</FormControl.Label>
           <Input
-              size={'xl'}
+              size={'lg'}
             placeholder={'Last Name'}
             onChangeText={onLastNameChange}
             value={updatedUser.lastName}
@@ -69,9 +69,9 @@ const EditProfile = (props: Props) => {
           />
         </FormControl>
         <FormControl maxW="300px">
-          <FormControl.Label>Last Name</FormControl.Label>
+          <FormControl.Label>Phone</FormControl.Label>
           <Input
-            size={'xl'}
+            size={'lg'}
             placeholder={'Phone'}
             onChangeText={onPhoneChange}
             value={updatedUser.phoneNumber}
@@ -91,7 +91,7 @@ const EditProfile = (props: Props) => {
         <FormControl maxW="300px">
           <FormControl.Label>Instagram link</FormControl.Label>
           <Input
-              size={'xl'}
+              size={'lg'}
             placeholder={'Instagram link'}
             onChangeText={onInstagramLinkChange}
             value={updatedUser.instagramLink}

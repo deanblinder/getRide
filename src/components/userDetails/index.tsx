@@ -69,7 +69,7 @@ const UserDetails = (props: Props) => {
         </Text>
         {showDataUserData &&
           <>
-          <Text fontSize={typography.fontSizes['md']} color={'grey'}>Email Name</Text>
+          <Text fontSize={typography.fontSizes['md']} color={'grey'}>Email</Text>
           <Text
             style={{ marginBottom: '2%' }}
             fontSize={typography.fontSizes['md']}

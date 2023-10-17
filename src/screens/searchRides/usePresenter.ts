@@ -106,10 +106,6 @@ const usePresenter = () => {
     setLoadingMore(false);
   };
 
-  const setRideRadius = (radius: number) => {
-    setRadius(radius);
-  };
-
   const onSwitchPress = () => {
     const temp = origin;
     setOrigin(destination);
@@ -117,6 +113,14 @@ const usePresenter = () => {
     setLastVisibleDoc(null);
     setShouldFetchMore(false);
   };
+
+  const onMinusPress = () => {
+    setRadius(radius - 1)
+  }
+
+  const onPlusPress = () => {
+    setRadius(radius + 1)
+  }
 
   return {
     onOriginPressed,
@@ -127,7 +131,6 @@ const usePresenter = () => {
     loading,
     loadingMore,
     onSearchPress,
-    setRideRadius,
     radius,
     shouldShowDatePicker: IS_IOS || showDatePicker,
     setShowDatePicker,
@@ -136,6 +139,8 @@ const usePresenter = () => {
     date,
     onSearchMore,
     onSwitchPress,
+    onPlusPress,
+    onMinusPress
   };
 };
 export default usePresenter;
