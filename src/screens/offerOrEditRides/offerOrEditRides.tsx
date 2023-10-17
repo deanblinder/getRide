@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import {AntDesign, FontAwesome} from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -42,14 +42,13 @@ const OfferOrEditRides = (props: Props) => {
     numberOfRoutes,
     onSwitchPress,
     onPlusPress,
-    onMinusPress
+    onMinusPress,
   } = usePresenter(props);
 
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }}>
       <GoogleMap
-        origin={origin}
-        destination={destination}
+        rideData={{ destination, origin }}
         routeNumber={routeNumber}
         numbersOfRoutes={getNumberOfRoutes}
       />
@@ -61,15 +60,15 @@ const OfferOrEditRides = (props: Props) => {
           <View flexDirection={'row'} backgroundColor={'red'}>
             <View justifyContent={'center'}>
               <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    width: 20,
-                    height: 40,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginHorizontal: -10,
-                  }}
-                  onPress={onSwitchPress}
+                style={{
+                  flexDirection: 'row',
+                  width: 20,
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginHorizontal: -10,
+                }}
+                onPress={onSwitchPress}
               >
                 <FontAwesome name="long-arrow-up" />
                 <FontAwesome name="long-arrow-down" />
@@ -77,26 +76,26 @@ const OfferOrEditRides = (props: Props) => {
             </View>
             <View w="90%" maxW="300px" mx="auto">
               <TouchableOpacity
-                  onPress={onOriginPressed}
-                  style={{ marginBottom: '5%' }}
+                onPress={onOriginPressed}
+                style={{ marginBottom: '5%' }}
               >
                 <Input
-                    onPressIn={onOriginPressed}
-                    editable={false}
-                    selectTextOnFocus={false}
-                    value={origin?.formatted_address}
-                    placeholder="Enter Origin"
-                    w="100%"
+                  onPressIn={onOriginPressed}
+                  editable={false}
+                  selectTextOnFocus={false}
+                  value={origin?.formatted_address}
+                  placeholder="Enter Origin"
+                  w="100%"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={onDestinationPressed}>
                 <Input
-                    onPressIn={onDestinationPressed}
-                    editable={false}
-                    selectTextOnFocus={false}
-                    value={destination?.formatted_address}
-                    placeholder="Enter Destination"
-                    w="100%"
+                  onPressIn={onDestinationPressed}
+                  editable={false}
+                  selectTextOnFocus={false}
+                  value={destination?.formatted_address}
+                  placeholder="Enter Destination"
+                  w="100%"
                 />
               </TouchableOpacity>
             </View>
@@ -141,12 +140,24 @@ const OfferOrEditRides = (props: Props) => {
             )}
           </View>
         </Stack>
-        <View marginY={'5%'} flexDirection={'row'} justifyContent={'space-around'}>
-          <AntDesign name="minuscircleo" size={24} color="black" onPress={onMinusPress} />
-          <Text>
-            {seats} seats available
-          </Text>
-          <AntDesign name="pluscircleo" size={24} color="black" onPress={onPlusPress} />
+        <View
+          marginY={'5%'}
+          flexDirection={'row'}
+          justifyContent={'space-around'}
+        >
+          <AntDesign
+            name="minuscircleo"
+            size={24}
+            color="black"
+            onPress={onMinusPress}
+          />
+          <Text>{seats} seats available</Text>
+          <AntDesign
+            name="pluscircleo"
+            size={24}
+            color="black"
+            onPress={onPlusPress}
+          />
         </View>
         <View flexDirection={'row'} marginTop={'5%'} marginX={'5%'}>
           {shouldShowDatePicker && (

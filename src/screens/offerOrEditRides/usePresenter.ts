@@ -7,7 +7,7 @@ import { AuthState } from '../../redux/auth/authReducer';
 import Chance from 'chance';
 import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
-import { Platform , Alert} from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 export const IS_IOS = Platform.OS === 'ios';
@@ -172,13 +172,15 @@ const usePresenter = (props: Props) => {
 
   const onDeletePress = async () => {
     Alert.alert('Warning', 'Are You Sure You Want To Delete Ride?', [
-      {text: 'No'},
-      {text: 'Yes', onPress: async () => {
+      { text: 'No' },
+      {
+        text: 'Yes',
+        onPress: async () => {
           rideToEdit && (await ridesActions.deleteRide(rideToEdit.rideId));
           navigation.goBack();
-        }},
+        },
+      },
     ]);
-
   };
 
   const getNumberOfRoutes = (routeNumber: number) => {
@@ -192,12 +194,12 @@ const usePresenter = (props: Props) => {
   };
 
   const onMinusPress = () => {
-    setSeats(seats - 1)
-  }
+    setSeats(seats - 1);
+  };
 
   const onPlusPress = () => {
-    setSeats(seats + 1)
-  }
+    setSeats(seats + 1);
+  };
 
   return {
     onOriginPressed,
@@ -224,7 +226,7 @@ const usePresenter = (props: Props) => {
     numberOfRoutes,
     onSwitchPress,
     onPlusPress,
-    onMinusPress
+    onMinusPress,
   };
 };
 export default usePresenter;

@@ -39,7 +39,7 @@ const SearchRides = () => {
     onSwitchPress,
     loadingMore,
     onPlusPress,
-    onMinusPress
+    onMinusPress,
   } = usePresenter();
 
   const renderItem = ({ item }: { item: Ride }) => {
@@ -110,9 +110,7 @@ const SearchRides = () => {
               />
             </TouchableOpacity>
           )}
-          <View
-            style={{ flexDirection: 'row', marginTop: '5%' }}
-          >
+          <View style={{ flexDirection: 'row', marginTop: '5%' }}>
             {shouldShowDatePicker && (
               <RNDateTimePicker
                 value={date}
@@ -121,12 +119,24 @@ const SearchRides = () => {
               />
             )}
           </View>
-          <View marginY={'5%'} flexDirection={'row'} flex justifyContent={'space-between'}>
-            <AntDesign name="minuscircleo" size={24} color="black" onPress={onMinusPress} />
-              <Text>
-                {radius} km from search
-              </Text>
-            <AntDesign name="pluscircleo" size={24} color="black" onPress={onPlusPress} />
+          <View
+            marginY={'5%'}
+            flexDirection={'row'}
+            justifyContent={'space-between'}
+          >
+            <AntDesign
+              name="minuscircleo"
+              size={24}
+              color="black"
+              onPress={onMinusPress}
+            />
+            <Text>{radius} km from search</Text>
+            <AntDesign
+              name="pluscircleo"
+              size={24}
+              color="black"
+              onPress={onPlusPress}
+            />
           </View>
         </Stack>
         <Button style={{ padding: '5%', margin: '5%' }} onPress={onSearchPress}>

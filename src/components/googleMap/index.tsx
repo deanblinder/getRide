@@ -1,62 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import { googleMapsActions } from '../../actions/index';
-import { Location as LocationData } from '../../typing';
-import { Point } from 'react-native-google-places-autocomplete';
-import { useSelector } from 'react-redux';
-import { AuthState } from '../../redux/auth/authReducer';
-
-export type Props = {
-  origin?: LocationData;
-  destination?: LocationData;
-  routeNumber?: number;
-  numbersOfRoutes?: (numberOfRoutes: number) => void;
-};
-
-const ROUTE = {
-  origin: { latitude: 32.08578, longitude: 34.77559 },
-  destination: { latitude: 32.78376, longitude: 34.98557 },
-};
+import usePresenter, { INITIAL_REGION, Props } from './usePresenter';
 
 const MapViewScreen = (props: Props) => {
-  const { origin, destination, numbersOfRoutes, routeNumber } = props;
-  const userLocation = useSelector((state: AuthState) => state.userLocation);
-  const [initialRegion, setInitialRegion] = useState<Point | undefined>({
-    lat: userLocation?.lat || 32.78376,
-    lng: userLocation?.lng || 34.98557,
-  });
-  const [routes, setRoutes] = useState<any[]>([]);
-  useEffect(() => {
-    if (origin?.location && destination?.location) {
-      setInitialRegion(origin?.location);
-      getRouteCoordinates({
-        origin: origin?.location,
-        destination: destination?.location,
-      });
-    }
-  }, [origin, destination]);
-
-  const getRouteCoordinates = async (props: {
-    origin: Point;
-    destination: Point;
-  }) => {
-    const routes = await googleMapsActions.getRouteCoordinates({
-      origin: props?.origin,
-      destination: props?.destination,
-    });
-
-    const polyLines = routes.map((route: any) => {
-      return route.overview_polyline;
-    });
-
-    const points = polyLines.map((polyline: any) => {
-      return googleMapsActions.decodePolyline(polyline.points);
-    });
-
-    numbersOfRoutes?.(points.length);
-    setRoutes(points);
-  };
+  const { routeNumber } = props;
+  const { routes, rideData, initialRegion, userLocation } = usePresenter(props);
 
   return (
     <View style={styles.container}>
@@ -65,42 +14,43 @@ const MapViewScreen = (props: Props) => {
         style={styles.map}
         region={{
           latitude:
-            props.origin?.location?.lat ??
+            rideData?.origin?.location?.lat ??
             initialRegion?.lat ??
-            ROUTE?.origin.latitude,
+            INITIAL_REGION.latitude,
           longitude:
-            props.origin?.location?.lng ??
+            rideData?.origin?.location?.lng ??
             initialRegion?.lng ??
-            ROUTE?.destination.longitude,
+            INITIAL_REGION.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         initialRegion={{
-          latitude: props.origin?.location?.lat ?? ROUTE?.origin.latitude,
+          latitude: rideData?.origin?.location?.lat ?? INITIAL_REGION.latitude,
           longitude:
-            props.origin?.location?.lng ?? ROUTE?.destination.longitude,
+            rideData?.origin?.location?.lng ?? INITIAL_REGION.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        {origin?.location?.lat && origin?.location?.lng && (
+        {rideData?.origin?.location?.lat && rideData?.origin?.location?.lng && (
           <Marker
             coordinate={{
-              latitude: origin?.location?.lat,
-              longitude: origin?.location?.lng,
+              latitude: rideData?.origin?.location?.lat,
+              longitude: rideData?.origin?.location?.lng,
             }}
             title="Start point"
           />
         )}
-        {destination?.location?.lng && destination.location.lat && (
-          <Marker
-            coordinate={{
-              latitude: destination?.location?.lat,
-              longitude: destination?.location?.lng,
-            }}
-            title="End point"
-          />
-        )}
+        {rideData?.destination?.location?.lng &&
+          rideData?.destination.location.lat && (
+            <Marker
+              coordinate={{
+                latitude: rideData?.destination?.location?.lat,
+                longitude: rideData?.destination?.location?.lng,
+              }}
+              title="End point"
+            />
+          )}
         {userLocation && (
           <Marker
             pinColor="purple"
@@ -111,7 +61,7 @@ const MapViewScreen = (props: Props) => {
             title="My location"
           />
         )}
-        {origin && destination && (
+        {rideData?.origin && rideData?.destination && (
           <Polyline
             coordinates={routes[routeNumber || 0]}
             strokeWidth={3}

@@ -7,18 +7,21 @@ import GoogleMap from '../../components/googleMap';
 
 const RideScreen = (props: Props) => {
   const { ride } = props.route.params;
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <RideCard ride={ride} disabled />
       <View style={{ flex: 1, margin: '5%' }}>
         <GoogleMap
-          destination={{
-            formatted_address: ride.destination.formatted_address,
-            location: ride.destination.location,
-          }}
-          origin={{
-            formatted_address: ride.origin.formatted_address,
-            location: ride.origin.location,
+          rideData={{
+            destination: {
+              formatted_address: ride.destination.formatted_address,
+              location: ride.destination.location,
+            },
+            origin: {
+              formatted_address: ride.origin.formatted_address,
+              location: ride.origin.location,
+            },
           }}
           routeNumber={ride.routeNumber}
         />
