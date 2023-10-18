@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OfferStack from './routes/offerStack';
@@ -15,14 +15,14 @@ import { auth } from './config/firebase';
 import { getUserById } from './actions/users';
 import { getUserLocationAsync } from './actions/common';
 import { Feather, Ionicons, AntDesign } from '@expo/vector-icons';
-import SplashScreen from "./screens/splashScreen";
+import SplashScreen from './screens/splashScreen';
 
 const GetRide = () => {
   const dispatch = useDispatch();
 
   const Tab = createBottomTabNavigator();
   const user = useSelector((state: AuthState) => state.user);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -40,7 +40,7 @@ const GetRide = () => {
       } else {
         console.log('### logged out');
       }
-      setIsLoading(false)
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -60,7 +60,7 @@ const GetRide = () => {
           flexDirection: 'row',
           alignItems: 'center',
           width: '100%',
-          display: 'flex',
+          // display: 'flex',
           justifyContent: 'space-between',
         }}
       >
@@ -74,14 +74,14 @@ const GetRide = () => {
               uri: user?.profileImage,
             }}
           >
-              {user?.email.slice(0, 2).toUpperCase()}
+            {user?.email.slice(0, 2).toUpperCase()}
           </Avatar>
         </TouchableOpacity>
       </View>
     );
   };
 
-  if (isLoading) return <SplashScreen/>
+  if (isLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>

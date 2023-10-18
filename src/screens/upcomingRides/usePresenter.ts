@@ -5,8 +5,6 @@ import { AuthState } from '../../redux/auth/authReducer';
 import { onSnapshot } from 'firebase/firestore';
 import { ridesQueries } from '../../../src/quries';
 
-export const HOUR = 1000 * 60 * 60;
-
 const usePresenter = () => {
   const [upcomingRides, setUpcomingRides] = useState<Ride[]>([]);
   const [loading, setLoading] = useState(true);

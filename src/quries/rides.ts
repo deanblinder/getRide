@@ -8,8 +8,9 @@ import {
   startAfter,
 } from 'firebase/firestore';
 import { ridesRef } from '../config/firebase';
-import { HOUR } from '../screens/upcomingRides/usePresenter';
 import { QueryDocumentSnapshot } from '@firebase/firestore';
+
+const HOUR = 1000 * 60 * 60;
 
 const startTime = Date.now() - HOUR * 24;
 

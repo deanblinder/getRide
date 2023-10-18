@@ -3,11 +3,11 @@ import typography from 'native-base/src/theme/base/typography';
 import React from 'react';
 import { User } from '../../typing';
 import { Linking } from 'react-native';
-import {Entypo} from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
 
 type Props = {
   user: User;
-  showDataUserData: boolean;
+  showDataUserData?: boolean;
 };
 
 const UserDetails = (props: Props) => {
@@ -32,51 +32,61 @@ const UserDetails = (props: Props) => {
 
   return (
     <View>
-        <View flexDirection={'row'} marginBottom={'5%'}>
+      <View flexDirection={'row'} marginBottom={'5%'}>
         {user?.facebookLink && (
-            <Entypo
-                marginRight={'5%'}
-                name="facebook"
-                size={44}
-                color="blue"
-                onPress={onFacebookPress}
-            />
+          <Entypo
+            marginRight={'5%'}
+            name="facebook"
+            size={44}
+            color="blue"
+            onPress={onFacebookPress}
+          />
         )}
         {user?.instagramLink && (
-            <Entypo
-                marginRight={'5%'}
-                name="instagram"
-                size={44}
-                color="brown"
-                onPress={onInstagramPress}
-            />
+          <Entypo
+            marginRight={'5%'}
+            name="instagram"
+            size={44}
+            color="brown"
+            onPress={onInstagramPress}
+          />
         )}
-        </View>
+      </View>
       <View>
-        <Text fontSize={typography.fontSizes['md']} color={'grey'}>First Name</Text>
+        <Text fontSize={typography.fontSizes['md']} color={'grey'}>
+          First Name
+        </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['md']}
         >
           {user?.firstName || 'not published'}
         </Text>
-        <Text fontSize={typography.fontSizes['md']} color={'grey'}>Last Name</Text>
+        <Text fontSize={typography.fontSizes['md']} color={'grey'}>
+          Last Name
+        </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['md']}
         >
           {user?.lastName || 'not published'}
         </Text>
-        {showDataUserData &&
+        {showDataUserData && (
           <>
-          <Text fontSize={typography.fontSizes['md']} color={'grey'}>Email</Text>
-          <Text
-            style={{ marginBottom: '2%' }}
-            fontSize={typography.fontSizes['md']}
-          >
-          {user?.email || 'not published'}
-        </Text></>}
-        <Text fontSize={typography.fontSizes['md']} color={'grey'} >Phone</Text>
+            <Text fontSize={typography.fontSizes['md']} color={'grey'}>
+              Email
+            </Text>
+            <Text
+              style={{ marginBottom: '2%' }}
+              fontSize={typography.fontSizes['md']}
+            >
+              {user?.email || 'not published'}
+            </Text>
+          </>
+        )}
+        <Text fontSize={typography.fontSizes['md']} color={'grey'}>
+          Phone
+        </Text>
         <Text
           style={{ marginBottom: '2%' }}
           fontSize={typography.fontSizes['md']}
