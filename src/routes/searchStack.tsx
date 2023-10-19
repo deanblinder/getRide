@@ -8,8 +8,9 @@ import RideScreen from '../screens/ride';
 import Profile from '../screens/profile';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
-import CustomHeader from '../components/CustomHeader';
 import BackButton from '../components/backButton';
+import UserAvatar from '../components/userAvatar';
+import HeaderLogo from '../components/headerLogo';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,9 +19,10 @@ const SearchStack: React.FC = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerTitle: () => <CustomHeader />,
+          headerTitle: '',
+          headerLeft: () => <HeaderLogo />,
+          headerRight: () => <UserAvatar />,
           headerShown: true,
-          presentation: 'fullScreenModal',
         }}
         name={screenIds.SEARCH_RIDE_SCREEN}
         component={SearchRides}

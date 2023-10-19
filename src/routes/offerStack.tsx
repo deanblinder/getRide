@@ -8,8 +8,9 @@ import Profile from '../screens/profile';
 import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
-import CustomHeader from '../components/CustomHeader';
 import RidesStack from './ridesStack';
+import HeaderLogo from '../components/headerLogo';
+import UserAvatar from '../components/userAvatar';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,9 @@ const OfferStack: React.FC = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerTitle: () => <CustomHeader />,
+          headerTitle: '',
+          headerLeft: () => <HeaderLogo />,
+          headerRight: () => <UserAvatar />,
           headerShown: true,
         }}
         name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}

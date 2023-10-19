@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {
+  StyleSheet,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -21,32 +26,39 @@ const SearchRidesDestination = (props: Props) => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <GooglePlacesAutocomplete
-        ref={inputRef}
-        placeholder="Destination"
-        fetchDetails={true}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          onLocationSelected(details);
-        }}
-        styles={{
-          textInput: styles.textInput,
-          height: 50,
-          backgroundColor: 'white',
-          marginTop: 20,
-        }}
-        query={{
-          key: API_KEY,
-          language: 'iw',
-          components: 'country:il',
-        }}
-        textInputProps={{
-          placeholderTextColor: 'grey',
-        }}
-      />
-      <Button onPress={onDonePressed}>Done</Button>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardDismissMode={'interactive'}
+      >
+        <GooglePlacesAutocomplete
+          ref={inputRef}
+          placeholder="Destination"
+          fetchDetails={true}
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            onLocationSelected(details);
+          }}
+          styles={{
+            textInput: styles.textInput,
+            height: 50,
+            backgroundColor: 'white',
+            marginTop: 20,
+          }}
+          query={{
+            key: API_KEY,
+            language: 'iw',
+            components: 'country:il',
+          }}
+          textInputProps={{
+            placeholderTextColor: 'grey',
+          }}
+        />
+        <Button onPress={onDonePressed}>Done</Button>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -58,7 +70,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     padding: '5%',
-    flex: 1,
   },
 });
 

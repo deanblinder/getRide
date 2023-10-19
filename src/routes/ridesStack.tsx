@@ -9,8 +9,9 @@ import SearchRidesOrigin from '../screens/searchOrigin';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
 import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
-import CustomHeader from '../components/CustomHeader';
 import BackButton from '../components/backButton';
+import HeaderLogo from '../components/headerLogo';
+import UserAvatar from '../components/userAvatar';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,9 @@ const RidesStack = () => {
           name={screenIds.RIDES_SCREEN}
           component={Rides}
           options={{
-            headerTitle: () => <CustomHeader />,
+            headerTitle: '',
+            headerLeft: () => <HeaderLogo />,
+            headerRight: () => <UserAvatar />,
             headerShown: true,
           }}
         />
