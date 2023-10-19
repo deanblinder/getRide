@@ -8,14 +8,14 @@ import { setUser, setUserLocation } from './redux/auth/authActions';
 import { auth } from './config/firebase';
 import { getUserById } from './actions/users';
 import { getUserLocationAsync } from './actions/common';
-import SplashScreen from './screens/splashScreen';
+// import SplashScreen from './screens/splashScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabs';
 
 const GetRide = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: AuthState) => state.user);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -39,7 +39,7 @@ const GetRide = () => {
     return () => unsubscribe();
   }, []);
 
-  if (isLoading) return <SplashScreen />;
+  // if (isLoading) return <SplashScreen />;
 
   const Stack = createStackNavigator();
   return (
