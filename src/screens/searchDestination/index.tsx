@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Platform,
   KeyboardAvoidingView,
-  ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -11,7 +10,7 @@ import {
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import usePresenter from './usePresenter';
-import { Button } from 'native-base';
+import { Button, View } from 'native-base';
 import { Props } from '../searchOrigin/usePresenter';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/backButton';
@@ -32,10 +31,7 @@ const SearchRidesDestination = (props: Props) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView
-          contentContainerStyle={styles.container}
-          keyboardDismissMode={'interactive'}
-        >
+        <View style={styles.container}>
           <GooglePlacesAutocomplete
             ref={inputRef}
             placeholder="Destination"
@@ -60,7 +56,7 @@ const SearchRidesDestination = (props: Props) => {
             }}
           />
           <Button onPress={onDonePressed}>Done</Button>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
