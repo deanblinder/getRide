@@ -33,7 +33,7 @@ const GetRide = () => {
       } else {
         console.log('### logged out');
       }
-      setIsLoading(false);
+      // setIsLoading(false);
     });
 
     return () => unsubscribe();
