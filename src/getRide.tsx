@@ -44,18 +44,18 @@ const GetRide = () => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
-      {user ? (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Main"
-            component={TabNavigator}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      ) : (
-        <WelcomeStack />
-      )}
+      {/*<StatusBar barStyle="dark-content" />*/}
+      {/*{user ? (*/}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+      {/*) : (*/}
+      {/*  <WelcomeStack />*/}
+      {/*)}*/}
     </NavigationContainer>
   );
 };
