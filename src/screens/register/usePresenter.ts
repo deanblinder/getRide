@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { addUser } from '../../actions/users';
-import {useToast} from "native-base";
+import { useToast } from 'native-base';
 
 const usePresenter = () => {
   const dispatch = useDispatch();
@@ -14,12 +14,12 @@ const usePresenter = () => {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
-  const [facebookLink, setFacebookLink] = useState('')
+  const [facebookLink, setFacebookLink] = useState('');
 
-  function isFacebookLink(url) {
-    const facebookUrlPattern = /^https:\/\/www\.facebook\.com\/[A-Za-z0-9_.]+$/;
-    return facebookUrlPattern.test(url);
-  }
+  // function isFacebookLink(url) {
+  //   const facebookUrlPattern = /^https:\/\/www\.facebook\.com\/[A-Za-z0-9_.]+$/;
+  //   return facebookUrlPattern.test(url);
+  // }
 
   const handleSignup = async () => {
     // if (email && password && phoneNumber && isFacebookLink(facebookLink)) {
@@ -36,7 +36,7 @@ const usePresenter = () => {
           password,
           phoneNumber,
           uid: userCredentials.user.uid,
-          facebookLink
+          facebookLink,
         };
         await addUser(user);
         setLoading(false);
@@ -55,8 +55,8 @@ const usePresenter = () => {
       } finally {
         setLoading(false);
       }
-    }else{
-      if(!email || !password || !phoneNumber){
+    } else {
+      if (!email || !password || !phoneNumber) {
         toast.show({
           title: 'Please Fill all details',
         });
@@ -66,7 +66,6 @@ const usePresenter = () => {
       //     title: 'Please fill a real facebook link',
       //   });
       // }
-
     }
   };
 
