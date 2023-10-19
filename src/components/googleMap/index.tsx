@@ -76,13 +76,15 @@ const MapViewScreen = (props: Props) => {
             pinColor={'blue'}
           />
         )}
-        {rideData?.origin && rideData?.destination && (
-          <Polyline
-            coordinates={routes[routeNumber || 0]}
-            strokeWidth={3}
-            strokeColor="red"
-          />
-        )}
+        {routes.length > 0 &&
+          rideData?.origin?.location &&
+          rideData?.destination?.location && (
+            <Polyline
+              coordinates={routes[routeNumber || 0]}
+              strokeWidth={3}
+              strokeColor="red"
+            />
+          )}
       </MapView>
     </View>
   );

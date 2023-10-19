@@ -10,6 +10,7 @@ import { Ride } from '../../typing';
 import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
 import { AntDesign } from '@expo/vector-icons';
+import { IS_IOS } from '../offerOrEditRides/usePresenter';
 
 const SearchRides = () => {
   const {
@@ -89,14 +90,16 @@ const SearchRides = () => {
           </View>
         </View>
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          {!shouldShowDatePicker && (
-            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+          {!IS_IOS && (
+            <TouchableOpacity
+              style={{ marginTop: '5%' }}
+              onPress={() => setShowDatePicker(true)}
+            >
               <Input
                 editable={false}
                 selectTextOnFocus={false}
                 onPressIn={() => setShowDatePicker(true)}
-                // value={destination?.formatted_address}
-                placeholder="Enter Date"
+                placeholder={date.toLocaleDateString('he')}
                 w="100%"
               />
             </TouchableOpacity>

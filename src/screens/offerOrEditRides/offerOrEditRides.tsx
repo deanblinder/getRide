@@ -12,9 +12,10 @@ import {
   Spinner,
   View,
 } from 'native-base';
-import usePresenter, { Props } from './usePresenter';
+import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -107,8 +108,9 @@ const OfferOrEditRides = (props: Props) => {
             display={'flex'}
             justifyContent={'space-between'}
             flexDirection={'row'}
+            marginX={'5%'}
           >
-            {!shouldShowDatePicker && (
+            {!IS_IOS && (
               <TouchableOpacity
                 style={{ width: '40%' }}
                 onPress={() => {
@@ -119,21 +121,25 @@ const OfferOrEditRides = (props: Props) => {
                   onPressIn={() => {
                     setShowDatePicker(true);
                   }}
-                  placeholder="Enter Date"
+                  placeholder={date.toLocaleDateString('he')}
                   w="100%"
                   editable={false}
                   selectTextOnFocus={false}
                 />
               </TouchableOpacity>
             )}
-            {!shouldShowTimePicker && (
+            {!IS_IOS && (
               <TouchableOpacity
                 style={{ width: '40%' }}
                 onPress={() => setShowTimePicker(true)}
               >
                 <Input
                   onPressIn={() => setShowTimePicker(true)}
-                  placeholder="Enter Time"
+                  placeholder={time.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
                   w="100%"
                   editable={false}
                   selectTextOnFocus={false}

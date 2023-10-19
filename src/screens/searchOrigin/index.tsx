@@ -5,9 +5,18 @@ import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import usePresenter, { Props } from './usePresenter';
 import { Button } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/backButton';
 
 const SearchRidesOrigin = (props: Props) => {
   const { onDonePressed, onLocationSelected, inputRef } = usePresenter(props);
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton dismiss />,
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

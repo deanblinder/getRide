@@ -9,9 +9,9 @@ import {
   ScrollView,
 } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
-import typography from 'native-base/src/theme/base/typography';
 import { useNavigation } from '@react-navigation/native';
-import {KeyboardAvoidingView, Platform} from "react-native";
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import BackButton from '../../components/backButton';
 
 const EditProfile = (props: Props) => {
   const {
@@ -28,6 +28,7 @@ const EditProfile = (props: Props) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: '', // Set a custom title
+      headerLeft: () => <BackButton dismiss />,
       headerRight: () => (
         <Button variant="ghost" colorScheme={'gray'} onPress={updateUser}>
           Update
@@ -37,70 +38,73 @@ const EditProfile = (props: Props) => {
   }, [navigation, updatedUser]);
 
   return (
-      <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-    <ScrollView
-        keyboardDismissMode={'interactive'}
-        contentContainerStyle={{ padding: '5%', justifyContent: 'space-between' }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Stack space={5} w="100%" maxW="300px" mx="auto">
-        <Text fontSize={'3xl'} marginBottom={'10%'}>
-          Edit Your Personal Info
-        </Text>
-        <FormControl maxW="300px">
-          <FormControl.Label>First Name</FormControl.Label>
-          <Input
-            size={'lg'}
-            placeholder={'First Name'}
-            onChangeText={onFirstNameChange}
-            value={updatedUser.firstName}
-            variant={'underlined'}
-          />
-        </FormControl>
-        <FormControl maxW="300px">
-          <FormControl.Label>Last Name</FormControl.Label>
-          <Input
+      <ScrollView
+        keyboardDismissMode={'interactive'}
+        contentContainerStyle={{
+          padding: '5%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Stack space={5} w="100%" maxW="300px" mx="auto">
+          <Text fontSize={'3xl'} marginBottom={'10%'}>
+            Edit Your Personal Info
+          </Text>
+          <FormControl maxW="300px">
+            <FormControl.Label>First Name</FormControl.Label>
+            <Input
               size={'lg'}
-            placeholder={'Last Name'}
-            onChangeText={onLastNameChange}
-            value={updatedUser.lastName}
-            variant={'underlined'}
-          />
-        </FormControl>
-        <FormControl maxW="300px">
-          <FormControl.Label>Phone</FormControl.Label>
-          <Input
-            size={'lg'}
-            placeholder={'Phone'}
-            onChangeText={onPhoneChange}
-            value={updatedUser.phoneNumber}
-            variant={'underlined'}
-          />
-        </FormControl>
-        <FormControl maxW="300px">
-          <FormControl.Label>Facebook link</FormControl.Label>
-          <Input
+              placeholder={'First Name'}
+              onChangeText={onFirstNameChange}
+              value={updatedUser.firstName}
+              variant={'underlined'}
+            />
+          </FormControl>
+          <FormControl maxW="300px">
+            <FormControl.Label>Last Name</FormControl.Label>
+            <Input
+              size={'lg'}
+              placeholder={'Last Name'}
+              onChangeText={onLastNameChange}
+              value={updatedUser.lastName}
+              variant={'underlined'}
+            />
+          </FormControl>
+          <FormControl maxW="300px">
+            <FormControl.Label>Phone</FormControl.Label>
+            <Input
+              size={'lg'}
+              placeholder={'Phone'}
+              onChangeText={onPhoneChange}
+              value={updatedUser.phoneNumber}
+              variant={'underlined'}
+            />
+          </FormControl>
+          <FormControl maxW="300px">
+            <FormControl.Label>Facebook link</FormControl.Label>
+            <Input
               size={'xl'}
-            placeholder={'Facebook link'}
-            onChangeText={onFacebookLinkChange}
-            value={updatedUser.facebookLink}
-            variant={'underlined'}
-          />
-        </FormControl>
-        <FormControl maxW="300px">
-          <FormControl.Label>Instagram link</FormControl.Label>
-          <Input
+              placeholder={'Facebook link'}
+              onChangeText={onFacebookLinkChange}
+              value={updatedUser.facebookLink}
+              variant={'underlined'}
+            />
+          </FormControl>
+          <FormControl maxW="300px">
+            <FormControl.Label>Instagram link</FormControl.Label>
+            <Input
               size={'lg'}
-            placeholder={'Instagram link'}
-            onChangeText={onInstagramLinkChange}
-            value={updatedUser.instagramLink}
-            variant={'underlined'}
-          />
-        </FormControl>
-      </Stack>
-    </ScrollView>
-      </KeyboardAvoidingView>
+              placeholder={'Instagram link'}
+              onChangeText={onInstagramLinkChange}
+              value={updatedUser.instagramLink}
+              variant={'underlined'}
+            />
+          </FormControl>
+        </Stack>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,7 +1,6 @@
-import { Ride, User } from '../../typing';
+import { User } from '../../typing';
 import { useEffect, useState } from 'react';
 import { usersActions } from '../../actions';
-import { Linking } from 'react-native';
 
 export type Props = {
   route: {
@@ -25,11 +24,6 @@ const usePresenter = (props: Props) => {
     setUser(user);
   };
 
-
-  const onFacebookPress = () => {
-    Linking.openURL(user?.facebookLink!);
-  };
-
-  return { user, onFacebookPress };
+  return { user };
 };
 export default usePresenter;

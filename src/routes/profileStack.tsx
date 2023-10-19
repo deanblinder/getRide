@@ -17,6 +17,7 @@ const ProfileStack = () => {
       <Stack.Screen
         options={{ presentation: 'modal', headerShown: false }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
+        // @ts-ignore
         component={OfferingProfilePresenter}
       />
     </Stack.Navigator>

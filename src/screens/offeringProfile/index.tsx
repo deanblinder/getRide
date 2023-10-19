@@ -3,11 +3,21 @@ import { View, Text, Avatar, Spinner } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import typography from 'native-base/src/theme/base/typography';
-import { Entypo } from '@expo/vector-icons';
 import UserDetails from '../../components/userDetails';
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/backButton';
 
 const OfferingProfilePresenter = (props: Props) => {
-  const { user, onFacebookPress } = usePresenter(props);
+  const { user } = usePresenter(props);
+
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton dismiss />,
+    });
+  }, [navigation]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View flex={1} alignItems={'center'} marginBottom={'5%'}>

@@ -171,7 +171,7 @@ const usePresenter = (props: Props) => {
   };
 
   const onDeletePress = async () => {
-    Alert.alert('Warning', 'Are You Sure You Want To Delete Ride?', [
+    Alert.alert('Warning', 'Are you sure you want to delete the ride?', [
       { text: 'No' },
       {
         text: 'Yes',

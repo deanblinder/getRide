@@ -3,13 +3,23 @@ import { View, StyleSheet } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { Text } from '@rneui/base';
 import usePresenter from './usePresenter';
 import { Button } from 'native-base';
 import { Props } from '../searchOrigin/usePresenter';
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/backButton';
 
 const SearchRidesDestination = (props: Props) => {
   const { onDonePressed, onLocationSelected, inputRef } = usePresenter(props);
+
+  const navigation = useNavigation();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton dismiss />,
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete

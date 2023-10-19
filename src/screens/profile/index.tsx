@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, ScrollView, TouchableOpacity, Platform, KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { View, Avatar, Spinner, Text, Button, Divider } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter, { Props } from './usePresenter';
@@ -8,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { screenIds } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import UserDetails from '../../components/userDetails';
+import BackButton from '../../components/backButton';
 
 const Profile = (props: Props) => {
   const { navigation } = props;
@@ -18,8 +25,6 @@ const Profile = (props: Props) => {
     profileImage,
     profileImageLoading,
     onEditPress,
-    onFacebookPress,
-    onInstagramPress,
     onLogoutPress,
   } = usePresenter();
   const CustomHeaderComponent = () => {
@@ -44,21 +49,18 @@ const Profile = (props: Props) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Profile', // Set a custom title
-      headerStyle: {},
-      headerTintColor: 'white', // Customize the text color
-      headerTitleStyle: {
-        fontSize: 18, // Customize the text size
-      },
+      title: '',
       headerRight: () => <CustomHeaderComponent />,
+      headerLeft: () => <BackButton />,
+      headerBackTitleStyle: { display: 'none' },
     });
   }, [navigation]);
 
   return (
-      <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.container}
-      >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <View style={styles.topScreen}>
         <View justifyContent={'space-between'}>
           <Text bold fontSize={typography.fontSizes['2xl']}>
@@ -122,9 +124,14 @@ const Profile = (props: Props) => {
       </View>
       <Divider marginBottom={'10%'} />
       <ScrollView keyboardDismissMode={'interactive'}>
-        <UserDetails user={user!} showDataUserData/>
+        <UserDetails user={user!} showDataUserData />
       </ScrollView>
-      <Button size={'lg'} colorScheme={'danger'} variant="link" onPress={onLogoutPress}>
+      <Button
+        size={'lg'}
+        colorScheme={'danger'}
+        variant="link"
+        onPress={onLogoutPress}
+      >
         log out
       </Button>
     </KeyboardAvoidingView>
