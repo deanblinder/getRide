@@ -1,15 +1,16 @@
 import React from 'react';
 import {
   StyleSheet,
-  ScrollView,
   Platform,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import usePresenter, { Props } from './usePresenter';
-import { Button } from 'native-base';
+import { View, Button } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/backButton';
 
@@ -24,40 +25,39 @@ const SearchRidesOrigin = (props: Props) => {
   }, [navigation]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardDismissMode={'interactive'}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <GooglePlacesAutocomplete
-          ref={inputRef}
-          placeholder="Origin"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            onLocationSelected(details);
-            // 'details' is provided when fetchDetails = true
-            // console.log(data, details);
-          }}
-          styles={{
-            textInput: styles.textInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          textInputProps={{
-            placeholderTextColor: 'grey',
-          }}
-          query={{
-            key: API_KEY,
-            language: 'iw',
-            components: 'country:il',
-          }}
-        />
-        <Button onPress={onDonePressed}>Done</Button>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <View style={styles.container}>
+          <GooglePlacesAutocomplete
+            ref={inputRef}
+            placeholder="Origin"
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              onLocationSelected(details);
+              // 'details' is provided when fetchDetails = true
+              // console.log(data, details);
+            }}
+            styles={{
+              textInput: styles.textInput,
+              height: 50,
+              backgroundColor: 'white',
+              marginTop: 20,
+            }}
+            textInputProps={{
+              placeholderTextColor: 'grey',
+            }}
+            query={{
+              key: API_KEY,
+              language: 'iw',
+              components: 'country:il',
+            }}
+          />
+          <Button onPress={onDonePressed}>Done</Button>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

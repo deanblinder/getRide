@@ -4,6 +4,8 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 // @ts-ignore
 import { API_KEY } from '@env';
@@ -26,39 +28,41 @@ const SearchRidesDestination = (props: Props) => {
   }, [navigation]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardDismissMode={'interactive'}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <GooglePlacesAutocomplete
-          ref={inputRef}
-          placeholder="Destination"
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            onLocationSelected(details);
-          }}
-          styles={{
-            textInput: styles.textInput,
-            height: 50,
-            backgroundColor: 'white',
-            marginTop: 20,
-          }}
-          query={{
-            key: API_KEY,
-            language: 'iw',
-            components: 'country:il',
-          }}
-          textInputProps={{
-            placeholderTextColor: 'grey',
-          }}
-        />
-        <Button onPress={onDonePressed}>Done</Button>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardDismissMode={'interactive'}
+        >
+          <GooglePlacesAutocomplete
+            ref={inputRef}
+            placeholder="Destination"
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              onLocationSelected(details);
+            }}
+            styles={{
+              textInput: styles.textInput,
+              height: 50,
+              backgroundColor: 'white',
+              marginTop: 20,
+            }}
+            query={{
+              key: API_KEY,
+              language: 'iw',
+              components: 'country:il',
+            }}
+            textInputProps={{
+              placeholderTextColor: 'grey',
+            }}
+          />
+          <Button onPress={onDonePressed}>Done</Button>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
