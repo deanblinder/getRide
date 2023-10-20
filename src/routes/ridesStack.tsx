@@ -12,6 +12,7 @@ import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
 import BackButton from '../components/backButton';
 import HeaderLogo from '../components/headerLogo';
 import UserAvatar from '../components/userAvatar';
+import About from '../screens/about';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,14 +31,14 @@ const RidesStack = () => {
           }}
         />
         <Stack.Screen
-          options={{ headerTitle: '' }}
+          options={{ headerLeft: () => <BackButton />, headerTitle: '' }}
           name={screenIds.RIDE_SCREEN}
           // @ts-ignore
           component={RideScreen}
         />
         <Stack.Screen
           options={{
-            presentation: 'fullScreenModal',
+            presentation: 'modal',
             headerShown: false,
             headerTitle: '',
           }}
@@ -47,7 +48,7 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            presentation: 'fullScreenModal',
+            presentation: 'modal',
             headerShown: false,
             headerTitle: '',
           }}
@@ -57,7 +58,7 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            presentation: 'fullScreenModal',
+            presentation: 'modal',
             headerShown: false,
             headerTitle: '',
           }}
@@ -66,7 +67,7 @@ const RidesStack = () => {
           component={OfferingProfilePresenter}
         />
         <Stack.Screen
-          options={{ headerTitle: '', presentation: 'fullScreenModal' }}
+          options={{ headerTitle: '', presentation: 'modal' }}
           name={screenIds.EDIT_PROFILE_SCREEN}
           // @ts-ignore
           component={EditProfile}
@@ -75,12 +76,21 @@ const RidesStack = () => {
           options={{
             headerLeft: () => <BackButton dismiss />,
             headerTitle: '',
-            presentation: 'fullScreenModal',
+            presentation: 'modal',
           }}
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
           component={OfferOrEditRides}
         />
         <Stack.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
+        <Stack.Screen
+          name={screenIds.SETTINGS_SCREEN}
+          component={About}
+          options={{
+            headerLeft: () => <BackButton dismiss />,
+            headerTitle: 'About',
+            presentation: 'modal',
+          }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -11,6 +11,8 @@ import EditProfile from '../screens/editProfile';
 import RidesStack from './ridesStack';
 import HeaderLogo from '../components/headerLogo';
 import UserAvatar from '../components/userAvatar';
+import BackButton from '../components/backButton';
+import About from '../screens/about';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,37 +30,49 @@ const OfferStack: React.FC = () => {
         component={OfferOrEditRides}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal' }}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerTitle: '',
+          presentation: 'modal',
+        }}
         name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
         // @ts-ignore
         component={SearchRidesDestination}
       />
       <Stack.Screen
-        options={{ headerTitle: '', presentation: 'fullScreenModal' }}
+        options={{ headerTitle: '', presentation: 'modal' }}
         name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
         // @ts-ignore
         component={SearchRidesOrigin}
       />
       <Stack.Screen
-        options={{ headerTitle: '', presentation: 'fullScreenModal' }}
+        options={{ headerTitle: '', presentation: 'modal' }}
         name={screenIds.RIDE_SCREEN}
         // @ts-ignore
         component={RideScreen}
       />
-      <Stack.Screen name={screenIds.RIDES_SCREEN} component={RidesStack} />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal' }}
+        options={{ presentation: 'modal' }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         // @ts-ignore
         component={OfferingProfilePresenter}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal' }}
+        options={{ presentation: 'modal' }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         // @ts-ignore
         component={EditProfile}
       />
       <Stack.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
+      <Stack.Screen
+        name={screenIds.SETTINGS_SCREEN}
+        component={About}
+        options={{
+          headerLeft: () => <BackButton dismiss />,
+          headerTitle: 'About',
+          presentation: 'modal',
+        }}
+      />
     </Stack.Navigator>
   );
 };

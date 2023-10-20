@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
 import { Platform, Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { tabIds } from '../../constants';
 
 export const IS_IOS = Platform.OS === 'ios';
 
@@ -143,7 +144,7 @@ const usePresenter = (props: Props) => {
       clearState();
       setLoading(false);
       // @ts-ignore
-      navigation.navigate(screenIds.RIDES_SCREEN);
+      navigation.navigate(tabIds.RIDES);
     } catch (error) {
       toast.show({
         description: 'Ride didnt added',

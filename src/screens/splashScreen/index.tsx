@@ -3,7 +3,7 @@ import React from 'react';
 import { Spinner, View } from 'native-base';
 import LottieView from 'lottie-react-native';
 
-const lottie = require('../../../assets/lottie/animation_lnt89a60.json');
+import lottie from '../../../assets/lottie/animation_lnt89a60.json';
 
 const SplashScreen = () => {
   return (

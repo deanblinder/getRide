@@ -15,7 +15,6 @@ import {
 import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 
 const OfferOrEditRides = (props: Props) => {
   const {

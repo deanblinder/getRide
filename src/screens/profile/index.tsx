@@ -27,12 +27,12 @@ const Profile = (props: Props) => {
     onEditPress,
     onLogoutPress,
   } = usePresenter();
-  const CustomHeaderComponent = () => {
+  const WheelIcon = () => {
     const navigation = useNavigation();
 
     const onPress = () => {
       // @ts-ignore
-      navigation.navigate(screenIds.PROFILE_SCREEN);
+      navigation.navigate(screenIds.SETTINGS_SCREEN);
     };
 
     return (
@@ -50,7 +50,7 @@ const Profile = (props: Props) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: '',
-      headerRight: () => <CustomHeaderComponent />,
+      headerRight: () => <WheelIcon />,
       headerLeft: () => <BackButton />,
       headerBackTitleStyle: { display: 'none' },
     });

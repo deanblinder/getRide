@@ -15,4 +15,5 @@ export default {
   EDIT_RIDE_SCREEN: 'EditRideScreen',
   OFFERING_PROFILE_SCREEN: 'OfferingProfileScreen',
   EDIT_PROFILE_SCREEN: 'EditProfileScreen',
+  SETTINGS_SCREEN: 'SettingsScreen',
 };

@@ -7,6 +7,7 @@ import {
   Button,
   FormControl,
   ScrollView,
+  Spinner,
 } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import { useNavigation } from '@react-navigation/native';
@@ -22,6 +23,7 @@ const EditProfile = (props: Props) => {
     updatedUser,
     onPhoneChange,
     onInstagramLinkChange,
+    isLoading,
   } = usePresenter(props);
   const navigation = useNavigation();
 
@@ -31,11 +33,11 @@ const EditProfile = (props: Props) => {
       headerLeft: () => <BackButton dismiss />,
       headerRight: () => (
         <Button variant="ghost" colorScheme={'gray'} onPress={updateUser}>
-          Update
+          {isLoading ? <Spinner color="grey.500" /> : 'Update'}
         </Button>
       ),
     });
-  }, [navigation, updatedUser]);
+  }, [navigation, updatedUser, isLoading]);
 
   return (
     <KeyboardAvoidingView
@@ -49,7 +51,7 @@ const EditProfile = (props: Props) => {
         }}
       >
         <Stack space={5} w="100%" maxW="300px" mx="auto">
-          <Text fontSize={'3xl'} marginBottom={'10%'}>
+          <Text fontSize={'2xl'} marginBottom={'10%'}>
             Edit Your Personal Info
           </Text>
           <FormControl maxW="300px">

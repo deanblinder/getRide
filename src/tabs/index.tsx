@@ -4,6 +4,7 @@ import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import SearchStack from '../routes/searchStack';
 import offerStack from '../routes/offerStack';
 import RidesStack from '../routes/ridesStack';
+import { tabIds } from '../constants';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -11,7 +12,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Search"
+        name={tabIds.SEARCH}
         component={SearchStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -21,7 +22,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Add"
+        name={tabIds.ADD}
         component={offerStack}
         options={{
           tabBarIcon: ({ color }) => (
@@ -31,7 +32,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Rides"
+        name={tabIds.RIDES}
         component={RidesStack}
         options={{
           tabBarIcon: ({ color, size }) => (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { setUser } from '../../redux/auth/authActions';
 import { useNavigation } from '@react-navigation/native';
-import {User} from "../../typing";
+import { User } from '../../typing';
 
 export type Props = {
   route: {
@@ -14,61 +14,63 @@ export type Props = {
   };
 };
 const usePresenter = (props: Props) => {
-  const {user} = props.route.params
+  const { user } = props.route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [ updatedUser, setUpdatedUser] = useState<User>(user)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [updatedUser, setUpdatedUser] = useState<User>(user);
 
   const updateUser = async () => {
-    try{
-      const updatedUser1 = await usersActions.updateUser(user?.uid!, updatedUser);
+    try {
+      setIsLoading(true);
+      const updatedUser1 = await usersActions.updateUser(
+        user?.uid!,
+        updatedUser
+      );
       dispatch(setUser(updatedUser1));
+      setIsLoading(false);
+
       navigation.goBack();
-    }
-    catch (error){
-      console.log('error', error)
+    } catch (error) {
+      console.log('error', error);
+    } finally {
     }
   };
 
   const onFacebookLinkChange = (text: string) => {
     setUpdatedUser({
-        ...updatedUser,
-        facebookLink:text
-      }
-    );
+      ...updatedUser,
+      facebookLink: text,
+    });
   };
 
   const onFirstNameChange = (text: string) => {
     setUpdatedUser({
-          ...updatedUser,
-          firstName:text
-        }
-    );
+      ...updatedUser,
+      firstName: text,
+    });
   };
 
   const onLastNameChange = (text: string) => {
     setUpdatedUser({
-          ...updatedUser,
-          lastName: text
-        }
-    );
+      ...updatedUser,
+      lastName: text,
+    });
   };
 
   const onInstagramLinkChange = (text: string) => {
     setUpdatedUser({
-          ...updatedUser,
-          instagramLink: text
-        }
-    );
-  }
+      ...updatedUser,
+      instagramLink: text,
+    });
+  };
 
   const onPhoneChange = (text: string) => {
     setUpdatedUser({
-          ...updatedUser,
-          phoneNumber: text
-        }
-    );
-  }
+      ...updatedUser,
+      phoneNumber: text,
+    });
+  };
 
   return {
     user,
@@ -78,7 +80,8 @@ const usePresenter = (props: Props) => {
     updateUser,
     updatedUser,
     onInstagramLinkChange,
-    onPhoneChange
+    onPhoneChange,
+    isLoading,
   };
 };
 export default usePresenter;

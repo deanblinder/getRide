@@ -11,6 +11,7 @@ import EditProfile from '../screens/editProfile';
 import BackButton from '../components/backButton';
 import UserAvatar from '../components/userAvatar';
 import HeaderLogo from '../components/headerLogo';
+import About from '../screens/about';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,13 +30,13 @@ const SearchStack: React.FC = () => {
       />
       <Stack.Screen
         headerTitle=""
-        options={{ presentation: 'fullScreenModal', headerTitle: '' }}
+        options={{ presentation: 'modal', headerTitle: '' }}
         name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
         // @ts-ignore
         component={SearchRidesDestination}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal', headerTitle: '' }}
+        options={{ presentation: 'modal', headerTitle: '' }}
         name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
         // @ts-ignore
         component={SearchRidesOrigin}
@@ -47,13 +48,13 @@ const SearchStack: React.FC = () => {
         component={RideScreen}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal', headerTitle: '' }}
+        options={{ presentation: 'modal', headerTitle: '' }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         // @ts-ignore
         component={OfferingProfilePresenter}
       />
       <Stack.Screen
-        options={{ presentation: 'fullScreenModal', headerTitle: '' }}
+        options={{ presentation: 'modal', headerTitle: '' }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         // @ts-ignore
         component={EditProfile}
@@ -62,6 +63,15 @@ const SearchStack: React.FC = () => {
         name={screenIds.PROFILE_SCREEN}
         component={Profile}
         options={{ headerLeft: () => <BackButton /> }}
+      />
+      <Stack.Screen
+        name={screenIds.SETTINGS_SCREEN}
+        component={About}
+        options={{
+          headerLeft: () => <BackButton dismiss />,
+          headerTitle: 'About',
+          presentation: 'modal',
+        }}
       />
     </Stack.Navigator>
   );
