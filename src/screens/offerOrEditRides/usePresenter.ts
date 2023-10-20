@@ -134,6 +134,7 @@ const usePresenter = (props: Props) => {
           description: 'Ride updated successfully',
           color: 'green',
         });
+        navigation.goBack();
       } else {
         await ridesActions.addRide(ride);
         toast.show({
