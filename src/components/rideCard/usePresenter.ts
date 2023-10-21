@@ -30,10 +30,10 @@ const usePresenter = (props: Props) => {
   };
 
   useEffect(() => {
-    getUserImage();
-  }, []);
+    updateRideUser();
+  }, [user]);
 
-  const getUserImage = async () => {
+  const updateRideUser = async () => {
     setRideUser(await usersActions.getUserById(ride.userId));
   };
 

@@ -88,37 +88,29 @@ const Profile = (props: Props) => {
             {user?.email.slice(0, 2).toUpperCase()}
           </Avatar>
           <TouchableOpacity onPress={onAvatarPress}>
-            {profileImageLoading ? (
-              <Spinner
-                style={{
-                  marginBottom: '5%',
-                  position: 'absolute',
-                  right: 5,
-                  bottom: 5,
-                }}
-                color="emerald.500"
-              />
-            ) : (
-              <Avatar
-                // @ts-ignore
-                style={{
-                  borderStyle: 'solid',
-                  borderWidth: 3,
-                  borderColor: 'white',
-                  marginBottom: '5%',
-                  position: 'absolute',
-                  right: 5,
-                  bottom: 5,
-                }}
-                size="sm"
-                bg="blue.500"
-                source={{
-                  uri: 'profileImage',
-                }}
-              >
+            <Avatar
+              // @ts-ignore
+              style={{
+                borderStyle: 'solid',
+                borderWidth: 3,
+                borderColor: 'white',
+                marginBottom: '5%',
+                position: 'absolute',
+                right: 5,
+                bottom: 5,
+              }}
+              size="sm"
+              bg="blue.500"
+              source={{
+                uri: 'profileImage',
+              }}
+            >
+              {profileImageLoading ? (
+                <Spinner color="emerald.500" />
+              ) : (
                 <Entypo name="camera" size={15} onPress={onAvatarPress} />
-              </Avatar>
-            )}
+              )}
+            </Avatar>
           </TouchableOpacity>
         </View>
       </View>

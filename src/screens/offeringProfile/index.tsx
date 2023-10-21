@@ -28,9 +28,7 @@ const OfferingProfilePresenter = (props: Props) => {
             uri: user?.profileImage,
           }}
         >
-          {user?.profileImage
-            ? undefined
-            : user?.email.slice(0, 2).toUpperCase()}
+          user?.email.slice(0, 2).toUpperCase()
         </Avatar>
         {(user?.firstName || user?.lastName) && (
           <Text fontSize={typography.fontSizes['2xl']}>

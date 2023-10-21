@@ -34,7 +34,6 @@ const usePresenter = () => {
       const blob = await response.blob();
 
       const fileName = uri.substring(uri.lastIndexOf('/') + 1);
-      console.log('### fileName', fileName);
       const storageRef = ref(storage, 'images/' + fileName);
       const uploadTask = uploadBytesResumable(storageRef, blob);
       uploadTask.then(() => {
@@ -42,14 +41,13 @@ const usePresenter = () => {
           usersActions.updateUser(user?.uid!, {
             profileImage: downloadURL,
           });
-          console.log('### download', downloadURL);
+          dispatch(setUser({ ...user!, profileImage: downloadURL }));
           setProfileImage(downloadURL);
+          setProfileImageLoading(false);
         });
       });
     } catch (err) {
       console.log('### upload image error', err);
-    } finally {
-      setProfileImageLoading(false);
     }
   };
 
