@@ -31,7 +31,7 @@ const GetRide = () => {
             })
           );
       } else {
-        console.log('### logged out');
+        console.log('### logged outt');
       }
       setIsLoading(false);
     });
