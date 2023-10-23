@@ -1,11 +1,14 @@
 import React, { memo } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
-import { Avatar, Button, Center, Text, View } from 'native-base';
+import { Avatar, Button, Icon, Text, useTheme, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { AuthState } from '../../redux/auth/authReducer';
+import {
+  Entypo,
+  FontAwesome,
+  MaterialCommunityIcons,
+  AntDesign,
+} from '@expo/vector-icons';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -21,10 +24,20 @@ const RideCard = (props: Props) => {
     rideHour,
     onEditPress,
   } = usePresenter(props);
+  const { colors } = useTheme();
 
   return (
     <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
-      <Card containerStyle={{ borderRadius: 10 }}>
+      <Card
+        containerStyle={{
+          shadowColor: colors.blue['600'],
+          shadowOffset: { width: 0, height: 2 },
+          shadowRadius: 4,
+          shadowOpacity: 0.3,
+          backgroundColor: 'white',
+          borderRadius: 7,
+        }}
+      >
         <View
           style={{
             alignContent: 'flex-end',
@@ -94,10 +107,22 @@ const RideCard = (props: Props) => {
               marginTop: '10%',
             }}
           >
-            <Button style={{ width: '45%' }} onPress={onChatPress}>
+            <Button
+              backgroundColor={colors.green['400']}
+              borderRadius={500}
+              style={{ width: '45%' }}
+              onPress={onChatPress}
+              rightIcon={<Icon as={FontAwesome} name="whatsapp" size="sm" />}
+            >
               Chat
             </Button>
-            <Button style={{ width: '45%' }} onPress={onViewProfilePress}>
+            <Button
+              borderRadius={500}
+              backgroundColor={colors.blue['400']}
+              style={{ width: '45%' }}
+              onPress={onViewProfilePress}
+              rightIcon={<Icon as={AntDesign} name="user" size="sm" />}
+            >
               See Profile
             </Button>
           </View>

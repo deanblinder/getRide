@@ -9,7 +9,9 @@ const RideScreen = (props: Props) => {
   const { ride, searchData } = props.route.params;
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
+    >
       <RideCard ride={ride} disabled />
       <View style={{ flex: 1, margin: '5%' }}>
         <GoogleMap

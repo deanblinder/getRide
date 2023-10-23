@@ -23,6 +23,7 @@ const usePresenter = () => {
   const [profileImage, setProfileImage] = useState<string | undefined>(
     user?.profileImage
   );
+  console.log('### user', user?.profileImage);
 
   const [profileImageLoading, setProfileImageLoading] =
     useState<boolean>(false);

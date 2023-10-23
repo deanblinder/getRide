@@ -55,7 +55,13 @@ const SearchRidesDestination = (props: Props) => {
               placeholderTextColor: 'grey',
             }}
           />
-          <Button onPress={onDonePressed}>Done</Button>
+          <Button
+            backgroundColor={'blue.400'}
+            borderRadius={50}
+            onPress={onDonePressed}
+          >
+            Done
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -66,10 +72,17 @@ const styles = StyleSheet.create({
   textInput: {
     height: 50,
     marginVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.3,
+    backgroundColor: 'white',
+    borderRadius: 7,
   },
   container: {
     height: '100%',
     padding: '5%',
+    backgroundColor: 'white',
   },
 });
 

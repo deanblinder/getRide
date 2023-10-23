@@ -20,7 +20,9 @@ const Rides = () => {
     );
 
   return (
-    <ScrollView contentContainerStyle={{ display: 'flex' }}>
+    <ScrollView
+      contentContainerStyle={{ backgroundColor: 'white', display: 'flex' }}
+    >
       <Text style={{ padding: '5%' }} fontSize={'2xl'}>
         Upcoming rides
       </Text>

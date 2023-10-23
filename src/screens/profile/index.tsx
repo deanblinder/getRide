@@ -27,6 +27,7 @@ const Profile = (props: Props) => {
     onEditPress,
     onLogoutPress,
   } = usePresenter();
+
   const WheelIcon = () => {
     const navigation = useNavigation();
 
@@ -52,7 +53,6 @@ const Profile = (props: Props) => {
       title: '',
       headerRight: () => <WheelIcon />,
       headerLeft: () => <BackButton />,
-      headerBackTitleStyle: { display: 'none' },
     });
   }, [navigation]);
 
@@ -73,6 +73,7 @@ const Profile = (props: Props) => {
             borderRadius={100}
             onPress={onEditPress}
             size={'xs'}
+            backgroundColor={'blue.400'}
           >
             Edit profile
           </Button>
@@ -100,7 +101,7 @@ const Profile = (props: Props) => {
                 bottom: 5,
               }}
               size="sm"
-              bg="blue.500"
+              bg="blue.400"
               source={{
                 uri: 'profileImage',
               }}
@@ -122,6 +123,7 @@ const Profile = (props: Props) => {
         size={'lg'}
         colorScheme={'danger'}
         variant="link"
+        _text={{ color: 'red.400' }}
         onPress={onLogoutPress}
       >
         log out
@@ -134,6 +136,7 @@ const styles = StyleSheet.create({
   container: {
     padding: '5%',
     flex: 1,
+    backgroundColor: 'white',
   },
   topScreen: {
     display: 'flex',

@@ -20,7 +20,7 @@ const OfferingProfilePresenter = (props: Props) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View flex={1} alignItems={'center'} marginBottom={'5%'}>
+      <View alignItems={'center'} marginBottom={'5%'}>
         <Avatar
           marginBottom={'5%'}
           size="xl"
@@ -44,6 +44,8 @@ const OfferingProfilePresenter = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: '5%',
+    backgroundColor: 'white',
+    height: '100%',
   },
 });
 

@@ -12,10 +12,12 @@ import BackButton from '../components/backButton';
 import UserAvatar from '../components/userAvatar';
 import HeaderLogo from '../components/headerLogo';
 import About from '../screens/about';
+import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
 
 const SearchStack: React.FC = () => {
+  const { colors } = useTheme();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -24,37 +26,58 @@ const SearchStack: React.FC = () => {
           headerLeft: () => <HeaderLogo />,
           headerRight: () => <UserAvatar />,
           headerShown: true,
+          headerStyle: { backgroundColor: colors.blue['50'] },
         }}
         name={screenIds.SEARCH_RIDE_SCREEN}
         component={SearchRides}
       />
       <Stack.Screen
         headerTitle=""
-        options={{ presentation: 'modal', headerTitle: '' }}
+        options={{
+          presentation: 'modal',
+          headerTitle: '',
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
         name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
         // @ts-ignore
         component={SearchRidesDestination}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerTitle: '' }}
+        options={{
+          presentation: 'modal',
+          headerTitle: '',
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
         name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
         // @ts-ignore
         component={SearchRidesOrigin}
       />
       <Stack.Screen
-        options={{ headerLeft: () => <BackButton />, headerTitle: '' }}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerTitle: '',
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
         name={screenIds.RIDE_SCREEN}
         // @ts-ignore
         component={RideScreen}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerTitle: '' }}
+        options={{
+          presentation: 'modal',
+          headerTitle: '',
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         // @ts-ignore
         component={OfferingProfilePresenter}
       />
       <Stack.Screen
-        options={{ presentation: 'modal', headerTitle: '' }}
+        options={{
+          presentation: 'modal',
+          headerTitle: '',
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         // @ts-ignore
         component={EditProfile}
@@ -62,7 +85,10 @@ const SearchStack: React.FC = () => {
       <Stack.Screen
         name={screenIds.PROFILE_SCREEN}
         component={Profile}
-        options={{ headerLeft: () => <BackButton /> }}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerStyle: { backgroundColor: colors.blue['50'] },
+        }}
       />
       <Stack.Screen
         name={screenIds.SETTINGS_SCREEN}
@@ -71,6 +97,7 @@ const SearchStack: React.FC = () => {
           headerLeft: () => <BackButton dismiss />,
           headerTitle: 'About',
           presentation: 'modal',
+          headerStyle: { backgroundColor: colors.blue['50'] },
         }}
       />
     </Stack.Navigator>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'native-base';
+import { StatusBar, useColorMode, View } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from './redux/auth/authReducer';
 import WelcomeStack from './routes/welcomeStack';
@@ -15,6 +15,7 @@ import TabNavigator from './tabs';
 const GetRide = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: AuthState) => state.user);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -48,6 +48,8 @@ const EditProfile = (props: Props) => {
         contentContainerStyle={{
           padding: '5%',
           justifyContent: 'space-between',
+          backgroundColor: 'white',
+          height: '100%',
         }}
       >
         <Stack space={5} w="100%" maxW="300px" mx="auto">

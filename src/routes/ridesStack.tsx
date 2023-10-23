@@ -13,10 +13,13 @@ import BackButton from '../components/backButton';
 import HeaderLogo from '../components/headerLogo';
 import UserAvatar from '../components/userAvatar';
 import About from '../screens/about';
+import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
 
 const RidesStack = () => {
+  const { colors } = useTheme();
+
   return (
     <Stack.Navigator>
       <Stack.Group>
@@ -24,6 +27,7 @@ const RidesStack = () => {
           name={screenIds.RIDES_SCREEN}
           component={Rides}
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             headerTitle: '',
             headerLeft: () => <HeaderLogo />,
             headerRight: () => <UserAvatar />,
@@ -31,13 +35,18 @@ const RidesStack = () => {
           }}
         />
         <Stack.Screen
-          options={{ headerLeft: () => <BackButton />, headerTitle: '' }}
+          options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerLeft: () => <BackButton />,
+            headerTitle: '',
+          }}
           name={screenIds.RIDE_SCREEN}
           // @ts-ignore
           component={RideScreen}
         />
         <Stack.Screen
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -48,6 +57,7 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -58,6 +68,7 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -67,13 +78,18 @@ const RidesStack = () => {
           component={OfferingProfilePresenter}
         />
         <Stack.Screen
-          options={{ headerTitle: '', presentation: 'modal' }}
+          options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerTitle: '',
+            presentation: 'modal',
+          }}
           name={screenIds.EDIT_PROFILE_SCREEN}
           // @ts-ignore
           component={EditProfile}
         />
         <Stack.Screen
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             headerLeft: () => <BackButton dismiss />,
             headerTitle: '',
             presentation: 'modal',
@@ -81,11 +97,16 @@ const RidesStack = () => {
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
           component={OfferOrEditRides}
         />
-        <Stack.Screen name={screenIds.PROFILE_SCREEN} component={Profile} />
+        <Stack.Screen
+          options={{ headerStyle: { backgroundColor: colors.blue['50'] } }}
+          name={screenIds.PROFILE_SCREEN}
+          component={Profile}
+        />
         <Stack.Screen
           name={screenIds.SETTINGS_SCREEN}
           component={About}
           options={{
+            headerStyle: { backgroundColor: colors.blue['50'] },
             headerLeft: () => <BackButton dismiss />,
             headerTitle: 'About',
             presentation: 'modal',

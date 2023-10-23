@@ -33,7 +33,6 @@ const usePresenter = (props: Props) => {
       navigation.goBack();
     } catch (error) {
       console.log('error', error);
-    } finally {
     }
   };
 

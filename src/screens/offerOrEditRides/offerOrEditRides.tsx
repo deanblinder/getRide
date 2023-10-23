@@ -6,15 +6,19 @@ import {
   Input,
   Stack,
   Button,
-  Slider,
   ScrollView,
   Text,
   Spinner,
   View,
+  useTheme,
+  Icon,
+  // Card,
 } from 'native-base';
 import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import BackButton from '../../components/backButton';
+import { useNavigation } from '@react-navigation/native';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -44,22 +48,39 @@ const OfferOrEditRides = (props: Props) => {
     onPlusPress,
     onMinusPress,
   } = usePresenter(props);
+  const { colors } = useTheme();
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
       <GoogleMap
         rideData={{ destination, origin }}
         routeNumber={routeNumber}
         numbersOfRoutes={getNumberOfRoutes}
       />
       {numberOfRoutes > 1 && (
-        <Button size={'sm'} onPress={onChangeRoot}>
+        <Button
+          borderRadius={0}
+          backgroundColor={'blue.400'}
+          size={'sm'}
+          onPress={onChangeRoot}
+          leftIcon={<Icon as={MaterialIcons} name="alt-route" size="sm" />}
+        >
           change route
         </Button>
       )}
-      <Card containerStyle={styles.card}>
+      <Card
+        containerStyle={{
+          marginTop: '10%',
+          borderRadius: 0,
+          padding: '5%',
+          shadowColor: colors.blue['600'],
+          shadowOffset: { width: 0, height: 2 },
+          shadowRadius: 4,
+          shadowOpacity: 0.3,
+        }}
+      >
         <Stack space={2} w="90%" maxW="300px" mx="auto">
-          <View flexDirection={'row'} backgroundColor={'red'}>
+          <View flexDirection={'row'}>
             <View justifyContent={'center'}>
               <TouchableOpacity
                 style={{
@@ -185,15 +206,16 @@ const OfferOrEditRides = (props: Props) => {
         </View>
       </Card>
       <Button
+        backgroundColor={'blue.400'}
+        borderRadius={50}
         onPress={addRide}
         marginTop={'10%'}
         marginBottom={'2%'}
-        marginLeft={'10%'}
-        marginRight={'10%'}
+        marginX={'5%'}
         size={'sm'}
       >
         {loading ? (
-          <Spinner color="emerald.500" />
+          <Spinner color="white" />
         ) : isEditMode ? (
           'Update'
         ) : (
@@ -202,7 +224,9 @@ const OfferOrEditRides = (props: Props) => {
       </Button>
       {isEditMode && (
         <Button
-          marginX={'10%'}
+          backgroundColor={'red.400'}
+          borderRadius={50}
+          marginX={'5%'}
           marginBottom={'5%'}
           onPress={onDeletePress}
           colorScheme="danger"
@@ -215,11 +239,4 @@ const OfferOrEditRides = (props: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  card: { margin: '10%', borderRadius: 10 },
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-});
 export default OfferOrEditRides;
