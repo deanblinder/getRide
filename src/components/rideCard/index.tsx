@@ -27,7 +27,10 @@ const RideCard = (props: Props) => {
   const { colors } = useTheme();
 
   return (
-    <TouchableOpacity onPress={pushRidePage} disabled={shouldCardBeDisabled}>
+    <TouchableOpacity
+      onPress={isMyRide ? onEditPress : pushRidePage}
+      disabled={shouldCardBeDisabled}
+    >
       <Card
         containerStyle={{
           shadowColor: colors.blue['600'],

@@ -89,9 +89,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
+            headerTitle: '',
             headerStyle: { backgroundColor: colors.blue['50'] },
             headerLeft: () => <BackButton dismiss />,
-            headerTitle: '',
             presentation: 'modal',
           }}
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}

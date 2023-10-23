@@ -17,8 +17,6 @@ import {
 import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { AntDesign, MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import BackButton from '../../components/backButton';
-import { useNavigation } from '@react-navigation/native';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -49,6 +47,11 @@ const OfferOrEditRides = (props: Props) => {
     onMinusPress,
   } = usePresenter(props);
   const { colors } = useTheme();
+  // const navigation = useNavigation();
+  //
+  // React.useLayoutEffect(() => {
+  //   navigation.setOptions({});
+  // }, [navigation]);
 
   return (
     <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
