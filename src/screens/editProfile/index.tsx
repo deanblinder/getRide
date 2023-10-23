@@ -46,14 +46,14 @@ const EditProfile = (props: Props) => {
       <ScrollView
         keyboardDismissMode={'interactive'}
         contentContainerStyle={{
-          padding: '5%',
+          padding: '10%',
           justifyContent: 'space-between',
           backgroundColor: 'white',
           height: '100%',
         }}
       >
         <Stack space={5} w="100%" maxW="300px" mx="auto">
-          <Text fontSize={'2xl'} marginBottom={'10%'}>
+          <Text fontSize={'2xl'} marginBottom={'5%'}>
             Edit Your Personal Info
           </Text>
           <FormControl maxW="300px">

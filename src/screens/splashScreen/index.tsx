@@ -8,7 +8,7 @@ import lottie from '../../../assets/lottie/animation_lnt89a60.json';
 const SplashScreen = () => {
   return (
     <View justifyContent={'center'} alignItems={'center'} flex={1}>
-      <Spinner size={'lg'} />
+      <Spinner size={'lg'} color={'blue.400'} />
       {/*<LottieView*/}
       {/*  style={{ width: '100%', height: '100%' }}*/}
       {/*  source={lottie}*/}

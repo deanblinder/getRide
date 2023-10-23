@@ -1,12 +1,22 @@
 import React from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import usePresenter from './usePresenter';
-import {Text, Button, Stack, FormControl, Input, ScrollView, Icon, Spinner } from 'native-base';
+import {
+  View,
+  Text,
+  Button,
+  Stack,
+  FormControl,
+  Input,
+  ScrollView,
+  Icon,
+  Spinner,
+} from 'native-base';
 
 // @ts-ignore
 import { API_KEY } from '@env';
-import {screenIds} from "../../constants";
-import {useNavigation} from "@react-navigation/native";
+import { screenIds } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
 
 const Register = () => {
   const {
@@ -34,48 +44,63 @@ const Register = () => {
         keyboardDismissMode="interactive"
       >
         <View>
-        <Text fontSize={'3xl'} marginBottom={'10%'}>Enter Your Details</Text>
-        <Stack space={5} w="100%" maxW="300px" mx="auto">
-          <FormControl maxW="300px">
-            <Input
+          <Text fontSize={'3xl'} marginBottom={'10%'}>
+            Enter Your Details
+          </Text>
+          <Stack space={5} w="100%" maxW="300px" mx="auto">
+            <FormControl maxW="300px">
+              <Input
                 size={'xl'}
                 placeholder={'Email'}
                 onChangeText={onChangeEmail}
                 variant={'underlined'}
-            />
-          </FormControl>
-          <FormControl maxW="300px">
-            <Input
+              />
+            </FormControl>
+            <FormControl maxW="300px">
+              <Input
                 size={'xl'}
                 placeholder={'Enter Password'}
                 type={'password'}
                 onChangeText={onChangePassword}
                 variant={'underlined'}
-            />
-          </FormControl>
-          <FormControl maxW="300px">
-            <Input
+              />
+            </FormControl>
+            <FormControl maxW="300px">
+              <Input
                 size={'xl'}
                 placeholder={'Phone Number'}
                 onChangeText={onChangePhoneNumber}
                 variant={'underlined'}
                 keyboardType={'numeric'}
-            />
-          </FormControl>
-          <FormControl maxW="300px">
-            <Input
+              />
+            </FormControl>
+            <FormControl maxW="300px">
+              <Input
                 size={'xl'}
                 placeholder={'Facebook Link'}
                 onChangeText={onChangeFacebookLink}
                 variant={'underlined'}
-            />
-            <FormControl.HelperText>Enter link so people see who you are.</FormControl.HelperText>
-          </FormControl>
-          <Button variant={'link'} colorScheme={'secondary'} onPress={onHaveAccountPressed}>Already have an account?</Button>
-        </Stack>
+              />
+              <FormControl.HelperText>
+                Enter link so people see who you are.
+              </FormControl.HelperText>
+            </FormControl>
+            <Button
+              variant={'link'}
+              colorScheme={'secondary'}
+              onPress={onHaveAccountPressed}
+            >
+              Already have an account?
+            </Button>
+          </Stack>
         </View>
-        <Button onPress={handleSignup} disabled={loading}>
-          {loading ? <Spinner color="emerald.500" /> : 'submit'}
+        <Button
+          backgroundColor={'blue.400'}
+          borderRadius={50}
+          onPress={handleSignup}
+          disabled={loading}
+        >
+          {loading ? <Spinner color="white" /> : 'submit'}
         </Button>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -87,6 +112,7 @@ const styles = StyleSheet.create({
     padding: '5%',
     justifyContent: 'space-between',
     display: 'flex',
+    backgroundColor: 'white',
     flexGrow: 1,
   },
   inputs: {

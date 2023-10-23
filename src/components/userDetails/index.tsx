@@ -47,7 +47,7 @@ const UserDetails = (props: Props) => {
             marginRight={'5%'}
             name="instagram"
             size={44}
-            color="brown"
+            color="#F58529"
             onPress={onInstagramPress}
           />
         )}

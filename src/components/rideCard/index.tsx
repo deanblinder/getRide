@@ -36,7 +36,7 @@ const RideCard = (props: Props) => {
           shadowColor: colors.blue['600'],
           shadowOffset: { width: 0, height: 2 },
           shadowRadius: 4,
-          shadowOpacity: 0.3,
+          shadowOpacity: 0.5,
           backgroundColor: 'white',
           borderRadius: 7,
         }}
