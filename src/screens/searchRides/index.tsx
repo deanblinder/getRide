@@ -20,6 +20,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
 import { AntDesign } from '@expo/vector-icons';
 import { IS_IOS } from '../offerOrEditRides/usePresenter';
+import { useFonts } from '@expo-google-fonts/inter';
 
 const SearchRides = () => {
   const {
@@ -43,6 +44,11 @@ const SearchRides = () => {
     onMinusPress,
   } = usePresenter();
   const { colors } = useTheme();
+  useFonts({
+    'Roboto-Italic': require('../../../assets/fonts/Roboto/Roboto-Italic.ttf'),
+    'Roboto-Regular': require('../../../assets/fonts/Roboto/Roboto-Regular.ttf'),
+    'Roboto-Bold': require('../../../assets/fonts/Roboto/Roboto-Bold.ttf'),
+  });
 
   const renderItem = ({ item }: { item: Ride }) => {
     return <RideCard ride={item} searchData={{ origin, destination }} />;
@@ -143,7 +149,9 @@ const SearchRides = () => {
                 color="black"
                 onPress={onMinusPress}
               />
-              <Text>{radius} km from search</Text>
+              <Text style={{ fontFamily: 'Roboto-Regular', fontSize: 17 }}>
+                {radius} km from search
+              </Text>
               <AntDesign
                 name="pluscircleo"
                 size={24}
@@ -190,7 +198,9 @@ const SearchRides = () => {
     if (rides === undefined) {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
-          <Text bold>Search For Rides</Text>
+          <Text fontFamily={'Roboto-Bold'} fontSize={15}>
+            Search For Rides
+          </Text>
         </View>
       );
     }
@@ -198,7 +208,9 @@ const SearchRides = () => {
     if (rides.length === 0) {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
-          <Text bold>No Rides Found</Text>
+          <Text fontFamily={'Roboto-Bold'} fontSize={15}>
+            No Rides Found
+          </Text>
         </View>
       );
     }

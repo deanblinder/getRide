@@ -54,7 +54,10 @@ const OfferOrEditRides = (props: Props) => {
   // }, [navigation]);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
+    <ScrollView
+      style={{ backgroundColor: 'white' }}
+      contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}
+    >
       <GoogleMap
         rideData={{ destination, origin }}
         routeNumber={routeNumber}

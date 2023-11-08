@@ -21,6 +21,7 @@ const Rides = () => {
 
   return (
     <ScrollView
+      style={{ backgroundColor: 'white' }}
       contentContainerStyle={{ backgroundColor: 'white', display: 'flex' }}
     >
       <Text style={{ padding: '5%' }} fontSize={'2xl'}>
