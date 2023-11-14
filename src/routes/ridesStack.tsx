@@ -91,8 +91,8 @@ const RidesStack = () => {
           options={{
             headerTitle: '',
             headerStyle: { backgroundColor: colors.blue['50'] },
-            headerLeft: () => <BackButton dismiss />,
-            presentation: 'modal',
+            headerLeft: () => <BackButton />,
+            // presentation: 'modal',
           }}
           name={screenIds.OFFER_RIDES_OR_EDIT_RIDES_SCREEN}
           component={OfferOrEditRides}

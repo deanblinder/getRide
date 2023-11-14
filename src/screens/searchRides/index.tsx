@@ -18,9 +18,9 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Ride } from '../../typing';
 import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
-import { AntDesign } from '@expo/vector-icons';
 import { IS_IOS } from '../offerOrEditRides/usePresenter';
 import { useFonts } from '@expo-google-fonts/inter';
+import ActionSheet from '../../components/actionSheet';
 
 const SearchRides = () => {
   const {
@@ -31,7 +31,6 @@ const SearchRides = () => {
     rides,
     onSearchPress,
     loading,
-    radius,
     setShowDatePicker,
     shouldShowDatePicker,
     onDateChange,
@@ -40,8 +39,8 @@ const SearchRides = () => {
     onSearchMore,
     onSwitchPress,
     loadingMore,
-    onPlusPress,
-    onMinusPress,
+    setRadius,
+    radius,
   } = usePresenter();
   const { colors } = useTheme();
   useFonts({
@@ -91,7 +90,7 @@ const SearchRides = () => {
             <View w="90%" maxW="300px" mx="auto">
               <TouchableOpacity
                 onPress={onOriginPressed}
-                style={{ marginBottom: '5%' }}
+                style={{ marginBottom: '5%', flexDirection: 'row' }}
               >
                 <Input
                   onPressIn={onOriginPressed}
@@ -129,6 +128,18 @@ const SearchRides = () => {
                 />
               </TouchableOpacity>
             )}
+            <View marginTop={'5%'}>
+              <ActionSheet
+                items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                placeholder={'Kilometer From Points'}
+                title={'Distance from your origin and destination points in km'}
+                initialSelectedValue={radius}
+                onItemPressed={(value: number) => {
+                  setRadius(value);
+                }}
+              />
+            </View>
+
             <View style={{ flexDirection: 'row', marginTop: '5%' }}>
               {shouldShowDatePicker && (
                 <RNDateTimePicker
@@ -137,27 +148,6 @@ const SearchRides = () => {
                   onChange={onDateChange}
                 />
               )}
-            </View>
-            <View
-              marginY={'5%'}
-              flexDirection={'row'}
-              justifyContent={'space-between'}
-            >
-              <AntDesign
-                name="minuscircleo"
-                size={24}
-                color="black"
-                onPress={onMinusPress}
-              />
-              <Text style={{ fontFamily: 'Roboto-Regular', fontSize: 17 }}>
-                {radius} km from search
-              </Text>
-              <AntDesign
-                name="pluscircleo"
-                size={24}
-                color="black"
-                onPress={onPlusPress}
-              />
             </View>
           </Stack>
           <Button

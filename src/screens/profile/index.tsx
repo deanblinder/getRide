@@ -126,7 +126,7 @@ const Profile = (props: Props) => {
         _text={{ color: 'red.400' }}
         onPress={onLogoutPress}
       >
-        log out
+        Log out
       </Button>
     </KeyboardAvoidingView>
   );

@@ -16,7 +16,8 @@ import {
 } from 'native-base';
 import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import { AntDesign, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import ActionSheet from '../../components/actionSheet';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -41,17 +42,10 @@ const OfferOrEditRides = (props: Props) => {
     onChangeRoot,
     routeNumber,
     getNumberOfRoutes,
-    numberOfRoutes,
+    shouldShowChangeRouteButton,
     onSwitchPress,
-    onPlusPress,
-    onMinusPress,
   } = usePresenter(props);
   const { colors } = useTheme();
-  // const navigation = useNavigation();
-  //
-  // React.useLayoutEffect(() => {
-  //   navigation.setOptions({});
-  // }, [navigation]);
 
   return (
     <ScrollView
@@ -63,7 +57,7 @@ const OfferOrEditRides = (props: Props) => {
         routeNumber={routeNumber}
         numbersOfRoutes={getNumberOfRoutes}
       />
-      {numberOfRoutes > 1 && (
+      {shouldShowChangeRouteButton && (
         <Button
           borderRadius={0}
           backgroundColor={'blue.400'}
@@ -129,7 +123,6 @@ const OfferOrEditRides = (props: Props) => {
               </TouchableOpacity>
             </View>
           </View>
-
           <View
             display={'flex'}
             justifyContent={'space-between'}
@@ -173,26 +166,16 @@ const OfferOrEditRides = (props: Props) => {
               </TouchableOpacity>
             )}
           </View>
+          <View marginX={'5%'}>
+            <ActionSheet
+              items={[1, 2, 3, 4, 5, 6]}
+              placeholder={'Seats Available'}
+              title={'Number of seats available'}
+              onItemPressed={onSeatsChange}
+              initialSelectedValue={seats}
+            />
+          </View>
         </Stack>
-        <View
-          marginY={'5%'}
-          flexDirection={'row'}
-          justifyContent={'space-around'}
-        >
-          <AntDesign
-            name="minuscircleo"
-            size={24}
-            color="black"
-            onPress={onMinusPress}
-          />
-          <Text>{seats} seats available</Text>
-          <AntDesign
-            name="pluscircleo"
-            size={24}
-            color="black"
-            onPress={onPlusPress}
-          />
-        </View>
         <View flexDirection={'row'} marginTop={'5%'} marginX={'5%'}>
           {shouldShowDatePicker && (
             <RNDateTimePicker

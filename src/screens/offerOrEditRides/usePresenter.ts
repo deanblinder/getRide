@@ -195,14 +195,6 @@ const usePresenter = (props: Props) => {
     setDestination(temp);
   };
 
-  const onMinusPress = () => {
-    setSeats(seats - 1);
-  };
-
-  const onPlusPress = () => {
-    setSeats(seats + 1);
-  };
-
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -227,8 +219,7 @@ const usePresenter = (props: Props) => {
     getNumberOfRoutes,
     numberOfRoutes,
     onSwitchPress,
-    onPlusPress,
-    onMinusPress,
+    shouldShowChangeRouteButton: numberOfRoutes > 0,
   };
 };
 export default usePresenter;

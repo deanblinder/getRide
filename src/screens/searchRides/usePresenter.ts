@@ -114,14 +114,6 @@ const usePresenter = () => {
     setShouldFetchMore(false);
   };
 
-  const onMinusPress = () => {
-    setRadius(radius - 1);
-  };
-
-  const onPlusPress = () => {
-    setRadius(radius + 1);
-  };
-
   return {
     onOriginPressed,
     onDestinationPressed,
@@ -139,8 +131,7 @@ const usePresenter = () => {
     date,
     onSearchMore,
     onSwitchPress,
-    onPlusPress,
-    onMinusPress,
+    setRadius,
   };
 };
 export default usePresenter;
