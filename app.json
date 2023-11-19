@@ -14,6 +14,16 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "271923981946657",
+          "clientToken": "e0ba520a21399ac9431ba169cdbf1e32",
+          "displayName": "GetRide"
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.deanblinder.getRide"

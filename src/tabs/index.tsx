@@ -5,6 +5,7 @@ import SearchStack from '../routes/searchStack';
 import offerStack from '../routes/offerStack';
 import RidesStack from '../routes/ridesStack';
 import { tabIds } from '../constants';
+import ChatStack from '../routes/chatStack';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -37,6 +38,20 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name={'car'} size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name={tabIds.CHAT}
+        component={ChatStack}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={size}
+              color={color}
+            />
           ),
           headerShown: false,
         }}

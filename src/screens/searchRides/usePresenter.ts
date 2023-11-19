@@ -8,6 +8,7 @@ import { useToast } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { QueryDocumentSnapshot } from '@firebase/firestore';
+import { LayoutAnimation } from 'react-native';
 
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
@@ -52,6 +53,7 @@ const usePresenter = () => {
   };
 
   const clearSearch = () => {
+    LayoutAnimation.easeInEaseOut();
     setRides(undefined);
     setLastVisibleDoc(null);
     setShouldFetchMore(false);
@@ -82,6 +84,7 @@ const usePresenter = () => {
       radius,
       lastVisibleDoc: null,
     });
+    LayoutAnimation.easeInEaseOut();
     setRides(allRides);
     setLastVisibleDoc(lastVisible);
     setShouldFetchMore(allRides.length > 0);

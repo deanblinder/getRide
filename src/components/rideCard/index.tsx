@@ -60,17 +60,17 @@ const RideCard = (props: Props) => {
               </Avatar>
             </View>
             <View>
-              {isMyRide && (
-                <View marginBottom={'30%'}>
-                  <Entypo name="edit" size={20} onPress={onEditPress} />
-                </View>
-              )}
-              <View style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <MaterialCommunityIcons name="seat" size={20} />
-                <Text fontSize={'sm'} bold>
-                  {ride.seats}
-                </Text>
-              </View>
+              {/*{isMyRide && (*/}
+              {/*  <View marginBottom={'30%'}>*/}
+              {/*    <Entypo name="edit" size={20} onPress={onEditPress} />*/}
+              {/*  </View>*/}
+              {/*)}*/}
+              {/*<View style={{ display: 'flex', flexDirection: 'row-reverse' }}>*/}
+              {/*<MaterialCommunityIcons name="seat" size={20} />*/}
+              <Text fontSize={'sm'} fontFamily={'Roboto-Regular'}>
+                {ride.seats} seats available
+              </Text>
+              {/*</View>*/}
             </View>
           </View>
         </View>
@@ -81,7 +81,7 @@ const RideCard = (props: Props) => {
           marginBottom={'5%'}
           flex={1}
         >
-          <Text bold>
+          <Text fontFamily={'Roboto-Regular'} fontSize={'md'}>
             {rideDate} | {rideHour}
           </Text>
         </View>
@@ -92,13 +92,21 @@ const RideCard = (props: Props) => {
             flex: 1,
           }}
         >
-          <Text bold style={{ width: '40%' }}>
+          <Text
+            fontFamily={'Roboto-Regular'}
+            fontSize={'md'}
+            style={{ width: '40%' }}
+          >
             {ride.destination.formatted_address}
           </Text>
           <View>
             <Entypo name="arrow-long-left" size={20} />
           </View>
-          <Text bold style={{ width: '40%' }}>
+          <Text
+            fontFamily={'Roboto-Regular'}
+            fontSize={'md'}
+            style={{ width: '40%' }}
+          >
             {ride.origin.formatted_address}
           </Text>
         </View>

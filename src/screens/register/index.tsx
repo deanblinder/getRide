@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import usePresenter from './usePresenter';
 import {
   View,
@@ -11,12 +11,18 @@ import {
   ScrollView,
   Icon,
   Spinner,
+  useTheme,
 } from 'native-base';
 
 // @ts-ignore
 import { API_KEY } from '@env';
 import { screenIds } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth, signInWithCredential } from 'firebase/auth';
+import firebase from 'firebase/compat';
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import { app } from '../../config/firebase';
+import { Entypo } from '@expo/vector-icons';
 
 const Register = () => {
   const {
@@ -26,19 +32,17 @@ const Register = () => {
     onChangePhoneNumber,
     onChangeFacebookLink,
     loading,
+    onFBPress,
   } = usePresenter();
   const navigation = useNavigation();
-
+  const { colors } = useTheme();
   const onHaveAccountPressed = () => {
     // @ts-ignore
     navigation.navigate(screenIds.LOGIN_SCREEN, {});
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
+    <KeyboardAvoidingView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardDismissMode="interactive"
@@ -85,6 +89,16 @@ const Register = () => {
                 Enter link so people see who you are.
               </FormControl.HelperText>
             </FormControl>
+            <Button
+              // borderRadius={10}
+              backgroundColor={colors.blue['500']}
+              onPress={onFBPress}
+              leftIcon={<Icon as={Entypo} name="facebook" size="lg" />}
+            >
+              <Text color={'white'} fontSize={'md'}>
+                Login With Facebook
+              </Text>
+            </Button>
             <Button
               variant={'link'}
               colorScheme={'secondary'}

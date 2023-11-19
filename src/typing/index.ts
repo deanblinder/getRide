@@ -35,9 +35,24 @@ export type Ride = {
 
 export type Message = {
   id: string;
+  senderId: string;
   content: string;
-  createdAt: Date;
-  userId: string;
+  timeStamp: number;
+};
+
+export type Conversation = {
+  id: string;
+  senderAId: string;
+  senderBId: string;
+  messages: Message[];
 };
 
 export type Gender = 'Male' | 'Female';
+
+export const deanId = '2hTc7yXcN4SoyyTbQbdLNgj0gwW2';
+export const adiId = 'zoCcYuPb9hQLQqavznIYAc2mYIL2';
+export const adi3Id = 'cRQaumXs9FeqfhDWUaKIipmzZ4x2';
+export const conversationId =
+  '2hTc7yXcN4SoyyTbQbdLNgj0gwW2zoCcYuPb9hQLQqavznIYAc2mYIL2';
+export const conversationId2 =
+  '2hTc7yXcN4SoyyTbQbdLNgj0gwW2cRQaumXs9FeqfhDWUaKIipmzZ4x2';
