@@ -42,20 +42,20 @@ const TabNavigator = () => {
           headerShown: false,
         }}
       />
-      <Tab.Screen
-        name={tabIds.CHAT}
-        component={ChatStack}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="chatbubble-ellipses-outline"
-              size={size}
-              color={color}
-            />
-          ),
-          headerShown: false,
-        }}
-      />
+      {/*<Tab.Screen*/}
+      {/*  name={tabIds.CHAT}*/}
+      {/*  component={ChatStack}*/}
+      {/*  options={{*/}
+      {/*    tabBarIcon: ({ color, size }) => (*/}
+      {/*      <Ionicons*/}
+      {/*        name="chatbubble-ellipses-outline"*/}
+      {/*        size={size}*/}
+      {/*        color={color}*/}
+      {/*      />*/}
+      {/*    ),*/}
+      {/*    headerShown: false,*/}
+      {/*  }}*/}
+      {/*/>*/}
     </Tab.Navigator>
   );
 };

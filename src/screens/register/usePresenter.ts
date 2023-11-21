@@ -10,7 +10,15 @@ import {
 import { app, auth } from '../../config/firebase';
 import { addUser } from '../../actions/users';
 import { useToast } from 'native-base';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import {
+  AccessToken,
+  LoginManager,
+  LoginButton,
+} from 'react-native-fbsdk-next';
+import axios from 'axios';
+import { usersActions } from '../../actions';
+import * as chance from 'chance';
+import { User } from '../../typing';
 
 const usePresenter = () => {
   const dispatch = useDispatch();
@@ -91,12 +99,46 @@ const usePresenter = () => {
     setPhoneNumber(text);
   };
 
+  const fetchUserProfile = async (
+    accessToken: any
+  ): Promise<
+    | undefined
+    | {
+        firstName: string;
+        lastName: string;
+        email: string;
+        profileImage: string;
+        facebookId: string;
+        facebookLink: string;
+      }
+  > => {
+    try {
+      const response = await fetch(
+        `https://graph.facebook.com/me?fields=id,name,email,picture,first_name,last_name,link&access_token=${accessToken}`
+      );
+      const data = await response.json();
+      console.log('### User Profile Data:', data);
+      return {
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        profileImage: data.picture.data.url,
+        facebookId: data.id,
+        facebookLink: data.link,
+      };
+      // Save or use the user profile data as needed in your app
+    } catch (error) {
+      console.log('Error fetching user profile data:', error);
+      return undefined;
+    }
+  };
+
   const onFBPress = async () => {
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
+      'user_link',
     ]);
-    console.log('### result', result);
     if (result.isCancelled) {
       throw 'User cancelled the login process';
     }
@@ -104,14 +146,28 @@ const usePresenter = () => {
     if (!data) {
       throw 'Something went wrong obtaining access token';
     }
-    console.log('### data', data);
-    // const facebookCredential = AccessToken.getCurrentAccessToken(
-    //   data.accessToken
-    // );
+    const userProfile = await fetchUserProfile(data.accessToken);
+    if (!userProfile) {
+      return;
+    }
     const auth = getAuth(app);
     const credential = FacebookAuthProvider.credential(data.accessToken);
-    const user = await signInWithCredential(auth, credential);
-    console.log('user', user);
+    const firebaseUser = await signInWithCredential(auth, credential);
+
+    const user: User = {
+      uid: firebaseUser.user.uid,
+      firstName: userProfile?.firstName,
+      lastName: userProfile?.lastName,
+      email: userProfile?.email,
+      profileImage: userProfile?.profileImage,
+      facebookLink: userProfile?.facebookLink,
+      facebookId: userProfile?.facebookId,
+    };
+    const isUserExists = !!(await usersActions.getUserById(user.uid));
+    if (!isUserExists) {
+      await usersActions.addUser(user);
+    }
+    dispatch(setUser(user));
   };
 
   return {

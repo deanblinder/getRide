@@ -18,10 +18,8 @@ import {
 import { API_KEY } from '@env';
 import { screenIds } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, signInWithCredential } from 'firebase/auth';
 import firebase from 'firebase/compat';
-import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
-import { app } from '../../config/firebase';
+
 import { Entypo } from '@expo/vector-icons';
 
 const Register = () => {
@@ -99,6 +97,7 @@ const Register = () => {
                 Login With Facebook
               </Text>
             </Button>
+            {/*<LoginButton/>*/}
             <Button
               variant={'link'}
               colorScheme={'secondary'}

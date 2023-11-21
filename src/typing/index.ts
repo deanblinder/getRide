@@ -8,7 +8,7 @@ export type Location = {
 export type User = {
   uid: string;
   email: string;
-  password: string;
+  password?: string;
   firstName?: string;
   lastName?: string;
   profileImage?: string;
@@ -17,6 +17,7 @@ export type User = {
   facebookLink?: string;
   instagramLink?: string;
   birthDate?: number;
+  facebookId?: string;
   gender?: Gender;
 };
 
@@ -49,10 +50,10 @@ export type Conversation = {
 
 export type Gender = 'Male' | 'Female';
 
-export const deanId = '2hTc7yXcN4SoyyTbQbdLNgj0gwW2';
-export const adiId = 'zoCcYuPb9hQLQqavznIYAc2mYIL2';
-export const adi3Id = 'cRQaumXs9FeqfhDWUaKIipmzZ4x2';
-export const conversationId =
-  '2hTc7yXcN4SoyyTbQbdLNgj0gwW2zoCcYuPb9hQLQqavznIYAc2mYIL2';
-export const conversationId2 =
-  '2hTc7yXcN4SoyyTbQbdLNgj0gwW2cRQaumXs9FeqfhDWUaKIipmzZ4x2';
+// export const deanId = '2hTc7yXcN4SoyyTbQbdLNgj0gwW2';
+// export const adiId = 'zoCcYuPb9hQLQqavznIYAc2mYIL2';
+// export const adi3Id = 'cRQaumXs9FeqfhDWUaKIipmzZ4x2';
+// export const conversationId =
+//   '2hTc7yXcN4SoyyTbQbdLNgj0gwW2zoCcYuPb9hQLQqavznIYAc2mYIL2';
+// export const conversationId2 =
+//   '2hTc7yXcN4SoyyTbQbdLNgj0gwW2cRQaumXs9FeqfhDWUaKIipmzZ4x2';
