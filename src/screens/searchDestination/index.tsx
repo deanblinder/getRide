@@ -14,6 +14,7 @@ import { Button, View } from 'native-base';
 import { Props } from '../searchOrigin/usePresenter';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/backButton';
+import { isIOS } from '@rneui/base';
 
 const SearchRidesDestination = (props: Props) => {
   const { onDonePressed, onLocationSelected, inputRef } = usePresenter(props);
@@ -53,6 +54,9 @@ const SearchRidesDestination = (props: Props) => {
             }}
             textInputProps={{
               placeholderTextColor: 'grey',
+              borderStyle: !isIOS && 'solid',
+              borderWidth: !isIOS && 1,
+              borderColor: !isIOS && 'grey',
             }}
           />
           <Button

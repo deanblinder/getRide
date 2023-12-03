@@ -9,12 +9,12 @@ import {
   ScrollView,
   Spinner,
 } from 'native-base';
-import usePresenter, { Props } from './usePresenter';
+import usePresenter from './usePresenter';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import BackButton from '../../components/backButton';
 
-const EditProfile = (props: Props) => {
+const EditProfile = () => {
   const {
     onFacebookLinkChange,
     onLastNameChange,
@@ -24,7 +24,7 @@ const EditProfile = (props: Props) => {
     onPhoneChange,
     onInstagramLinkChange,
     isLoading,
-  } = usePresenter(props);
+  } = usePresenter();
   const navigation = useNavigation();
 
   React.useLayoutEffect(() => {
@@ -53,8 +53,10 @@ const EditProfile = (props: Props) => {
         }}
       >
         <Stack space={5} w="100%" maxW="300px" mx="auto">
-          <Text fontSize={'2xl'} marginBottom={'5%'}>
-            Edit Your Personal Info
+          <Text fontSize={'2xl'}>Edit Your Personal Info</Text>
+          <Text fontSize={'lg'} marginBottom={'5%'}>
+            We Recommend to fill all the fields for people to know who is the
+            driver
           </Text>
           <FormControl maxW="300px">
             <FormControl.Label>First Name</FormControl.Label>

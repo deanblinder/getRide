@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import usePresenter, { INITIAL_REGION, Props } from './usePresenter';
+import {
+  PROVIDER_GOOGLE,
+  PROVIDER_DEFAULT,
+} from 'react-native-maps/lib/ProviderConstants';
+import { isIOS } from '@rneui/base';
 
 const MapViewScreen = (props: Props) => {
   const { routeNumber, rideSearchData } = props;
@@ -10,7 +15,7 @@ const MapViewScreen = (props: Props) => {
   return (
     <View style={styles.container}>
       <MapView
-        provider={PROVIDER_GOOGLE}
+        provider={isIOS ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
         style={styles.map}
         region={{
           latitude:

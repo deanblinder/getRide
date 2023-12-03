@@ -3,16 +3,27 @@
     "name": "getRide",
     "slug": "getRide",
     "version": "1.0.0",
+    "platforms": ["ios", "android"],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/hitchhiker2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/hitchhiker.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "271923981946657",
+          "clientToken": "e0ba520a21399ac9431ba169cdbf1e32",
+          "displayName": "GetRide"
+        }
+      ]
     ],
     "ios": {
       "supportsTablet": true,

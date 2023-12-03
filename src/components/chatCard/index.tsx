@@ -1,22 +1,31 @@
 import React from 'react';
 import { Avatar, View, Text, Divider } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import typography from 'native-base/src/theme/base/typography';
+import usePresenter from './usePresenter';
 
-const ChatCard = () => {
+export type Props = {
+  conversationId: string;
+};
+
+const ChatCard = (props: Props) => {
+  const { onItemPress, senderDetails } = usePresenter(props);
+
+  // if (!senderDetails) return null;
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onItemPress}>
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          marginBottom: '2%',
+          // justifyContent: 'space-evenly',
+          marginVertical: '5%',
         }}
       >
         <View style={{ justifyContent: 'center', display: 'flex' }}>
           <Avatar
             source={{
-              uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+              uri: 'senderDetails.profileImage',
             }}
             style={{ marginRight: '5%' }}
           />
@@ -26,15 +35,12 @@ const ChatCard = () => {
             style={{ display: 'flex' }}
             fontSize={typography.fontSizes['xl']}
           >
-            Adi Levi
-          </Text>
-          <Text style={{ display: 'flex', width: '90%' }}>
-            talk to me when you are available
+            {'senderDetails.firstName'} {'senderDetails.lastName'}
           </Text>
         </View>
-        <View style={{ display: 'flex', justifyContent: 'center' }}>
-          <Text>12:00</Text>
-        </View>
+        {/*<View style={{ display: 'flex', justifyContent: 'center' }}>*/}
+        {/*  <Text>12:00</Text>*/}
+        {/*</View>*/}
       </View>
       <Divider />
     </TouchableOpacity>

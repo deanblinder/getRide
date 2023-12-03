@@ -188,7 +188,7 @@ const SearchRides = () => {
     if (rides === undefined) {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
-          <Text fontFamily={'Roboto-Bold'} fontSize={15}>
+          <Text fontFamily={'Roboto-Regular'} fontSize={15}>
             Search For Rides
           </Text>
         </View>
@@ -198,7 +198,7 @@ const SearchRides = () => {
     if (rides.length === 0) {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
-          <Text fontFamily={'Roboto-Bold'} fontSize={15}>
+          <Text fontFamily={'Roboto-Regular'} fontSize={15}>
             No Rides Found
           </Text>
         </View>
