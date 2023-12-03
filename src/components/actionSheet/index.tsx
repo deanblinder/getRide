@@ -38,9 +38,10 @@ export const ActionSheet = (props: Props) => {
         <Actionsheet.Content>
           <Text fontSize={'lg'}>{title}</Text>
 
-          {items.map((item: number) => {
+          {items.map((item: number, index: number) => {
             return (
               <Actionsheet.Item
+                key={index}
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}

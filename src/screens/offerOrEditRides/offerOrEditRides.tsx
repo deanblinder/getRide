@@ -1,18 +1,16 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
 import {
   Input,
+  useTheme,
   Stack,
   Button,
   ScrollView,
-  Text,
   Spinner,
   View,
-  useTheme,
   Icon,
-  // Card,
 } from 'native-base';
 import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -45,6 +43,7 @@ const OfferOrEditRides = (props: Props) => {
     shouldShowChangeRouteButton,
     onSwitchPress,
   } = usePresenter(props);
+
   const { colors } = useTheme();
 
   return (

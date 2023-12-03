@@ -136,6 +136,24 @@ const usePresenter = (props: Props) => {
         });
         navigation.goBack();
       } else {
+        if (!user?.phoneNumber) {
+          Alert.alert(
+            'Hey There!',
+            'You must provide phone number for people can reach you ',
+            [
+              { text: 'Later' },
+              {
+                text: 'Edit Profile',
+                onPress: () => {
+                  // @ts-ignore
+                  navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
+                },
+              },
+            ]
+          );
+          setLoading(false);
+          return;
+        }
         await ridesActions.addRide(ride);
         toast.show({
           description: 'Ride added successfully',

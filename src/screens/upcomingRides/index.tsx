@@ -24,7 +24,11 @@ const Rides = () => {
       style={{ backgroundColor: 'white' }}
       contentContainerStyle={{ backgroundColor: 'white', display: 'flex' }}
     >
-      <Text style={{ padding: '5%' }} fontSize={'2xl'}>
+      <Text
+        style={{ padding: '5%' }}
+        fontSize={'2xl'}
+        fontFamily={'Roboto-Regular'}
+      >
         Upcoming rides
       </Text>
       {upcomingRides.map((ride, index) => (

@@ -21,8 +21,16 @@ const GetRide = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        console.log('### user', user);
         const loggedUser = await getUserById(user.uid);
+        if (!loggedUser) {
+          console.log('### user not found');
+          setIsLoading(false);
+          return;
+        }
+        console.log('### logged in', loggedUser);
         dispatch(setUser(loggedUser));
+        setIsLoading(false);
         const userLocation = await getUserLocationAsync();
         userLocation &&
           dispatch(
