@@ -102,9 +102,6 @@ const Profile = (props: Props) => {
               }}
               size="sm"
               bg="blue.400"
-              source={{
-                uri: 'profileImage',
-              }}
             >
               {profileImageLoading ? (
                 <Spinner color="emerald.500" />

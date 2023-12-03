@@ -14,7 +14,7 @@ const Rides = () => {
 
   if (upcomingRides.length === 0)
     return (
-      <View padding={'5%'}>
+      <View padding={'5%'} backgroundColor={'white'} flex={1}>
         <Text fontSize={'2xl'}>No Upcoming Rides</Text>
       </View>
     );
@@ -22,7 +22,11 @@ const Rides = () => {
   return (
     <ScrollView
       style={{ backgroundColor: 'white' }}
-      contentContainerStyle={{ backgroundColor: 'white', display: 'flex' }}
+      contentContainerStyle={{
+        backgroundColor: 'white',
+        display: 'flex',
+        paddingBottom: '5%',
+      }}
     >
       <Text
         style={{ padding: '5%' }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from '@rneui/base';
 import GoogleMap from '../../components/googleMap';
 import {
@@ -68,15 +68,11 @@ const OfferOrEditRides = (props: Props) => {
         </Button>
       )}
       <Card
-        containerStyle={{
-          marginTop: '10%',
-          borderRadius: 0,
-          padding: '5%',
-          shadowColor: colors.blue['600'],
-          shadowOffset: { width: 0, height: 2 },
-          shadowRadius: 4,
-          shadowOpacity: 0.3,
-        }}
+        containerStyle={
+          IS_IOS
+            ? [styles.shadowContainerIOS, { shadowColor: colors.blue['600'] }]
+            : styles.shadowContainerAndroid
+        }
       >
         <Stack space={2} w="90%" maxW="300px" mx="auto">
           <View flexDirection={'row'}>
@@ -228,3 +224,20 @@ const OfferOrEditRides = (props: Props) => {
 };
 
 export default OfferOrEditRides;
+
+const styles = StyleSheet.create({
+  shadowContainerAndroid: {
+    backgroundColor: 'white', // Set the background color as needed
+    elevation: 5, // Set the elevation to control the shadow intensity
+    padding: 16, // Add padding to the container if needed
+    borderRadius: 8, // Add borderRadius to round the corners (optional)
+  },
+  shadowContainerIOS: {
+    marginTop: '10%',
+    borderRadius: 0,
+    padding: '5%',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.3,
+  },
+});

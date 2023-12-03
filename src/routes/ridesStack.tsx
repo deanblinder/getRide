@@ -14,6 +14,8 @@ import HeaderLogo from '../components/headerLogo';
 import UserAvatar from '../components/userAvatar';
 import About from '../screens/about';
 import { useTheme } from 'native-base';
+import Settings from '../screens/settings';
+import { IS_IOS } from '../screens/offerOrEditRides/usePresenter';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +29,9 @@ const RidesStack = () => {
           name={screenIds.RIDES_SCREEN}
           component={Rides}
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             headerTitle: '',
             headerLeft: () => <HeaderLogo />,
             headerRight: () => <UserAvatar />,
@@ -36,7 +40,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             headerLeft: () => <BackButton />,
             headerTitle: '',
           }}
@@ -46,7 +52,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -57,7 +65,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -68,7 +78,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             presentation: 'modal',
             headerShown: false,
             headerTitle: '',
@@ -79,7 +91,9 @@ const RidesStack = () => {
         />
         <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             headerTitle: '',
             presentation: 'modal',
           }}
@@ -90,7 +104,9 @@ const RidesStack = () => {
         <Stack.Screen
           options={{
             headerTitle: '',
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             headerLeft: () => <BackButton />,
             // presentation: 'modal',
           }}
@@ -98,17 +114,34 @@ const RidesStack = () => {
           component={OfferOrEditRides}
         />
         <Stack.Screen
-          options={{ headerStyle: { backgroundColor: colors.blue['50'] } }}
+          options={{
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
+          }}
           name={screenIds.PROFILE_SCREEN}
           component={Profile}
         />
         <Stack.Screen
           name={screenIds.SETTINGS_SCREEN}
+          component={Settings}
+          options={{
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
+            headerLeft: () => <BackButton dismiss />,
+            headerTitle: 'Settings',
+          }}
+        />
+        <Stack.Screen
+          name={screenIds.ABOUT_SCREEN}
           component={About}
           options={{
-            headerStyle: { backgroundColor: colors.blue['50'] },
+            headerStyle: {
+              backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+            },
             headerLeft: () => <BackButton dismiss />,
-            headerTitle: 'About',
+            headerTitle: 'Settings',
             presentation: 'modal',
           }}
         />

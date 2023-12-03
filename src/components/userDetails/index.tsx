@@ -1,9 +1,11 @@
-import { Text, View } from 'native-base';
+import { Text, View, Image } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import React from 'react';
 import { User } from '../../typing';
-import { Linking } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { Linking, TouchableOpacity } from 'react-native';
+
+const instagramIcon = require('../../../assets/icons/instagram.png');
+const facebookIcon = require('../../../assets/icons/facebook.png');
 
 type Props = {
   user: User;
@@ -34,22 +36,19 @@ const UserDetails = (props: Props) => {
     <View>
       <View flexDirection={'row'} marginBottom={'5%'}>
         {user?.facebookLink && (
-          <Entypo
-            marginRight={'5%'}
-            name="facebook"
-            size={44}
-            color="blue"
-            onPress={onFacebookPress}
-          />
+          <TouchableOpacity onPress={onFacebookPress}>
+            <Image
+              width={44}
+              height={44}
+              source={facebookIcon}
+              marginRight={'5%'}
+            />
+          </TouchableOpacity>
         )}
         {user?.instagramLink && (
-          <Entypo
-            marginRight={'5%'}
-            name="instagram"
-            size={44}
-            color="#F58529"
-            onPress={onInstagramPress}
-          />
+          <TouchableOpacity onPress={onInstagramPress}>
+            <Image width={44} height={44} source={instagramIcon} />
+          </TouchableOpacity>
         )}
       </View>
       <View>

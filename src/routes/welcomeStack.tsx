@@ -4,6 +4,7 @@ import { screenIds } from '../constants';
 import Register from '../screens/register';
 import Login from '../screens/login';
 import { useTheme } from 'native-base';
+import { IS_IOS } from '../screens/offerOrEditRides/usePresenter';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,14 +16,18 @@ const WelcomeStack: React.FC = () => {
       <Stack.Screen
         options={{
           headerTitle: 'REGISTER',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.REGISTER_SCREEN}
         component={Register}
       />
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
           headerTitle: 'LOGIN',
         }}
         name={screenIds.LOGIN_SCREEN}

@@ -1,14 +1,10 @@
 import React, { memo } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Card } from '@rneui/base';
 import { Avatar, Button, Icon, Text, useTheme, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
-import {
-  Entypo,
-  FontAwesome,
-  MaterialCommunityIcons,
-  AntDesign,
-} from '@expo/vector-icons';
+import { Entypo, FontAwesome, AntDesign } from '@expo/vector-icons';
+import { IS_IOS } from '../../screens/offerOrEditRides/usePresenter';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -32,14 +28,11 @@ const RideCard = (props: Props) => {
       disabled={shouldCardBeDisabled}
     >
       <Card
-        containerStyle={{
-          shadowColor: colors.blue['600'],
-          shadowOffset: { width: 0, height: 2 },
-          shadowRadius: 4,
-          shadowOpacity: 0.5,
-          backgroundColor: 'white',
-          borderRadius: 7,
-        }}
+        containerStyle={
+          IS_IOS
+            ? [styles.shadowContainerIOS, { shadowColor: colors.blue['600'] }]
+            : styles.shadowContainerAndroid
+        }
       >
         <View
           style={{
@@ -60,17 +53,9 @@ const RideCard = (props: Props) => {
               </Avatar>
             </View>
             <View>
-              {/*{isMyRide && (*/}
-              {/*  <View marginBottom={'30%'}>*/}
-              {/*    <Entypo name="edit" size={20} onPress={onEditPress} />*/}
-              {/*  </View>*/}
-              {/*)}*/}
-              {/*<View style={{ display: 'flex', flexDirection: 'row-reverse' }}>*/}
-              {/*<MaterialCommunityIcons name="seat" size={20} />*/}
               <Text fontSize={'sm'} fontFamily={'Roboto-Regular'}>
                 {ride.seats} seats available
               </Text>
-              {/*</View>*/}
             </View>
           </View>
         </View>
@@ -142,4 +127,21 @@ const RideCard = (props: Props) => {
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  shadowContainerAndroid: {
+    backgroundColor: 'white', // Set the background color as needed
+    elevation: 5, // Set the elevation to control the shadow intensity
+    padding: 16, // Add padding to the container if needed
+    borderRadius: 8, // Add borderRadius to round the corners (optional)
+  },
+  shadowContainerIOS: {
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
+    backgroundColor: 'white',
+    borderRadius: 7,
+  },
+});
+
 export default RideCard;

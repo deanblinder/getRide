@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, FlatList } from 'react-native';
+import { TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 // @ts-ignore
 import { Card } from '@rneui/base';
 import usePresenter from './usePresenter';
@@ -19,7 +19,6 @@ import { Ride } from '../../typing';
 import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
 import { IS_IOS } from '../offerOrEditRides/usePresenter';
-import { useFonts } from '@expo-google-fonts/inter';
 import ActionSheet from '../../components/actionSheet';
 
 const SearchRides = () => {
@@ -43,11 +42,6 @@ const SearchRides = () => {
     radius,
   } = usePresenter();
   const { colors } = useTheme();
-  useFonts({
-    'Roboto-Italic': require('../../../assets/fonts/Roboto/Roboto-Italic.ttf'),
-    'Roboto-Regular': require('../../../assets/fonts/Roboto/Roboto-Regular.ttf'),
-    'Roboto-Bold': require('../../../assets/fonts/Roboto/Roboto-Bold.ttf'),
-  });
 
   const renderItem = ({ item }: { item: Ride }) => {
     return <RideCard ride={item} searchData={{ origin, destination }} />;
@@ -57,18 +51,11 @@ const SearchRides = () => {
     return (
       <>
         <Card
-          containerStyle={{
-            marginTop: '10%',
-            borderRadius: 0,
-            padding: '5%',
-
-            shadowColor: colors.blue['600'],
-            shadowOffset: { width: 0, height: 2 },
-            shadowRadius: 4,
-            shadowOpacity: 0.3,
-            // backgroundColor: 'white',
-            // borderRadius: 7,
-          }}
+          containerStyle={
+            IS_IOS
+              ? [styles.shadowContainerIOS, { shadowColor: colors.blue['600'] }]
+              : styles.shadowContainerAndroid
+          }
         >
           <View flexDirection={'row'}>
             <View justifyContent={'center'}>
@@ -233,3 +220,24 @@ const SearchRides = () => {
 };
 
 export default SearchRides;
+
+const styles = StyleSheet.create({
+  shadowContainerAndroid: {
+    backgroundColor: 'white', // Set the background color as needed
+    elevation: 5, // Set the elevation to control the shadow intensity
+    padding: 16, // Add padding to the container if needed
+    borderRadius: 8, // Add borderRadius to round the corners (optional)
+  },
+  shadowContainerIOS: {
+    marginTop: '10%',
+    borderRadius: 0,
+    padding: '5%',
+
+    shadowColor: 'blue.600',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.3,
+    // backgroundColor: 'white',
+    // borderRadius: 7,
+  },
+});

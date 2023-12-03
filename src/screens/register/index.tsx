@@ -93,7 +93,7 @@ const Register = () => {
               leftIcon={<Icon as={Entypo} name="facebook" size="lg" />}
             >
               <Text color={'white'} fontSize={'md'}>
-                Login With Facebook
+                Enter With Facebook
               </Text>
             </Button>
             <Button

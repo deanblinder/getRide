@@ -16,4 +16,5 @@ export default {
   OFFERING_PROFILE_SCREEN: 'OfferingProfileScreen',
   EDIT_PROFILE_SCREEN: 'EditProfileScreen',
   SETTINGS_SCREEN: 'SettingsScreen',
+  ABOUT_SCREEN: 'AboutScreen',
 };
