@@ -13,6 +13,8 @@ import UserAvatar from '../components/userAvatar';
 import HeaderLogo from '../components/headerLogo';
 import About from '../screens/about';
 import { useTheme } from 'native-base';
+import Settings from '../screens/settings';
+import { IS_IOS } from '../screens/offerOrEditRides/usePresenter';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +28,9 @@ const SearchStack: React.FC = () => {
           headerLeft: () => <HeaderLogo />,
           headerRight: () => <UserAvatar />,
           headerShown: true,
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.SEARCH_RIDE_SCREEN}
         component={SearchRides}
@@ -36,7 +40,9 @@ const SearchStack: React.FC = () => {
         options={{
           presentation: 'modal',
           headerTitle: '',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
         // @ts-ignore
@@ -46,7 +52,9 @@ const SearchStack: React.FC = () => {
         options={{
           presentation: 'modal',
           headerTitle: '',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
         // @ts-ignore
@@ -56,7 +64,9 @@ const SearchStack: React.FC = () => {
         options={{
           headerLeft: () => <BackButton />,
           headerTitle: '',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.RIDE_SCREEN}
         // @ts-ignore
@@ -66,7 +76,9 @@ const SearchStack: React.FC = () => {
         options={{
           presentation: 'modal',
           headerTitle: '',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.OFFERING_PROFILE_SCREEN}
         // @ts-ignore
@@ -76,7 +88,9 @@ const SearchStack: React.FC = () => {
         options={{
           presentation: 'modal',
           headerTitle: '',
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
         name={screenIds.EDIT_PROFILE_SCREEN}
         // @ts-ignore
@@ -87,17 +101,32 @@ const SearchStack: React.FC = () => {
         component={Profile}
         options={{
           headerLeft: () => <BackButton />,
-          headerStyle: { backgroundColor: colors.blue['50'] },
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
         }}
       />
       <Stack.Screen
         name={screenIds.SETTINGS_SCREEN}
-        component={About}
+        component={Settings}
         options={{
           headerLeft: () => <BackButton dismiss />,
-          headerTitle: 'About',
+          headerTitle: 'Settings',
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
+        }}
+      />
+      <Stack.Screen
+        name={screenIds.ABOUT_SCREEN}
+        component={About}
+        options={{
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
+          headerLeft: () => <BackButton dismiss />,
+          headerTitle: 'Settings',
           presentation: 'modal',
-          headerStyle: { backgroundColor: colors.blue['50'] },
         }}
       />
     </Stack.Navigator>

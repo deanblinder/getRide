@@ -6,8 +6,16 @@ import { Provider } from 'react-redux';
 import 'expo-asset';
 
 import { NativeBaseProvider, extendTheme } from 'native-base';
+import { useFonts } from '@expo-google-fonts/inter';
 
 export default function App() {
+  useFonts({
+    'Roboto-Italic': require('../assets/fonts/Roboto/Roboto-Italic.ttf'),
+    'Roboto-Regular': require('../assets/fonts/Roboto/Roboto-Regular.ttf'),
+    'Roboto-Bold': require('../assets/fonts/Roboto/Roboto-Bold.ttf'),
+    'Roboto-BoldItalic': require('../assets/fonts/Roboto/Roboto-BoldItalic.ttf'),
+  });
+
   const theme = extendTheme({
     colors: {
       // primary: '33B8FF',

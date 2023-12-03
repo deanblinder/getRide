@@ -1,9 +1,9 @@
-import { Text } from 'native-base';
 import React from 'react';
+import { Text } from 'native-base';
 
 const HeaderLogo = () => {
   return (
-    <Text bold italic fontSize={'2xl'} color={'blue.700'}>
+    <Text fontSize={'2xl'} color={'blue.500'} fontFamily={'Roboto-BoldItalic'}>
       GET TREMP
     </Text>
   );

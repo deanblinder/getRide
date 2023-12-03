@@ -3,7 +3,10 @@
     "name": "getRide",
     "slug": "getRide",
     "version": "1.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/hitchhiker2.png",
     "userInterfaceStyle": "light",
@@ -23,7 +26,8 @@
           "clientToken": "e0ba520a21399ac9431ba169cdbf1e32",
           "displayName": "GetRide"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "ios": {
       "supportsTablet": true,
