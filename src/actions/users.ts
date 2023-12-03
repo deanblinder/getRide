@@ -9,7 +9,9 @@ import {
 import { db, usersRef } from '../config/firebase';
 import { User } from '../typing';
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (
+  userId: string
+): Promise<User | undefined> => {
   try {
     const q = query(usersRef, where('uid', '==', userId));
     const querySnapshot = await getDocs(q);

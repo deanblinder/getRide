@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "platforms": ["ios", "android"],
     "orientation": "portrait",
-    "icon": "./assets/hitchhiker.png",
+    "icon": "./assets/hitchhiker2.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/hitchhiker.png",

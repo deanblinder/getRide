@@ -36,8 +36,7 @@ const usePresenter = () => {
   // }
 
   const handleSignup = async () => {
-    // if (email && password && phoneNumber && isFacebookLink(facebookLink)) {
-    if (email && password && phoneNumber) {
+    if (email && password) {
       try {
         setLoading(true);
         const userCredentials = await createUserWithEmailAndPassword(
@@ -70,16 +69,11 @@ const usePresenter = () => {
         setLoading(false);
       }
     } else {
-      if (!email || !password || !phoneNumber) {
+      if (!email || !password) {
         toast.show({
           title: 'Please Fill all details',
         });
       }
-      // else if(!isFacebookLink(facebookLink)){
-      //   toast.show({
-      //     title: 'Please fill a real facebook link',
-      //   });
-      // }
     }
   };
 
@@ -158,16 +152,19 @@ const usePresenter = () => {
       uid: firebaseUser.user.uid,
       firstName: userProfile?.firstName,
       lastName: userProfile?.lastName,
-      email: userProfile?.email,
+      email: userProfile?.email!,
       profileImage: userProfile?.profileImage,
       facebookLink: userProfile?.facebookLink,
       facebookId: userProfile?.facebookId,
     };
-    const isUserExists = !!(await usersActions.getUserById(user.uid));
-    if (!isUserExists) {
+
+    const userFromDb = await usersActions.getUserById(user.uid);
+    if (userFromDb) {
+      dispatch(setUser(userFromDb));
+    } else {
       await usersActions.addUser(user);
+      dispatch(setUser(user));
     }
-    dispatch(setUser(user));
   };
 
   return {

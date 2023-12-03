@@ -23,7 +23,6 @@ const usePresenter = () => {
   const [profileImage, setProfileImage] = useState<string | undefined>(
     user?.profileImage
   );
-  console.log('### user', user?.profileImage);
 
   const [profileImageLoading, setProfileImageLoading] =
     useState<boolean>(false);
@@ -64,7 +63,7 @@ const usePresenter = () => {
 
   const onEditPress = () => {
     // @ts-ignore
-    navigation.navigate(screenIds.EDIT_PROFILE_SCREEN, { user });
+    navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
   };
 
   const onFacebookPress = () => {

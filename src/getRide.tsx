@@ -30,6 +30,7 @@ const GetRide = () => {
         }
         console.log('### logged in', loggedUser);
         dispatch(setUser(loggedUser));
+        setIsLoading(false);
         const userLocation = await getUserLocationAsync();
         userLocation &&
           dispatch(

@@ -4,13 +4,11 @@ import ChatCard from '../../components/chatCard';
 import { Input, Text } from 'native-base';
 import typography from 'native-base/src/theme/base/typography';
 import usePresenter from './usePresenter';
-import { adiId, deanId } from '../../typing';
 
 const Chat = () => {
   const { conversationIds } = usePresenter();
 
   if (!conversationIds) return null;
-  console.log(conversationIds);
 
   return (
     <ScrollView

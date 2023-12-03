@@ -53,7 +53,7 @@ const Register = () => {
             <FormControl maxW="300px">
               <Input
                 size={'xl'}
-                placeholder={'Email'}
+                placeholder={'Email *'}
                 onChangeText={onChangeEmail}
                 variant={'underlined'}
               />
@@ -61,7 +61,7 @@ const Register = () => {
             <FormControl maxW="300px">
               <Input
                 size={'xl'}
-                placeholder={'Enter Password'}
+                placeholder={'Password *'}
                 type={'password'}
                 onChangeText={onChangePassword}
                 variant={'underlined'}
@@ -88,7 +88,6 @@ const Register = () => {
               </FormControl.HelperText>
             </FormControl>
             <Button
-              // borderRadius={10}
               backgroundColor={colors.blue['500']}
               onPress={onFBPress}
               leftIcon={<Icon as={Entypo} name="facebook" size="lg" />}
@@ -97,7 +96,6 @@ const Register = () => {
                 Login With Facebook
               </Text>
             </Button>
-            {/*<LoginButton/>*/}
             <Button
               variant={'link'}
               colorScheme={'secondary'}

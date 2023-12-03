@@ -6,20 +6,19 @@ import { setUser } from '../../redux/auth/authActions';
 import { useNavigation } from '@react-navigation/native';
 import { User } from '../../typing';
 
-export type Props = {
-  route: {
-    params: {
-      user: User;
-    };
-  };
-};
-const usePresenter = (props: Props) => {
-  const { user } = props.route.params;
+// export type Props = {
+//   route: {
+//     params: {
+//       user: User;
+//     };
+//   };
+// };
+const usePresenter = () => {
+  const user = useSelector((state: AuthState) => state.user);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [updatedUser, setUpdatedUser] = useState<User>(user);
-
+  const [updatedUser, setUpdatedUser] = useState<User>(user!);
   const updateUser = async () => {
     try {
       setIsLoading(true);

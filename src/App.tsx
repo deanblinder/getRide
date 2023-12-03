@@ -2,7 +2,7 @@ import React from 'react';
 import GetRide from './getRide';
 import store from './store';
 import { Provider } from 'react-redux';
-import { registerRootComponent } from 'expo';
+// import { registerRootComponent } from 'expo';
 import 'expo-asset';
 
 import { NativeBaseProvider, extendTheme } from 'native-base';
@@ -22,4 +22,4 @@ export default function App() {
     </Provider>
   );
 }
-registerRootComponent(App);
+// registerRootComponent(App);
