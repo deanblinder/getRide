@@ -5,13 +5,22 @@ import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
 export type Props = {
   title: string;
-  icon: any;
+  icon?: any;
   onPress: () => void;
   showDivider?: boolean;
+  showChevron?: boolean;
+  showCheck?: boolean;
 };
 
 export const ListItem = (props: Props) => {
-  const { title, icon, onPress, showDivider = true } = props;
+  const {
+    title,
+    icon,
+    onPress,
+    showDivider = true,
+    showChevron = true,
+    showCheck = false,
+  } = props;
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -27,7 +36,8 @@ export const ListItem = (props: Props) => {
             {title}
           </Text>
         </View>
-        <Entypo name="chevron-right" size={24} color="black" />
+        {showChevron && <Entypo name="chevron-right" size={24} color="black" />}
+        {showCheck && <Entypo name="check" size={24} color="black" />}
       </View>
       <View marginLeft={'20%'}>{showDivider && <Divider />}</View>
     </TouchableOpacity>

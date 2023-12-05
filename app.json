@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "getRide",
-    "slug": "getRide",
+    "name": "getTremp",
+    "slug": "getTremp",
     "version": "1.0.0",
     "platforms": [
       "ios",
@@ -11,7 +11,7 @@
     "icon": "./assets/hitchhiker2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/hitchhiker.png",
+      "image": "./assets/splashImage.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,7 +24,7 @@
         {
           "appID": "271923981946657",
           "clientToken": "e0ba520a21399ac9431ba169cdbf1e32",
-          "displayName": "GetRide"
+          "displayName": "GetTemp"
         }
       ],
       "expo-localization"
@@ -35,7 +35,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/hitchhiker2.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.deanblinder.getRide"

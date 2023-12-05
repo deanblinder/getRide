@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import screenIds from '../../constants/screenIds';
 import { Linking, Alert } from 'react-native';
 import { setUser } from '../../redux/auth/authActions';
+import { useTranslation } from 'react-i18next';
 
 export type Props = {
   navigation: any;
@@ -17,6 +18,7 @@ export type Props = {
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const navigation = useNavigation();
 
@@ -75,12 +77,12 @@ const usePresenter = () => {
   };
 
   const onLogoutPress = async () => {
-    Alert.alert('Warning', 'Are you sure you want to log out?', [
+    Alert.alert(t('ALERT.WARNING'), t('ALERT.LOGOUT_WARNING'), [
       {
-        text: 'No',
+        text: t('ALERT.NO'),
       },
       {
-        text: 'Yes',
+        text: t('ALERT.YES'),
         onPress: async () => {
           await auth.signOut();
           dispatch(setUser(undefined));

@@ -16,11 +16,8 @@ import {
 
 // @ts-ignore
 import { API_KEY } from '@env';
-import { screenIds } from '../../constants';
-import { useNavigation } from '@react-navigation/native';
-import firebase from 'firebase/compat';
-
 import { Entypo } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const {
@@ -31,13 +28,12 @@ const Register = () => {
     onChangeFacebookLink,
     loading,
     onFBPress,
+    onHaveAccountPressed,
+    isFacebookLoading,
   } = usePresenter();
-  const navigation = useNavigation();
+
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
-  const onHaveAccountPressed = () => {
-    // @ts-ignore
-    navigation.navigate(screenIds.LOGIN_SCREEN, {});
-  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -46,22 +42,28 @@ const Register = () => {
         keyboardDismissMode="interactive"
       >
         <View>
-          <Text fontSize={'3xl'} marginBottom={'10%'}>
-            Enter Your Details
+          <Text
+            fontFamily={'Roboto-Regular'}
+            fontSize={'3xl'}
+            marginBottom={'10%'}
+          >
+            {t('REGISTER.ENTER_DETAILS')}
           </Text>
           <Stack space={5} w="100%" maxW="300px" mx="auto">
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Email *'}
+                placeholder={t('REGISTER.EMAIL')}
                 onChangeText={onChangeEmail}
                 variant={'underlined'}
               />
             </FormControl>
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Password *'}
+                placeholder={t('REGISTER.PASSWORD')}
                 type={'password'}
                 onChangeText={onChangePassword}
                 variant={'underlined'}
@@ -69,22 +71,30 @@ const Register = () => {
             </FormControl>
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Phone Number'}
+                placeholder={t('REGISTER.PHONE')}
                 onChangeText={onChangePhoneNumber}
                 variant={'underlined'}
                 keyboardType={'numeric'}
               />
+              <FormControl.HelperText
+                color={'blue.400'}
+                fontFamily={'Roboto-Regular'}
+              >
+                {t('REGISTER.PHONE_NOTE')}
+              </FormControl.HelperText>
             </FormControl>
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Facebook Link'}
+                placeholder={t('REGISTER.FACEBOOK_LINK')}
                 onChangeText={onChangeFacebookLink}
                 variant={'underlined'}
               />
-              <FormControl.HelperText>
-                Enter link so people see who you are.
+              <FormControl.HelperText fontFamily={'Roboto-Regular'}>
+                {t('REGISTER.FACEBOOK_LINK_NOTE')}
               </FormControl.HelperText>
             </FormControl>
             <Button
@@ -93,7 +103,11 @@ const Register = () => {
               leftIcon={<Icon as={Entypo} name="facebook" size="lg" />}
             >
               <Text color={'white'} fontSize={'md'}>
-                Enter With Facebook
+                {isFacebookLoading ? (
+                  <Spinner color={'white'} />
+                ) : (
+                  t('REGISTER.FACEBOOK_LOGIN')
+                )}
               </Text>
             </Button>
             <Button
@@ -101,7 +115,7 @@ const Register = () => {
               colorScheme={'secondary'}
               onPress={onHaveAccountPressed}
             >
-              Already have an account?
+              {t('REGISTER.ALREADY_HAVE_ACCOUNT')}
             </Button>
           </Stack>
         </View>
@@ -111,7 +125,7 @@ const Register = () => {
           onPress={handleSignup}
           disabled={loading}
         >
-          {loading ? <Spinner color="white" /> : 'submit'}
+          {loading ? <Spinner color="white" /> : t('REGISTER.SUBMIT')}
         </Button>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -20,6 +20,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import RideCardSkeleton from '../../components/rideCardSkeleton';
 import { IS_IOS } from '../offerOrEditRides/usePresenter';
 import ActionSheet from '../../components/actionSheet';
+import { useTranslation } from 'react-i18next';
 
 const SearchRides = () => {
   const {
@@ -42,6 +43,7 @@ const SearchRides = () => {
     radius,
   } = usePresenter();
   const { colors } = useTheme();
+  const { t, i18n } = useTranslation();
 
   const renderItem = ({ item }: { item: Ride }) => {
     return <RideCard ride={item} searchData={{ origin, destination }} />;
@@ -80,21 +82,23 @@ const SearchRides = () => {
                 style={{ marginBottom: '5%', flexDirection: 'row' }}
               >
                 <Input
+                  textAlign={i18n.language === 'he' ? 'right' : 'left'}
                   onPressIn={onOriginPressed}
                   editable={false}
                   selectTextOnFocus={false}
                   value={origin?.formatted_address}
-                  placeholder="Enter Origin"
+                  placeholder={t('ENTER_DETAILS_CARD.ENTER_ORIGIN')}
                   w="100%"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={onDestinationPressed}>
                 <Input
+                  textAlign={i18n.language === 'he' ? 'right' : 'left'}
                   onPressIn={onDestinationPressed}
                   editable={false}
                   selectTextOnFocus={false}
                   value={destination?.formatted_address}
-                  placeholder="Enter Destination"
+                  placeholder={t('ENTER_DETAILS_CARD.ENTER_DESTINATION')}
                   w="100%"
                 />
               </TouchableOpacity>
@@ -107,10 +111,13 @@ const SearchRides = () => {
                 onPress={() => setShowDatePicker(true)}
               >
                 <Input
+                  textAlign={i18n.language === 'he' ? 'right' : 'left'}
+                  fontSize={15}
                   editable={false}
                   selectTextOnFocus={false}
                   onPressIn={() => setShowDatePicker(true)}
-                  placeholder={date.toLocaleDateString('he')}
+                  placeholder={date.toLocaleDateString('en')}
+                  placeholderTextColor={'black'}
                   w="100%"
                 />
               </TouchableOpacity>
@@ -118,8 +125,8 @@ const SearchRides = () => {
             <View marginTop={'5%'}>
               <ActionSheet
                 items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                placeholder={'Kilometer From Points'}
-                title={'Distance from your origin and destination points in km'}
+                placeholder={t('ENTER_DETAILS_CARD.KILOMETER_FROM_POINT')}
+                title={t('ACTION_SHEET.DISTANCE_TITLE')}
                 initialSelectedValue={radius}
                 onItemPressed={(value: number) => {
                   setRadius(value);
@@ -147,7 +154,11 @@ const SearchRides = () => {
             backgroundColor={'blue.400'}
             onPress={onSearchPress}
           >
-            {loading ? <Spinner color="white" /> : 'search'}
+            {loading ? (
+              <Spinner color="white" />
+            ) : (
+              t('ENTER_DETAILS_CARD.SEARCH_BUTTON')
+            )}
           </Button>
           {rides && rides.length > 0 && (
             <Button
@@ -162,7 +173,7 @@ const SearchRides = () => {
               size={'sm'}
               onPress={clearSearch}
             >
-              Clear Results
+              {t('ENTER_DETAILS_CARD.CLEAR_RESULTS_BUTTON')}
             </Button>
           )}
         </Card>
@@ -176,7 +187,7 @@ const SearchRides = () => {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
           <Text fontFamily={'Roboto-Regular'} fontSize={15}>
-            Search For Rides
+            {t('SEARCH_RIDES.SEARCH_FOR_RIDES')}
           </Text>
         </View>
       );
@@ -186,7 +197,7 @@ const SearchRides = () => {
       return (
         <View justifyContent={'center'} alignItems={'center'} marginTop={'10%'}>
           <Text fontFamily={'Roboto-Regular'} fontSize={15}>
-            No Rides Found
+            {t('SEARCH_RIDES.NO_RIDES_FOUND')}
           </Text>
         </View>
       );
@@ -223,21 +234,18 @@ export default SearchRides;
 
 const styles = StyleSheet.create({
   shadowContainerAndroid: {
-    backgroundColor: 'white', // Set the background color as needed
-    elevation: 5, // Set the elevation to control the shadow intensity
-    padding: 16, // Add padding to the container if needed
-    borderRadius: 8, // Add borderRadius to round the corners (optional)
+    backgroundColor: 'white',
+    elevation: 5,
+    padding: 16,
+    borderRadius: 8,
   },
   shadowContainerIOS: {
     marginTop: '10%',
     borderRadius: 0,
     padding: '5%',
-
     shadowColor: 'blue.600',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.3,
-    // backgroundColor: 'white',
-    // borderRadius: 7,
   },
 });

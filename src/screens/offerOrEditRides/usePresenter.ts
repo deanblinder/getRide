@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useToast } from 'native-base';
 import { Platform, Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { tabIds } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const IS_IOS = Platform.OS === 'ios';
 
@@ -24,6 +24,7 @@ export type Props = {
 
 const usePresenter = (props: Props) => {
   const { rideToEdit } = props?.route?.params || {};
+  const { t } = useTranslation();
   const [origin, setOrigin] = useState<Location | undefined>(
     rideToEdit ? rideToEdit.origin : undefined
   );
@@ -100,7 +101,7 @@ const usePresenter = (props: Props) => {
   const addRide = async () => {
     if (!origin || !destination) {
       toast.show({
-        title: 'Please enter all fields',
+        title: t('TOAST.ENTER_ALL_FIELDS'),
       });
       return;
     }
@@ -131,42 +132,39 @@ const usePresenter = (props: Props) => {
         };
         await ridesActions.updateRide(rideToEdit.rideId, rideToUpdate);
         toast.show({
-          description: 'Ride updated successfully',
+          description: t('TOAST.RIDE_UPDATED_SUCCESSFULLY'),
           color: 'green',
         });
         navigation.goBack();
+        return;
       } else {
         if (!user?.phoneNumber) {
-          Alert.alert(
-            'Hey There!',
-            'You must provide phone number for people can reach you ',
-            [
-              { text: 'Later' },
-              {
-                text: 'Edit Profile',
-                onPress: () => {
-                  // @ts-ignore
-                  navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
-                },
+          Alert.alert(t('ALERT.HEY_THERE'), t('ALERT.PROVIDE_PHONE_NUMBER'), [
+            { text: t('ALERT.LATER') },
+            {
+              text: t('ALERT.EDIT_PROFILE'),
+              onPress: () => {
+                // @ts-ignore
+                navigation.navigate(screenIds.EDIT_PROFILE_SCREEN);
               },
-            ]
-          );
+            },
+          ]);
           setLoading(false);
           return;
         }
         await ridesActions.addRide(ride);
         toast.show({
-          description: 'Ride added successfully',
+          description: t('TOAST.RIDE_ADDED_SUCCESSFULLY'),
           color: 'green',
         });
       }
       clearState();
       setLoading(false);
       // @ts-ignore
-      navigation.navigate(tabIds.RIDES);
+      navigation.navigate(t('TABS.RIDES'));
     } catch (error) {
       toast.show({
-        description: 'Ride didnt added',
+        description: t('TOAST.RIDE_DIDNT_ADDED'),
         color: 'red',
       });
     }
@@ -191,10 +189,10 @@ const usePresenter = (props: Props) => {
   };
 
   const onDeletePress = async () => {
-    Alert.alert('Warning', 'Are you sure you want to delete the ride?', [
-      { text: 'No' },
+    Alert.alert(t('ALERT.WARNING'), t('ALERT.DELETE_RIDE_MESSAGE'), [
+      { text: t('ALERT.NO') },
       {
-        text: 'Yes',
+        text: t('ALERT.YES'),
         onPress: async () => {
           rideToEdit && (await ridesActions.deleteRide(rideToEdit.rideId));
           navigation.goBack();

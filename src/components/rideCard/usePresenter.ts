@@ -6,6 +6,7 @@ import { AuthState } from '../../redux/auth/authReducer';
 import { Linking } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 export type Props = {
   ride: Ride;
@@ -19,19 +20,18 @@ export type Props = {
 const usePresenter = (props: Props) => {
   const { ride, disabled, searchData } = props;
   const [rideUser, setRideUser] = useState<User | undefined>(undefined);
-
+  const { t } = useTranslation();
   const navigation = useNavigation();
-
   const user = useSelector((state: AuthState) => state.user);
+
+  useEffect(() => {
+    updateRideUser();
+  }, [user]);
 
   const pushRidePage = () => {
     // @ts-ignore
     navigation.navigate(screenIds.RIDE_SCREEN, { ride, searchData });
   };
-
-  useEffect(() => {
-    updateRideUser();
-  }, [user]);
 
   const updateRideUser = async () => {
     setRideUser(await usersActions.getUserById(ride.userId));
@@ -39,13 +39,13 @@ const usePresenter = (props: Props) => {
 
   const onChatPress = async () => {
     const user = await usersActions.getUserById(ride.userId);
-    let url = 'whatsapp://send?text=' + '&phone=+972' + user.phoneNumber;
+    let url = 'whatsapp://send?text=' + '&phone=+972' + user!.phoneNumber;
     Linking.openURL(url)
       .then((data) => {
         console.log('WhatsApp Opened successfully ' + data); //<---Success
       })
       .catch(() => {
-        alert('Make sure WhatsApp installed on your device'); //<---Error
+        alert(t('ALERT.WHATS_APP_NOT_INSTALLED'));
       });
   };
 

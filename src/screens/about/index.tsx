@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text } from 'native-base';
 import { Linking, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+  const { t } = useTranslation();
+
   const onEmailPress = async () => {
     const url = 'mailto:deanblinder91@gmail.com';
     await Linking.openURL(url);
@@ -18,10 +21,7 @@ const About = () => {
   return (
     <View padding={'5%'} backgroundColor={'white'} height={'100%'}>
       <Text fontSize={'lg'} fontFamily={'Roboto-Regular'}>
-        Hello Riders,{'\n'}this is an that made in my personal time.{'\n'}if you
-        have any questions any feedback please DM and Email or LinkedIn i would
-        like to hear any feed back.{'\n'}
-        Dean Blinder{'\n'}
+        {t('ABOUT_PAGE.CONTENT')}
         <>
           <TouchableOpacity
             onPress={onEmailPress}

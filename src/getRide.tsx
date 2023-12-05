@@ -11,6 +11,8 @@ import { getUserLocationAsync } from './actions/common';
 import SplashScreen from './screens/splashScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18next from 'i18next';
 
 const GetRide = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,18 @@ const GetRide = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const loadSelectedLanguage = async () => {
+    try {
+      // Retrieve the selected language from AsyncStorage
+      const language = await AsyncStorage.getItem('selectedLanguage');
+      await i18next.changeLanguage(language || 'he');
+    } catch (error) {
+      console.error('Error loading language:', error);
+    }
+  };
+
   useEffect(() => {
+    loadSelectedLanguage();
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         console.log('### user', user);

@@ -20,9 +20,9 @@ PODS:
     - ExpoModulesCore
   - EXManifests (0.7.2):
     - ExpoModulesCore
-  - Expo (49.0.20):
+  - Expo (49.0.21):
     - ExpoModulesCore
-  - ExpoAdapterFBSDKNext (12.1.1):
+  - ExpoAdapterFBSDKNext (12.1.2):
     - ExpoModulesCore
     - FBSDKCoreKit
     - React-Core
@@ -76,16 +76,16 @@ PODS:
     - FBSDKCoreKit (= 16.1.3)
   - FBSDKShareKit (16.1.3):
     - FBSDKCoreKit (= 16.1.3)
-  - Firebase/Auth (10.17.0):
+  - Firebase/Auth (10.18.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.17.0)
-  - Firebase/CoreOnly (10.17.0):
-    - FirebaseCore (= 10.17.0)
-  - Firebase/Storage (10.17.0):
+    - FirebaseAuth (~> 10.18.0)
+  - Firebase/CoreOnly (10.18.0):
+    - FirebaseCore (= 10.18.0)
+  - Firebase/Storage (10.18.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (~> 10.17.0)
+    - FirebaseStorage (~> 10.18.0)
   - FirebaseAppCheckInterop (10.18.0)
-  - FirebaseAuth (10.17.0):
+  - FirebaseAuth (10.18.0):
     - FirebaseAppCheckInterop (~> 10.17)
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
@@ -93,15 +93,15 @@ PODS:
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
   - FirebaseAuthInterop (10.18.0)
-  - FirebaseCore (10.17.0):
+  - FirebaseCore (10.18.0):
     - FirebaseCoreInternal (~> 10.0)
-    - GoogleUtilities/Environment (~> 7.8)
-    - GoogleUtilities/Logger (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
   - FirebaseCoreExtension (10.18.0):
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.18.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseStorage (10.17.0):
+  - FirebaseStorage (10.18.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -435,18 +435,18 @@ PODS:
   - React-jsinspector (0.72.6)
   - React-logger (0.72.6):
     - glog
-  - react-native-fbsdk-next (12.1.1):
+  - react-native-fbsdk-next (12.1.2):
     - React-Core
-    - react-native-fbsdk-next/Core (= 12.1.1)
-    - react-native-fbsdk-next/Login (= 12.1.1)
-    - react-native-fbsdk-next/Share (= 12.1.1)
-  - react-native-fbsdk-next/Core (12.1.1):
+    - react-native-fbsdk-next/Core (= 12.1.2)
+    - react-native-fbsdk-next/Login (= 12.1.2)
+    - react-native-fbsdk-next/Share (= 12.1.2)
+  - react-native-fbsdk-next/Core (12.1.2):
     - FBSDKCoreKit (~> 16.1.3)
     - React-Core
-  - react-native-fbsdk-next/Login (12.1.1):
+  - react-native-fbsdk-next/Login (12.1.2):
     - FBSDKLoginKit (~> 16.1.3)
     - React-Core
-  - react-native-fbsdk-next/Share (12.1.1):
+  - react-native-fbsdk-next/Share (12.1.2):
     - FBSDKGamingServicesKit (~> 16.1.3)
     - FBSDKShareKit (~> 16.1.3)
     - React-Core
@@ -573,21 +573,19 @@ PODS:
     - React-Core
   - RNDateTimePicker (7.2.0):
     - React-Core
-  - RNFBApp (18.6.1):
-    - Firebase/CoreOnly (= 10.17.0)
+  - RNFBApp (18.7.1):
+    - Firebase/CoreOnly (= 10.18.0)
     - React-Core
-  - RNFBAuth (18.6.1):
-    - Firebase/Auth (= 10.17.0)
+  - RNFBAuth (18.7.1):
+    - Firebase/Auth (= 10.18.0)
     - React-Core
     - RNFBApp
-  - RNFBStorage (18.6.1):
-    - Firebase/Storage (= 10.17.0)
+  - RNFBStorage (18.7.1):
+    - Firebase/Storage (= 10.18.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.12.1):
     - React-Core
-  - RNI18n (2.0.15):
-    - React
   - RNScreens (3.22.1):
     - React-Core
     - React-RCTImage
@@ -664,7 +662,6 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNI18n (from `../node_modules/react-native-i18n`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -831,8 +828,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNI18n:
-    :path: "../node_modules/react-native-i18n"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -851,8 +846,8 @@ SPEC CHECKSUMS:
   EXJSONUtils: 6802be4282d42b97c51682468ddc1026a06f8276
   EXLocation: a425ace19c0445e7ea9702982fc6b9a402791510
   EXManifests: cf66451b11b2c2f6464917528d792759f7fd6ce0
-  Expo: 25b41ba5d4a3af57234dca132f6b9e1f5b0bd4b5
-  ExpoAdapterFBSDKNext: 2fbbaa34a3118d528c824a4d49e0a2b08afbfa29
+  Expo: 61a8e1aa94311557c137c0a4dfd4fe78281cfbb4
+  ExpoAdapterFBSDKNext: c573f0e4b866cd481ae3e4489473a5dcd5ff2e47
   ExpoImagePicker: c58fdf28be551681a8edc550bcec76c397a8dfcd
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoLocalization: be37fdd0b5930c6a49cd307b4542f4b426d6134c
@@ -869,14 +864,14 @@ SPEC CHECKSUMS:
   FBSDKGamingServicesKit: 791d9b1de6da359e92da3b1ba3459f36b0aa604f
   FBSDKLoginKit: c395c63a1a6cf4a8a1e6103fd94b8c46329ee81c
   FBSDKShareKit: de5c291ad414ec07048ab09bae1b1b74b3ed92fe
-  Firebase: f4ac0b02927af9253ae094d23deecf0890da7374
+  Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
   FirebaseAppCheckInterop: 3cd914842ba46f4304050874cd284de82f154ffd
-  FirebaseAuth: 8d285d9f6e39cc8e23be53a4edd83a923ea629d8
+  FirebaseAuth: 12314b438fa76048540c8fb86d6cfc9e08595176
   FirebaseAuthInterop: 5818713dcd7239beb96c1125e4b14d6a5a910e5f
-  FirebaseCore: 534544dd98cabcf4bf8598d88ec683b02319a528
+  FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
   FirebaseCoreExtension: 62b201498aa10535801cdf3448c7f4db5e24ed80
   FirebaseCoreInternal: 8eb002e564b533bdcf1ba011f33f2b5c10e2ed4a
-  FirebaseStorage: 4af6f9ea67b6a8e4e3cbd75e006b4776a50e8b12
+  FirebaseStorage: 8333c4b183764cdd170d9539a61322b71c23adff
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
@@ -902,7 +897,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 3bf18ff7cb03cd8dfdce08fbbc0d15058c1d71ae
   React-jsinspector: 194e32c6aab382d88713ad3dd0025c5f5c4ee072
   React-logger: cebf22b6cf43434e471dc561e5911b40ac01d289
-  react-native-fbsdk-next: 040cfe0d3cc5924d2026abb482fb6024746441f6
+  react-native-fbsdk-next: 9c40664b1501be29572795c2e4c8e347f39f556f
   react-native-maps: 667f9b975549c6fa9b1631bf859440f68ebd3b8f
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   React-NativeModulesApple: 1802a680a4cd891d2ab97780771bcb2ff11fdc0b
@@ -925,15 +920,14 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNDateTimePicker: 3942382593f104af226ad9c56e16166960c7ae30
-  RNFBApp: 5a16a735bad57ca29ee44757bde7e654c5bc8f60
-  RNFBAuth: afec283a83131aef9ea13e51dc32e157ad57d455
-  RNFBStorage: 7fda5fe51243291ebfeb1933a870869648920fae
+  RNFBApp: faf815f60546ca522eb9ef09d21dfd3fc70d3e27
+  RNFBAuth: 57a133db67b7d37d84c7d15a41c9a665489290e8
+  RNFBStorage: 6f118cc6b882d2cc4e99b1522785ff3ac9822a6a
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
-  RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: b76f1acfda8212aa16b7e26bcce3983230c82603
 
-PODFILE CHECKSUM: f621288a2ff512ff6b53df9e2cd60291caa07992
+PODFILE CHECKSUM: 7cb8d17efdf8c37a28fcadf87c34334111985e41
 
 COCOAPODS: 1.14.3

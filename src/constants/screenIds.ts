@@ -17,4 +17,5 @@ export default {
   EDIT_PROFILE_SCREEN: 'EditProfileScreen',
   SETTINGS_SCREEN: 'SettingsScreen',
   ABOUT_SCREEN: 'AboutScreen',
+  LANGUAGE_SCREEN: 'LanguageScreen',
 };

@@ -4,16 +4,16 @@ import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import SearchStack from '../routes/searchStack';
 import offerStack from '../routes/offerStack';
 import RidesStack from '../routes/ridesStack';
-import { tabIds } from '../constants';
-import ChatStack from '../routes/chatStack';
+import { useTranslation } from 'react-i18next';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
+  const { t } = useTranslation();
 
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={tabIds.SEARCH}
+        name={t('TABS.SEARCH')}
         component={SearchStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -23,7 +23,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={tabIds.ADD}
+        name={t('TABS.ADD')}
         component={offerStack}
         options={{
           tabBarIcon: ({ color }) => (
@@ -33,7 +33,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={tabIds.RIDES}
+        name={t('TABS.RIDES')}
         component={RidesStack}
         options={{
           tabBarIcon: ({ color, size }) => (

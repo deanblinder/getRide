@@ -7,6 +7,7 @@ import 'expo-asset';
 
 import { NativeBaseProvider, extendTheme } from 'native-base';
 import { useFonts } from '@expo-google-fonts/inter';
+import './config/localization/i18n';
 
 export default function App() {
   useFonts({
@@ -14,6 +15,7 @@ export default function App() {
     'Roboto-Regular': require('../assets/fonts/Roboto/Roboto-Regular.ttf'),
     'Roboto-Bold': require('../assets/fonts/Roboto/Roboto-Bold.ttf'),
     'Roboto-BoldItalic': require('../assets/fonts/Roboto/Roboto-BoldItalic.ttf'),
+    'PermanentMarker-Regular': require('../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf'),
   });
 
   const theme = extendTheme({
@@ -30,4 +32,3 @@ export default function App() {
     </Provider>
   );
 }
-// registerRootComponent(App);

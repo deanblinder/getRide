@@ -1,0 +1,110 @@
+{
+  "ENTER_DETAILS_CARD": {
+    "ENTER_ORIGIN": "Enter origin",
+    "ENTER_DESTINATION": "Enter destination",
+    "KILOMETER_FROM_POINT": "kilometer from point",
+    "SEARCH_BUTTON": "Search",
+    "CLEAR_RESULTS_BUTTON": "Clear results",
+    "SEATS_AVAILABLE": "Seats Available"
+  },
+  "SEARCH_RIDES": {
+    "SEARCH_FOR_RIDES": "Search for rides",
+    "NO_RIDES_FOUND": "No rides found"
+  },
+  "ADD_RIDES": {
+    "ADD_OFFER_BUTTON": "Add Offer",
+    "UPDATE_OFFER_BUTTON": "Update Offer",
+    "DELETE_OFFER_BUTTON": "Delete Offer"
+  },
+  "UPCOMING_RIDES": {
+    "UPCOMING_RIDES": "Upcoming rides",
+    "NO_UPCOMING_RIDES": "No upcoming rides"
+  },
+  "ACTION_SHEET": {
+    "DISTANCE_TITLE": "Distance from your origin and destination points in km",
+    "AVAILABLE_SEATS_TITLE": "Number of seats available"
+  },
+  "RIDE_CARD": {
+    "SEATS_AVAILABLE": "Seats Available",
+    "CHAT_BUTTON": "Chat",
+    "SEE_PROFILE_BUTTON": "Profile"
+  },
+  "SEARCH_LOCATION_PAGE": {
+    "ORIGIN": "Origin",
+    "DESTINATION": "Destination",
+    "DONE_BUTTON": "Done"
+  },
+  "PROFILE_PAGE": {
+    "EDIT_PROFILE_BUTTON": "Edit Profile",
+    "LOGOUT_BUTTON": "Logout"
+  },
+  "EDIT_PROFILE_PAGE": {
+   "UPDATE": "Update",
+    "TITLE": "Edit Your Personal Info",
+    "SUBTITLE": "We Recommend to fill all the fields for people to know who is the driver"
+  },
+  "SETTINGS_PAGE": {
+    "ABOUT": "About",
+    "LANGUAGES": "Languages"
+  },
+  "ABOUT_PAGE": {
+    "CONTENT": "Hello Riders,\nthis is an that made in my personal time.\nif you have any questions any feedback please DM and Email or LinkedIn i would\nlike to hear any feed back.\nDean Blinder\n"
+  },
+  "TABS": {
+    "SEARCH": "Search",
+    "ADD": "Add",
+    "RIDES": "Rides"
+  },
+  "LANGUAGE_SELECT": {
+    "ENGLISH": "English",
+    "HEBREW": "Hebrew"
+  },
+  "ALERT": {
+    "YES": "Yes",
+    "NO": "No",
+    "WARNING": "Warning",
+    "DELETE_RIDE_MESSAGE": "Are you sure you want to delete this ride?",
+    "HEY_THERE": "Hey there!",
+    "PROVIDE_PHONE_NUMBER": "Please provide your phone number for people to contact you",
+    "LATER": "Later",
+    "EDIT_PROFILE": "Edit Profile",
+    "LOGOUT_WARNING": "Are you sure you want to logout?",
+    "USER_NOT_FOUND": "User not found",
+    "WRONG_PASSWORD": "Wrong password",
+    "INVALID_EMAIL": "Invalid email",
+    "EMAIL_ALREADY_IN_USE": "Email already in use",
+    "EMAIL_NOT_VALID": "Email not valid",
+    "WHATS_APP_NOT_INSTALLED": "Make sure WhatsApp installed on your device"
+  },
+  "TOAST": {
+    "SELECT_ORIGIN_AND_DESTINATION": "Please select origin and destination",
+    "ENTER_ALL_FIELDS": "Please enter all fields",
+    "RIDE_UPDATED_SUCCESSFULLY": "Ride updated successfully",
+    "RIDE_DIDNT_ADDED": "Ride didn't added",
+    "RIDE_ADDED_SUCCESSFULLY": "Ride added successfully",
+    "PLEASE_PROVIDE_ALL_FIELDS": "Please provide all fields"
+  },
+  "REGISTER": {
+    "ENTER_DETAILS": "Enter your details",
+    "PHONE_NOTE": "Please provide your phone number so people can contact you",
+    "FACEBOOK_LINK_NOTE": "Please provide your facebook link for people to know who you are",
+    "FACEBOOK_LOGIN": "Enter with Facebook",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "SUBMIT": "Submit",
+    "EMAIL": "Email *",
+    "PASSWORD": "Password *",
+    "PHONE": "Phone Number",
+    "FACEBOOK_LINK": "Facebook Link",
+    "HEADER": "Register"
+  },
+  "LOGIN": {
+    "ENTER_DETAILS": "Enter your details",
+    "SUBMIT": "Submit",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "HEADER": "Login",
+  },
+  "MAP": {
+    "CHANGE_ROUTE": "Change Route"
+  }
+}

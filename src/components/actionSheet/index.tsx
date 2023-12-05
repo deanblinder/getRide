@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Actionsheet, useDisclose, Input, Text } from 'native-base';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   items: number[];
@@ -10,6 +12,8 @@ type Props = {
 };
 
 export const ActionSheet = (props: Props) => {
+  const { i18n } = useTranslation();
+
   const { items, placeholder, title, onItemPressed, initialSelectedValue } =
     props;
 
@@ -29,11 +33,14 @@ export const ActionSheet = (props: Props) => {
 
   return (
     <>
-      <Input
-        editable={false}
-        value={selectedValue + ' ' + placeholder}
-        onPressIn={onPressIn}
-      />
+      <TouchableOpacity onPress={onPressIn}>
+        <Input
+          textAlign={i18n.language === 'he' ? 'right' : 'left'}
+          onPressIn={onPressIn}
+          editable={false}
+          value={selectedValue + ' ' + placeholder}
+        />
+      </TouchableOpacity>
       <Actionsheet isOpen={isOpen} onClose={onClose} zIndex={100000}>
         <Actionsheet.Content>
           <Text fontSize={'lg'}>{title}</Text>

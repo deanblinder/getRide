@@ -4,8 +4,8 @@ import React from 'react';
 import { User } from '../../typing';
 import { Linking, TouchableOpacity } from 'react-native';
 
-const instagramIcon = require('../../../assets/icons/instagram.png');
-const facebookIcon = require('../../../assets/icons/facebook.png');
+const instagramIcon = require('../../../assets/socialIcons/instagram.png');
+const facebookIcon = require('../../../assets/socialIcons/facebook.png');
 
 type Props = {
   user: User;
