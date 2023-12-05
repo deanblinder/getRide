@@ -3,6 +3,7 @@ import * as ridesActions from './rides';
 import * as usersActions from './users';
 import * as commonActions from './common';
 import * as chatActions from './chat';
+import * as facebookActions from './facebook';
 
 export {
   googleMapsActions,
@@ -10,4 +11,5 @@ export {
   usersActions,
   commonActions,
   chatActions,
+  facebookActions,
 };

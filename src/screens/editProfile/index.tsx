@@ -13,6 +13,7 @@ import usePresenter from './usePresenter';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import BackButton from '../../components/backButton';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const {
@@ -25,6 +26,8 @@ const EditProfile = () => {
     onInstagramLinkChange,
     isLoading,
   } = usePresenter();
+  const { t, i18n } = useTranslation();
+
   const navigation = useNavigation();
 
   React.useLayoutEffect(() => {
@@ -33,7 +36,11 @@ const EditProfile = () => {
       headerLeft: () => <BackButton dismiss />,
       headerRight: () => (
         <Button variant="ghost" colorScheme={'gray'} onPress={updateUser}>
-          {isLoading ? <Spinner color="grey.500" /> : 'Update'}
+          {isLoading ? (
+            <Spinner color="grey.500" />
+          ) : (
+            t('EDIT_PROFILE_PAGE.UPDATE')
+          )}
         </Button>
       ),
     });
@@ -45,18 +52,27 @@ const EditProfile = () => {
     >
       <ScrollView
         keyboardDismissMode={'interactive'}
+        style={{
+          flexGrow: 1,
+        }}
         contentContainerStyle={{
-          padding: '10%',
-          justifyContent: 'space-between',
+          paddingVertical: '5%',
           backgroundColor: 'white',
-          height: '100%',
         }}
       >
         <Stack space={5} w="100%" maxW="300px" mx="auto">
-          <Text fontSize={'2xl'}>Edit Your Personal Info</Text>
-          <Text fontSize={'lg'} marginBottom={'5%'}>
-            We Recommend to fill all the fields for people to know who is the
-            driver
+          <Text
+            textAlign={i18n.language === 'he' ? 'right' : 'left'}
+            fontSize={'2xl'}
+          >
+            {t('EDIT_PROFILE_PAGE.TITLE')}
+          </Text>
+          <Text
+            textAlign={i18n.language === 'he' ? 'right' : 'left'}
+            fontSize={'lg'}
+            marginBottom={'5%'}
+          >
+            {t('EDIT_PROFILE_PAGE.SUBTITLE')}
           </Text>
           <FormControl maxW="300px">
             <FormControl.Label>First Name</FormControl.Label>
@@ -108,6 +124,7 @@ const EditProfile = () => {
               variant={'underlined'}
             />
           </FormControl>
+          <View height={150} />
         </Stack>
       </ScrollView>
     </KeyboardAvoidingView>

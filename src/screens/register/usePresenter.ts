@@ -10,30 +10,25 @@ import {
 import { app, auth } from '../../config/firebase';
 import { addUser } from '../../actions/users';
 import { useToast } from 'native-base';
-import {
-  AccessToken,
-  LoginManager,
-  LoginButton,
-} from 'react-native-fbsdk-next';
-import axios from 'axios';
-import { usersActions } from '../../actions';
-import * as chance from 'chance';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { facebookActions, usersActions } from '../../actions';
 import { User } from '../../typing';
+import { screenIds } from '../../constants';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 const usePresenter = () => {
   const dispatch = useDispatch();
   const toast = useToast();
+  const { t } = useTranslation();
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [facebookLink, setFacebookLink] = useState('');
-
-  // function isFacebookLink(url) {
-  //   const facebookUrlPattern = /^https:\/\/www\.facebook\.com\/[A-Za-z0-9_.]+$/;
-  //   return facebookUrlPattern.test(url);
-  // }
+  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
   const handleSignup = async () => {
     if (email && password) {
@@ -56,22 +51,21 @@ const usePresenter = () => {
         dispatch(setUser(user));
       } catch (error: any) {
         if (error.code === 'auth/email-already-in-use') {
-          alert('Email already in use');
+          alert(t('ALERT.EMAIL_ALREADY_IN_USE'));
         } else if (error.code === 'auth/invalid-email') {
           if (error.code === 'auth/invalid-email') {
-            alert('That email address is invalid!');
+            alert(t('ALERT.EMAIL_NOT_VALID'));
           } else {
             alert(error);
           }
         }
-        console.log('handle register error', error);
       } finally {
         setLoading(false);
       }
     } else {
       if (!email || !password) {
         toast.show({
-          title: 'Please Fill all details',
+          title: t('TOAST.PLEASE_PROVIDE_ALL_FIELDS'),
         });
       }
     }
@@ -93,40 +87,6 @@ const usePresenter = () => {
     setPhoneNumber(text);
   };
 
-  const fetchUserProfile = async (
-    accessToken: any
-  ): Promise<
-    | undefined
-    | {
-        firstName: string;
-        lastName: string;
-        email: string;
-        profileImage: string;
-        facebookId: string;
-        facebookLink: string;
-      }
-  > => {
-    try {
-      const response = await fetch(
-        `https://graph.facebook.com/me?fields=id,name,email,picture,first_name,last_name,link&access_token=${accessToken}`
-      );
-      const data = await response.json();
-      console.log('### User Profile Data:', data);
-      return {
-        firstName: data.first_name,
-        lastName: data.last_name,
-        email: data.email,
-        profileImage: data.picture.data.url,
-        facebookId: data.id,
-        facebookLink: data.link,
-      };
-      // Save or use the user profile data as needed in your app
-    } catch (error) {
-      console.log('Error fetching user profile data:', error);
-      return undefined;
-    }
-  };
-
   const onFBPress = async () => {
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
@@ -140,12 +100,15 @@ const usePresenter = () => {
     if (!data) {
       throw 'Something went wrong obtaining access token';
     }
-    const userProfile = await fetchUserProfile(data.accessToken);
+    const userProfile = await facebookActions.fetchUserProfile(
+      data.accessToken
+    );
     if (!userProfile) {
       return;
     }
     const auth = getAuth(app);
     const credential = FacebookAuthProvider.credential(data.accessToken);
+    setIsFacebookLoading(true);
     const firebaseUser = await signInWithCredential(auth, credential);
 
     const user: User = {
@@ -165,6 +128,12 @@ const usePresenter = () => {
       await usersActions.addUser(user);
       dispatch(setUser(user));
     }
+    setIsFacebookLoading(false);
+  };
+
+  const onHaveAccountPressed = () => {
+    // @ts-ignore
+    navigation.navigate(screenIds.LOGIN_SCREEN, {});
   };
 
   return {
@@ -175,6 +144,8 @@ const usePresenter = () => {
     onChangeFacebookLink,
     loading,
     onFBPress,
+    onHaveAccountPressed,
+    isFacebookLoading,
   };
 };
 export default usePresenter;

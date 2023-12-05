@@ -15,6 +15,7 @@ import About from '../screens/about';
 import { useTheme } from 'native-base';
 import Settings from '../screens/settings';
 import { IS_IOS } from '../screens/offerOrEditRides/usePresenter';
+import LanguagesScreen from '../screens/languages';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,7 +112,7 @@ const SearchStack: React.FC = () => {
         component={Settings}
         options={{
           headerLeft: () => <BackButton dismiss />,
-          headerTitle: 'Settings',
+          headerTitle: '',
           headerStyle: {
             backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
           },
@@ -125,7 +126,19 @@ const SearchStack: React.FC = () => {
             backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
           },
           headerLeft: () => <BackButton dismiss />,
-          headerTitle: 'Settings',
+          headerTitle: '',
+          presentation: 'modal',
+        }}
+      />
+      <Stack.Screen
+        name={screenIds.LANGUAGE_SCREEN}
+        component={LanguagesScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
+          },
+          headerLeft: () => <BackButton dismiss />,
+          headerTitle: '',
           presentation: 'modal',
         }}
       />

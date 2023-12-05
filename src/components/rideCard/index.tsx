@@ -5,6 +5,7 @@ import { Avatar, Button, Icon, Text, useTheme, View } from 'native-base';
 import usePresenter, { Props } from './usePresenter';
 import { Entypo, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { IS_IOS } from '../../screens/offerOrEditRides/usePresenter';
+import { useTranslation } from 'react-i18next';
 
 const RideCard = (props: Props) => {
   const { ride, disabled } = props;
@@ -21,6 +22,7 @@ const RideCard = (props: Props) => {
     onEditPress,
   } = usePresenter(props);
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -54,7 +56,7 @@ const RideCard = (props: Props) => {
             </View>
             <View>
               <Text fontSize={'sm'} fontFamily={'Roboto-Regular'}>
-                {ride.seats} seats available
+                {ride.seats} {t('RIDE_CARD.SEATS_AVAILABLE')}
               </Text>
             </View>
           </View>
@@ -110,7 +112,7 @@ const RideCard = (props: Props) => {
               onPress={onChatPress}
               rightIcon={<Icon as={FontAwesome} name="whatsapp" size="sm" />}
             >
-              Chat
+              {t('RIDE_CARD.CHAT_BUTTON')}
             </Button>
             <Button
               borderRadius={500}
@@ -119,7 +121,7 @@ const RideCard = (props: Props) => {
               onPress={onViewProfilePress}
               rightIcon={<Icon as={AntDesign} name="user" size="sm" />}
             >
-              See Profile
+              {t('RIDE_CARD.SEE_PROFILE_BUTTON')}
             </Button>
           </View>
         )}

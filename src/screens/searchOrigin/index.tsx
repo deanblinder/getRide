@@ -14,10 +14,12 @@ import { View, Button, useTheme } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/backButton';
 import { isIOS } from '@rneui/base';
+import { useTranslation } from 'react-i18next';
 
 const SearchRidesOrigin = (props: Props) => {
   const { onDonePressed, onLocationSelected, inputRef } = usePresenter(props);
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,7 +35,7 @@ const SearchRidesOrigin = (props: Props) => {
         <View style={styles.container}>
           <GooglePlacesAutocomplete
             ref={inputRef}
-            placeholder="Origin"
+            placeholder={t('SEARCH_LOCATION_PAGE.ORIGIN')}
             fetchDetails={true}
             onPress={(data, details = null) => {
               onLocationSelected(details);
@@ -47,6 +49,7 @@ const SearchRidesOrigin = (props: Props) => {
               marginTop: 20,
             }}
             textInputProps={{
+              textAlign: i18n.language === 'he' ? 'right' : 'left',
               placeholderTextColor: 'grey',
               borderStyle: !isIOS && 'solid',
               borderWidth: !isIOS && 1,
@@ -63,7 +66,7 @@ const SearchRidesOrigin = (props: Props) => {
             borderRadius={50}
             onPress={onDonePressed}
           >
-            Done
+            {t('SEARCH_LOCATION_PAGE.DONE_BUTTON')}
           </Button>
         </View>
       </KeyboardAvoidingView>

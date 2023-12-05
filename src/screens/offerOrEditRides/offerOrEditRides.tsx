@@ -16,6 +16,7 @@ import usePresenter, { IS_IOS, Props } from './usePresenter';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import ActionSheet from '../../components/actionSheet';
+import { useTranslation } from 'react-i18next';
 
 const OfferOrEditRides = (props: Props) => {
   const {
@@ -45,6 +46,7 @@ const OfferOrEditRides = (props: Props) => {
   } = usePresenter(props);
 
   const { colors } = useTheme();
+  const { t, i18n } = useTranslation();
 
   return (
     <ScrollView
@@ -64,7 +66,7 @@ const OfferOrEditRides = (props: Props) => {
           onPress={onChangeRoot}
           leftIcon={<Icon as={MaterialIcons} name="alt-route" size="sm" />}
         >
-          change route
+          {t('MAP.CHANGE_ROUTE')}
         </Button>
       )}
       <Card
@@ -98,21 +100,23 @@ const OfferOrEditRides = (props: Props) => {
                 style={{ marginBottom: '5%' }}
               >
                 <Input
+                  textAlign={i18n.language === 'he' ? 'right' : 'left'}
                   onPressIn={onOriginPressed}
                   editable={false}
                   selectTextOnFocus={false}
                   value={origin?.formatted_address}
-                  placeholder="Enter Origin"
+                  placeholder={t('ENTER_DETAILS_CARD.ENTER_ORIGIN')}
                   w="100%"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={onDestinationPressed}>
                 <Input
+                  textAlign={i18n.language === 'he' ? 'right' : 'left'}
                   onPressIn={onDestinationPressed}
                   editable={false}
                   selectTextOnFocus={false}
                   value={destination?.formatted_address}
-                  placeholder="Enter Destination"
+                  placeholder={t('ENTER_DETAILS_CARD.ENTER_DESTINATION')}
                   w="100%"
                 />
               </TouchableOpacity>
@@ -132,6 +136,13 @@ const OfferOrEditRides = (props: Props) => {
                 }}
               >
                 <Input
+                  fontSize={15}
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: '10%',
+                  }}
+                  placeholderTextColor={'black'}
                   onPressIn={() => {
                     setShowDatePicker(true);
                   }}
@@ -148,6 +159,8 @@ const OfferOrEditRides = (props: Props) => {
                 onPress={() => setShowTimePicker(true)}
               >
                 <Input
+                  fontSize={15}
+                  placeholderTextColor={'black'}
                   onPressIn={() => setShowTimePicker(true)}
                   placeholder={time.toLocaleTimeString('en-US', {
                     hour12: false,
@@ -164,8 +177,8 @@ const OfferOrEditRides = (props: Props) => {
           <View marginX={'5%'}>
             <ActionSheet
               items={[1, 2, 3, 4, 5, 6]}
-              placeholder={'Seats Available'}
-              title={'Number of seats available'}
+              placeholder={t('ENTER_DETAILS_CARD.SEATS_AVAILABLE')}
+              title={t('ACTION_SHEET.AVAILABLE_SEATS_TITLE')}
               onItemPressed={onSeatsChange}
               initialSelectedValue={seats}
             />
@@ -201,9 +214,9 @@ const OfferOrEditRides = (props: Props) => {
         {loading ? (
           <Spinner color="white" />
         ) : isEditMode ? (
-          'Update'
+          t('ADD_RIDES.UPDATE_OFFER_BUTTON')
         ) : (
-          'Add Offer'
+          t('ADD_RIDES.ADD_OFFER_BUTTON')
         )}
       </Button>
       {isEditMode && (
@@ -216,7 +229,7 @@ const OfferOrEditRides = (props: Props) => {
           colorScheme="danger"
           size={'sm'}
         >
-          {'Delete'}
+          {t('ADD_RIDES.DELETE_OFFER_BUTTON')}
         </Button>
       )}
     </ScrollView>

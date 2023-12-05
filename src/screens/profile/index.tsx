@@ -15,10 +15,10 @@ import { screenIds } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import UserDetails from '../../components/userDetails';
 import BackButton from '../../components/backButton';
+import { useTranslation } from 'react-i18next';
 
 const Profile = (props: Props) => {
   const { navigation } = props;
-
   const {
     user,
     onAvatarPress,
@@ -27,6 +27,7 @@ const Profile = (props: Props) => {
     onEditPress,
     onLogoutPress,
   } = usePresenter();
+  const { t } = useTranslation();
 
   const WheelIcon = () => {
     const navigation = useNavigation();
@@ -75,7 +76,7 @@ const Profile = (props: Props) => {
             size={'xs'}
             backgroundColor={'blue.400'}
           >
-            Edit profile
+            {t('PROFILE_PAGE.EDIT_PROFILE_BUTTON')}
           </Button>
         </View>
         <View flexDirection={'row'}>
@@ -123,7 +124,7 @@ const Profile = (props: Props) => {
         _text={{ color: 'red.400' }}
         onPress={onLogoutPress}
       >
-        Log out
+        {t('PROFILE_PAGE.LOGOUT_BUTTON')}
       </Button>
     </KeyboardAvoidingView>
   );

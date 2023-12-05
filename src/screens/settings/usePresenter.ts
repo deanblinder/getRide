@@ -10,7 +10,8 @@ const usePresenter = () => {
   };
 
   const onLanguagesPress = () => {
-    console.log('Languages');
+    // @ts-ignore
+    navigation.navigate(screenIds.LANGUAGE_SCREEN);
   };
 
   return { onAboutPress, onLanguagesPress };

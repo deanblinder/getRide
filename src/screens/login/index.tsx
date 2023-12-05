@@ -11,8 +11,10 @@ import {
   View,
   FormControl,
 } from 'native-base';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t, i18n } = useTranslation();
   const { handleLogin, onChangePassword, onChangeEmail, loading } =
     usePresenter();
   return (
@@ -25,22 +27,28 @@ const Login = () => {
         contentContainerStyle={styles.container}
       >
         <View>
-          <Text fontSize={'3xl'} marginBottom={'10%'}>
-            Enter Your Details
+          <Text
+            fontFamily={'Roboto-Regular'}
+            fontSize={'3xl'}
+            marginBottom={'10%'}
+          >
+            {t('LOGIN.ENTER_DETAILS')}
           </Text>
           <Stack space={4} w="100%" maxW="300px" mx="auto">
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Enter Email'}
+                placeholder={t('LOGIN.EMAIL')}
                 onChangeText={onChangeEmail}
                 variant={'underlined'}
               />
             </FormControl>
             <FormControl maxW="300px">
               <Input
+                textAlign={i18n.language === 'he' ? 'right' : 'left'}
                 size={'xl'}
-                placeholder={'Enter Password'}
+                placeholder={t('LOGIN.PASSWORD')}
                 onChangeText={onChangePassword}
                 variant={'underlined'}
                 type={'password'}

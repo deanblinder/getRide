@@ -1,0 +1,110 @@
+{
+  "ENTER_DETAILS_CARD": {
+    "ENTER_ORIGIN": "הכנס מוצא",
+    "ENTER_DESTINATION": "הכנס יעד",
+    "KILOMETER_FROM_POINT": "קילומטר מהנקודה",
+    "SEARCH_BUTTON": "חפש",
+    "SEATS_AVAILABLE": "כיסאות פנויים",
+    "CLEAR_RESULTS_BUTTON": "נקה תוצאות"
+  },
+  "SEARCH_RIDES": {
+    "SEARCH_FOR_RIDES": "חפש נסיעות",
+    "NO_RIDES_FOUND": "לא נמצאו נסיעות"
+  },
+  "ADD_RIDES": {
+    "ADD_OFFER_BUTTON": "הוסף נסיעה",
+    "UPDATE_OFFER_BUTTON": "עדכן נסיעה",
+    "DELETE_OFFER_BUTTON": "מחק נסיעה"
+  },
+  "UPCOMING_RIDES": {
+    "UPCOMING_RIDES": "הנסיעות שלי",
+    "NO_UPCOMING_RIDES": "אין נסיעות קרובות"
+  },
+  "ACTION_SHEET": {
+    "DISTANCE_TITLE": "מרחק בקילומטרים מהנקודות איסוף והורדה",
+    "AVAILABLE_SEATS_TITLE": "מספר כיסאות פנויים"
+  },
+  "RIDE_CARD": {
+    "SEATS_AVAILABLE": "מקומות פנויים",
+    "CHAT_BUTTON": "צ'אט",
+    "SEE_PROFILE_BUTTON": "פרופיל"
+  },
+  "SEARCH_LOCATION_PAGE": {
+    "ORIGIN": "מוצא",
+    "DESTINATION": "יעד",
+    "DONE_BUTTON": "סיים"
+  },
+  "PROFILE_PAGE": {
+    "EDIT_PROFILE_BUTTON": "ערוך פרופיל",
+    "LOGOUT_BUTTON": "התנתק"
+  },
+  "EDIT_PROFILE_PAGE": {
+    "UPDATE": "עדכן",
+    "TITLE": "ערוך פרופיל",
+    "SUBTITLE": "הכנס את הפרטים החדשים שלך כדי שהנוסעים ידעו מי אתה"
+  },
+  "SETTINGS_PAGE": {
+    "ABOUT": "אודות",
+    "LANGUAGES": "שפות"
+  },
+  "ABOUT_PAGE": {
+    "CONTENT": "היי נוסעים, אנחנו צוות get Tremp ואנחנו יצרנו פלטפורמה שתאפשר לכם לנסוע בקלות ובנוחות. תודה על השימוש באפליקציה שלנו ואנחנו מקווים שתהנו ממנה! מוזמנים ליצור קשר אם יש לכם פידבק או סתם כדי לדבר. נשמח לשמוע מכם! \n"
+  },
+  "TABS": {
+    "SEARCH": "חפש",
+    "ADD": "הוסף",
+    "RIDES": "הנסיעות שלי"
+  },
+  "LANGUAGE_SELECT": {
+    "ENGLISH": "אנגלית",
+    "HEBREW": "עברית"
+  },
+  "ALERT": {
+    "YES": "כן",
+    "NO": "לא",
+    "WARNING": "אזהרה",
+    "DELETE_RIDE_MESSAGE": "האם אתה בטוח שברצונך למחוק את הנסיעה?",
+    "HEY_THERE": "היי",
+    "PROVIDE_PHONE_NUMBER": "הכנס מספר טלפון בכדי שיוכלו לדבר איתך.",
+    "LATER": "אולי מאוחר יותר",
+    "EDIT_PROFILE": "ערוך פרופיל",
+    "LOGOUT_WARNING": "האם אתה בטוח שברצונך להתנתק?",
+    "USER_NOT_FOUND": "משתמש לא נמצא",
+    "WRONG_PASSWORD": "סיסמא שגויה",
+    "INVALID_EMAIL": "אימייל לא תקין",
+    "EMAIL_ALREADY_IN_USE": "אימייל כבר בשימוש",
+    "EMAIL_NOT_VALID": "אימייל לא תקין",
+    "WHATS_APP_NOT_INSTALLED": "אנא וודא שהוואטסאפ מותקן"
+  },
+  "TOAST": {
+    "SELECT_ORIGIN_AND_DESTINATION": "אנא בחר מוצא ויעד",
+    "ENTER_ALL_FIELDS": "אנא הכנס את כל השדות",
+    "RIDE_UPDATED_SUCCESSFULLY": "הנסיעה עודכנה בהצלחה",
+    "RIDE_DIDNT_ADDED": "הנסיעה לא נוספה",
+    "RIDE_ADDED_SUCCESSFULLY": "הנסיעה נוספה בהצלחה",
+    "PLEASE_PROVIDE_ALL_FIELDS": "אנא הכנס את כל השדות"
+  },
+  "REGISTER": {
+    "ENTER_DETAILS": "הכנס את הפרטים שלך",
+    "PHONE_NOTE": "אנא הכנס מספר טלפון בכדי שהנוסעים יוכלו ליצור איתך קשר",
+    "FACEBOOK_LINK_NOTE": "אנא הכנס קישור לפרופיל הפייסבוק שלך בכדי שהנוסעים יוכלו לראות מי אתה",
+    "FACEBOOK_LOGIN": "התחבר עם פייסבוק",
+    "ALREADY_HAVE_ACCOUNT": "כבר יש לך חשבון?",
+    "SUBMIT": "כנס",
+    "EMAIL": "אימייל *",
+    "PASSWORD": "* סיסמא",
+    "PHONE": "מספר טלפון",
+    "FACEBOOK_LINK": "קישור לפייסבוק",
+    "HEADER": "הרשמה"
+  },
+  "LOGIN": {
+    "ENTER_DETAILS": "הכנס את הפרטים שלך",
+    "SUBMIT": "כנס",
+    "EMAIL": "אימייל",
+    "PASSWORD": "סיסמא",
+    "HEADER": "התחברות"
+  },
+  "MAP": {
+    "CHANGE_ROUTE": "שנה מסלול"
+  }
+}

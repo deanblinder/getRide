@@ -9,9 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../redux/auth/authReducer';
 import { QueryDocumentSnapshot } from '@firebase/firestore';
 import { LayoutAnimation } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const usePresenter = () => {
   const user = useSelector((state: AuthState) => state.user);
+  const { t } = useTranslation();
 
   const [origin, setOrigin] = useState<Location | undefined>(undefined);
   const [destination, setDestination] = useState<Location | undefined>(
@@ -70,7 +72,7 @@ const usePresenter = () => {
     // setRides(undefined);
     if (!destination?.location || !origin?.location) {
       toast.show({
-        title: 'Please select origin and destination',
+        title: t('TOAST.SELECT_ORIGIN_AND_DESTINATION'),
       });
       return;
     }
