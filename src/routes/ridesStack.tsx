@@ -57,8 +57,8 @@ const RidesStack = () => {
               backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
             },
             presentation: 'modal',
-            headerShown: false,
             headerTitle: '',
+            headerLeft: () => <BackButton dismiss />,
           }}
           name={screenIds.SEARCH_RIDE_DESTINATION_SCREEN}
           // @ts-ignore
@@ -70,8 +70,8 @@ const RidesStack = () => {
               backgroundColor: IS_IOS ? colors.blue['50'] : 'white',
             },
             presentation: 'modal',
-            headerShown: false,
             headerTitle: '',
+            headerLeft: () => <BackButton dismiss />,
           }}
           name={screenIds.SEARCH_RIDE_ORIGIN_SCREEN}
           // @ts-ignore

@@ -116,7 +116,7 @@ const SearchRides = () => {
                   editable={false}
                   selectTextOnFocus={false}
                   onPressIn={() => setShowDatePicker(true)}
-                  placeholder={date.toLocaleDateString('en')}
+                  placeholder={date.toLocaleDateString(i18n.language)}
                   placeholderTextColor={'black'}
                   w="100%"
                 />

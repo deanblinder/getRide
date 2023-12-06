@@ -146,7 +146,7 @@ const OfferOrEditRides = (props: Props) => {
                   onPressIn={() => {
                     setShowDatePicker(true);
                   }}
-                  placeholder={date.toLocaleDateString('he')}
+                  placeholder={date.toLocaleDateString(i18n.language)}
                   w="100%"
                   editable={false}
                   selectTextOnFocus={false}
@@ -162,7 +162,7 @@ const OfferOrEditRides = (props: Props) => {
                   fontSize={15}
                   placeholderTextColor={'black'}
                   onPressIn={() => setShowTimePicker(true)}
-                  placeholder={time.toLocaleTimeString('en-US', {
+                  placeholder={time.toLocaleTimeString(i18n.language, {
                     hour12: false,
                     hour: '2-digit',
                     minute: '2-digit',
