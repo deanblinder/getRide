@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text } from 'native-base';
+import { View, Text, ScrollView } from 'native-base';
 import { Linking, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import AboutParagraph from './aboutParagraph';
 
 const About = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const onEmailPress = async () => {
     const url = 'mailto:deanblinder91@gmail.com';
@@ -19,22 +20,51 @@ const About = () => {
   };
 
   return (
-    <View padding={'5%'} backgroundColor={'white'} height={'100%'}>
-      <Text fontSize={'lg'} fontFamily={'Roboto-Regular'}>
-        {t('ABOUT_PAGE.CONTENT')}
+    <ScrollView padding={'5%'} backgroundColor={'white'} height={'100%'}>
+      <Text
+        textAlign={i18n.language === 'he' ? 'right' : 'left'}
+        fontSize={'xl'}
+        fontFamily={'Roboto-Bold'}
+        marginBottom={'2%'}
+      >
+        {t('ABOUT_PAGE.TITLE')}
+      </Text>
+      <AboutParagraph
+        title={'ABOUT_PAGE.RIDE_TOGETHER_TITLE'}
+        subtitle={'ABOUT_PAGE.RIDE_TOGETHER_SUBTITLE'}
+        icon={'car'}
+      />
+      <AboutParagraph
+        title={'ABOUT_PAGE.WHY_GET_TREMP_TITLE'}
+        subtitle={'ABOUT_PAGE.WHY_GET_TREMP_SUBTITLE'}
+        icon={'questioncircleo'}
+      />
+      <AboutParagraph
+        title={'ABOUT_PAGE.CONNECT_ME_TITLE'}
+        subtitle={'ABOUT_PAGE.CONNECT_ME_SUBTITLE'}
+        icon={'mail'}
+      />
+      <View flexDirection={'row'} marginTop={'2%'}>
+        <Text fontSize={'lg'} fontFamily={'Roboto-Regular'}>
+          Email:{' '}
+        </Text>
         <>
-          <TouchableOpacity
-            onPress={onEmailPress}
-            style={{ marginBottom: '10%' }}
-          >
-            <Text fontSize={'lg'}>deanblinder91@gmail.com</Text>
+          <TouchableOpacity onPress={onEmailPress}>
+            <Text fontFamily={'Roboto-Regular'} fontSize={'lg'}>
+              deanblinder91@gmail.com
+            </Text>
           </TouchableOpacity>
         </>
-      </Text>
-      <TouchableOpacity onPress={onLinkedInPressed}>
-        <AntDesign name={'linkedin-square'} size={44} />
-      </TouchableOpacity>
-    </View>
+      </View>
+      <View flexDirection={'row'}>
+        <Text fontFamily={'Roboto-Regular'} fontSize={'lg'}>
+          LinkedIn:{' '}
+        </Text>
+        <TouchableOpacity onPress={onLinkedInPressed}>
+          <AntDesign name={'linkedin-square'} size={25} color={'blue'} />
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 export default About;

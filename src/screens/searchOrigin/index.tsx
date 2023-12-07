@@ -37,6 +37,10 @@ const SearchRidesOrigin = (props: Props) => {
             ref={inputRef}
             placeholder={t('SEARCH_LOCATION_PAGE.ORIGIN')}
             fetchDetails={true}
+            currentLocation={true}
+            currentLocationLabel="Current Location"
+            debounce={300}
+            listViewDisplayed="auto"
             onPress={(data, details = null) => {
               onLocationSelected(details);
               // 'details' is provided when fetchDetails = true

@@ -48,12 +48,19 @@
     "LANGUAGES": "Languages"
   },
   "ABOUT_PAGE": {
-    "CONTENT": "Hello Riders,\nthis is an that made in my personal time.\nif you have any questions any feedback please DM and Email or LinkedIn i would\nlike to hear any feed back.\nDean Blinder\n"
+    "TITLE": "Welcome to GetTremp App!",
+    "RIDE_TOGETHER_TITLE": "Ride Together, Bridge Gaps",
+    "RIDE_TOGETHER_SUBTITLE": "Hey there! I'm Dean Blinder, the creator of this ride-sharing app, crafted during my personal time and inspired by the frustrations of navigating non-functional trains on Saturdays in Israel. getTremp is your solution for rides, connecting those in need with generous drivers.",
+    "WHY_GET_TREMP_TITLE": "Why GetTremp?",
+    "WHY_GET_TREMP_SUBTITLE": "Beyond just an app, it's a passion project born from the pain of unreliable train services. Say goodbye to transportation woes and embrace the simplicity of sharing rides. Together, we can create a community that goes the extra mile.",
+    "CONNECT_ME_TITLE": "Connect with Me!",
+    "CONNECT_ME_SUBTITLE": " I'd love to hear your thoughts, feedback, or even just chat about your adventures. Reach out to me through:"
   },
   "TABS": {
     "SEARCH": "Search",
     "ADD": "Add",
-    "RIDES": "Rides"
+    "RIDES": "Rides",
+    "GROUPS": "Groups"
   },
   "LANGUAGE_SELECT": {
     "ENGLISH": "English",
@@ -102,7 +109,7 @@
     "SUBMIT": "Submit",
     "EMAIL": "Email",
     "PASSWORD": "Password",
-    "HEADER": "Login",
+    "HEADER": "Login"
   },
   "MAP": {
     "CHANGE_ROUTE": "Change Route"
