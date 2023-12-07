@@ -43,6 +43,16 @@ const TabNavigator = () => {
         }}
       />
       {/*<Tab.Screen*/}
+      {/*  name={t('TABS.GROUPS')}*/}
+      {/*  component={GroupsStack}*/}
+      {/*  options={{*/}
+      {/*    tabBarIcon: ({ color, size }) => (*/}
+      {/*      <MaterialIcons name={'groups'} size={size} color={color} />*/}
+      {/*    ),*/}
+      {/*    headerShown: false,*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*<Tab.Screen*/}
       {/*  name={tabIds.CHAT}*/}
       {/*  component={ChatStack}*/}
       {/*  options={{*/}

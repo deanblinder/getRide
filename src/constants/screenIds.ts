@@ -18,4 +18,5 @@ export default {
   SETTINGS_SCREEN: 'SettingsScreen',
   ABOUT_SCREEN: 'AboutScreen',
   LANGUAGE_SCREEN: 'LanguageScreen',
+  GROUPS_SCREEN: 'GroupsScreen',
 };
