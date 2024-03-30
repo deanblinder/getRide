@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import SearchStack from '../routes/searchStack';
-import offerStack from '../routes/offerStack';
+import OfferStack from '../routes/offerStack';
 import RidesStack from '../routes/ridesStack';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={t('TABS.ADD')}
-        component={offerStack}
+        component={OfferStack}
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name={'add'} size={35} color={color} />

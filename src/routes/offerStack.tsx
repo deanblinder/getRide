@@ -8,7 +8,6 @@ import Profile from '../screens/profile';
 import OfferOrEditRides from '../screens/offerOrEditRides/offerOrEditRides';
 import OfferingProfilePresenter from '../screens/offeringProfile';
 import EditProfile from '../screens/editProfile';
-import RidesStack from './ridesStack';
 import HeaderLogo from '../components/headerLogo';
 import UserAvatar from '../components/userAvatar';
 import BackButton from '../components/backButton';
