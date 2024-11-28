@@ -12,3 +12,11 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
+
+# Google Maps SDK
+-keep class com.google.android.gms.maps.** { *; }
+-dontwarn com.google.android.gms.maps.**
+
+# Google Places SDK (including Autocomplete)
+-keep class com.google.android.libraries.places.** { *; }
+-dontwarn com.google.android.libraries.places.**

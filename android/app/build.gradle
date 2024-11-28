@@ -92,6 +92,12 @@ android {
         buildConfigField("boolean", "REACT_NATIVE_UNSTABLE_USE_RUNTIME_SCHEDULER_ALWAYS", (findProperty("reactNative.unstable_useRuntimeSchedulerAlways") ?: true).toString())
     }
     signingConfigs {
+        release {
+        storeFile file("/Users/deanb/my-release-key.keystore")
+        storePassword "cXy5kuzz!"
+        keyAlias "my-key-alias"
+        keyPassword "cXy5kuzz!"
+    }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
